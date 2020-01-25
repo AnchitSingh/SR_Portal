@@ -5,5 +5,5 @@ cd FlaskBeta <br/>
 virtualenv env <br/>
 source env/bin/activate <br/>
 
-pip install -r requirement.txt <br/>
-python run.py
+pip install -r requirements.txt <br/>
+python3 run.py
