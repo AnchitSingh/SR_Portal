@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Design System for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  
+  <!-- Favicon -->
+  <link href="../static/assets/img/brand/favicon.png" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="../static/assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  <link href="../static/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" href="../static/assets/css/argon.min.css?v=1.0.1" rel="stylesheet">
+    {% if title %}
+        <title>Flask Blog - {{ title }}</title>
+    {% else %}
+        <title>Flask Blog</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
+        <div class="container">
+          <a class="navbar-brand mr-lg-5" href="../index.html"><img src="../static/assets/img/brand/white.png"></a>
+          
+          <div class="navbar-collapse collapse" id="navbar_global">
+            
+            <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+              <li class="nav-item">
+                <a href="{{ url_for('home') }}" class="nav-link"  role="button">
+                  <i class="ni ni-ui-04 d-lg-none"></i>
+                  <span class="nav-link-inner--text">Home</span>
+                </a>
+                
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('about') }}" class="nav-link"  role="button">
+                  <i class="ni ni-collection d-lg-none"></i>
+                  <span class="nav-link-inner--text">About</span>
+                </a>
+                
+              </li>
+            
+              {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <a href="{{ url_for('account') }}" class="nav-link"  role="button">
+                  <i class="ni ni-ui-04 d-lg-none"></i>
+                  <span class="nav-link-inner--text">Account</span>
+                </a>
+                
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('logout') }}" class="nav-link"  role="button">
+                  <i class="ni ni-collection d-lg-none"></i>
+                  <span class="nav-link-inner--text">Logout</span>
+                </a>
+                
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a href="{{ url_for('login') }}" class="nav-link" role="button">
+                  <i class="ni ni-collection d-lg-none"></i>
+                  <span class="nav-link-inner--text">Login</span>
+                </a>
+                
+              </li>
+              <li class="nav-item">
+                <a href="{{ url_for('register') }}" class="nav-link"  role="button">
+                  <i class="ni ni-collection d-lg-none"></i>
+                  <span class="nav-link-inner--text">Register</span>
+                </a>
+                
+              </li> 
+              {% endif %}
+            </ul>
+            
+          </div>  
+        </div>
+      </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </header> 
+{% block content %}{% endblock %}
+        
+
+
+    <script src="../static/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/assets/vendor/popper/popper.min.js"></script>
+    <script src="../static/assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="../static/assets/vendor/headroom/headroom.min.js"></script>
+   
+    
+  
+   
+  </body>
+</html>
