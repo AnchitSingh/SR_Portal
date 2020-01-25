@@ -1,5 +1,5 @@
 # FlaskBeta
-Cs 253 course project app
+Cs 253 course project app<br/>
 git clone https://github.com/AnchitSingh/FlaskBeta.git <br/>
 cd FlaskBeta <br/>
 virtualenv env <br/>
