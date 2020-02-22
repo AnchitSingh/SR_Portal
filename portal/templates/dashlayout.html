@@ -82,13 +82,14 @@
                       <p> WorkSpace </p>
                     </a>
                   </li>
-                  
-                  <li class="nav-item ">
-                    <a class="nav-link" href="../static/examples/widgets.html">
-                      <i class="material-icons">call</i>
-                      <p> Contact Us </p>
+                  {% if current_user.is_admin==True or current_user.is_manager == True %}
+                  <li class="nav-item active ">
+                    <a class="nav-link" href="{{url_for('upload')}}">
+                      <i class="material-icons">backup</i>
+                      <p> Upload </p>
                     </a>
                   </li>
+                  {% endif %}
                   <li class="nav-item ">
                     <a class="nav-link" href="{{url_for('people')}}">
                       <i class="material-icons">timeline</i>
@@ -116,7 +117,7 @@
                             <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                         </button>
                         </div>
-                        <a class="navbar-brand" href="#">{{ title }}</a>
+                        <!-- <a class="navbar-brand" href="#">{{ title }}</a> -->
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
@@ -150,17 +151,14 @@
                         <li class="nav-item dropdown">
                           <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons">notifications</i>
-                            <span class="notification">5</span>
+                            
+                            <span class="notification">{{i}}</span>
                             <p class="d-lg-none d-md-block">
                               Notification
                             </p>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                            <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                            <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                            <a class="dropdown-item" href="#">Another Notification</a>
-                            <a class="dropdown-item" href="#">Another One</a>
+                            <a class="dropdown-item" href="{{ url_for('workspace')}}">You have {{i}} tasks pending</a>
                           </div>
                         </li>
                         <li class="nav-item dropdown">
