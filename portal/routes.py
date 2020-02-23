@@ -10,31 +10,12 @@ from os.path import join, dirname, realpath
 from flask_uploads import UploadSet, configure_uploads, ALL
 from sqlalchemy.sql.functions import func
 
-# i=0
-# user=User.query.all()
-# phds=phd.query.all()
-# for u in user:
-#     if u.is_admin==False and u.is_manager==False:
-#         for p in phds:
-#             if i==1:
-#                 i=0
-#                 break
-#             if i<1 and p.payment=='0':
-#                 p.View=u.username
-#                 p.payment='1'
-#                 db.session.add(p)
-#                 db.session.commit()
-#                 db.update(phd)
-#                 i=i+1
-
-
-
 i=0
 user=User.query.all()
 phds=phd.query.all()
 user_val=0
 phd_val=0
-
+flag1=1
 for x in user:
     if x.is_admin == False and x.is_manager == False:
         user_val=user_val+1
@@ -43,21 +24,26 @@ for pd in phds:
 quotient = phd_val//user_val
 remainder = phd_val%user_val
 for u in user:
+    flag1=1
     if u.is_admin==False and u.is_manager==False:
         for p in phds:
             if i==quotient:
-                if remainder > 0 and p.payment == '1':
-                    p.View=u.username
-                    p.payment='0'
-                    db.session.add(p)
-                    db.session.commit()
-                    db.update(phd)
-                    remainder =remainder - 1
-                i=0
-                break
-            if i<quotient and p.payment=='1':
+                if remainder > 0 :
+                    flag1=0
+                    if p.payment =='0':
+                        p.View=u.username
+                        p.payment='1'
+                        db.session.add(p)
+                        db.session.commit()
+                        db.update(phd)
+                        remainder =remainder - 1
+                        flag1=1
+                if flag1 == 1:
+                    i=0
+                    break
+            if i<quotient and p.payment=='0':
                 p.View=u.username
-                p.payment='0'
+                p.payment='1'
                 db.session.add(p)
                 db.session.commit()
                 db.update(phd)
