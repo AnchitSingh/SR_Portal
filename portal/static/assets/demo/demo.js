@@ -563,7 +563,7 @@ demo = {
         } else if (type == 'warning-message-and-confirmation') {
             swal({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "You will not be able roll back the files!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonClass: 'btn btn-success',
@@ -573,7 +573,7 @@ demo = {
             }).then(function() {
                 swal({
                     title: 'Deleted!',
-                    text: 'Your file has been deleted.',
+                    text: 'You will not be able roll back the files!',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
@@ -582,18 +582,18 @@ demo = {
         } else if (type == 'warning-message-and-cancel') {
             swal({
                 title: 'Are you sure?',
-                text: 'You will not be able to recover this imaginary file!',
+                text: 'You will not be able roll back the files!',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, keep it',
+                confirmButtonText: 'Yes, allocate!',
+                cancelButtonText: 'No, wait',
                 confirmButtonClass: "btn btn-success",
                 cancelButtonClass: "btn btn-danger",
                 buttonsStyling: false
             }).then(function() {
                 swal({
-                    title: 'Deleted!',
-                    text: 'Your imaginary file has been deleted.',
+                    title: 'Alloted',
+                    text: 'All files has been successfully allocated',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
@@ -603,7 +603,7 @@ demo = {
                 if (dismiss === 'cancel') {
                     swal({
                         title: 'Cancelled',
-                        text: 'Your imaginary file is safe :)',
+                        text: 'Allocation Process aborted :)',
                         type: 'error',
                         confirmButtonClass: "btn btn-info",
                         buttonsStyling: false

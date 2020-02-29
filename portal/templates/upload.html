@@ -98,13 +98,19 @@
                       </a>
                     </li>
                     {% endif %}
-                    
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{url_for('new_post')}}">
+                          <i class="material-icons">record_voice_over</i>
+                          <p>Annoucements </p>
+                        </a>
+                      </li>
                     <li class="nav-item ">
                       <a class="nav-link" href="{{url_for('people')}}">
                         <i class="material-icons">timeline</i>
                         <p> people </p>
                       </a>
                     </li>
+                    
                     {% if current_user.is_admin==True or current_user.is_manager == True %}
                     <li class="nav-item ">
                       <a class="nav-link" href="{{url_for('calendar')}}">
@@ -331,27 +337,61 @@
                         <div class="row">
                             <div class="col-md-6 col-md-offset-3 text-center">
                                 <h4 class="card-title">
-                                    Notifications Places
-                                    <p class="category">Click to view notifications</p>
+                                    Allocate Files
+                                    <p class="category">Once allocated it can't be reverted</p>
                                 </h4>
                             </div>
                         </div>
                         
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <div class="card-header">
-                                <h4 class="card-title">Modal</h4>
+                    <div class="modal fade" id="smallAlertModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-small ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h5>Are you sure you want to submit? </h5>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+                                    <a href="{{url_for('allocate_phd')}}"><button type="submit" class="btn btn-success btn-simple">Yes</button></a>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="smallAlertModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-small ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h5>Are you sure you want to submit? </h5>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+                                    <a href="{{url_for('allocate_phd')}}"><button type="submit" class="btn btn-success btn-simple">Yes</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    	                    <button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModal">
-    	                              Small alert modal
+                    <div class="row" style="justify-content: center;display: flex;">
+                        
+
+    	                    <button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModal1">
+                                Allocate Phd
+                            </button>
+                            
+                            <button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModal0">
+                                Allocate Mtech
     	                    </button>
-
+                            
 
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -371,7 +411,7 @@
 
 </body>
   
-	
+
 
 <!-- small modal -->
 
@@ -456,7 +496,23 @@
 	});
 </script>
 
-
+<!-- <script>
+    $('#myButton').click(function() {
+        $.ajax({
+              type:'POST',
+              url: "{{ url_for('allocate_phd')}}",
+              dataType:"text",
+              success: function(response){
+                 console.log(response);
+                 alert(response);
+              }
+      });
+    });
+  </script> -->
 
 
 </html>
+
+
+
+

@@ -1,0 +1,459 @@
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends "dashlayout.html" %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<script type="text/javascript">
+    if (/Android|webOS|iPhone|iPad|iPod|pocket|psp|kindle|avantgo|blazer|midori|Tablet|Palm|maemo|plucker|phone|BlackBerry|symbian|IEMobile|mobile|ZuneWP7|Windows Phone|Opera Mini/i.test(navigator.userAgent)){
+     window.onload = function (){
+         document.getElementById('mybox').style.display = 'none';
+         document.getElementById('tablebox').style.width = '100%';
+         document.getElementById('fixtable').style.display = 'none';
+     }
+   };
+</script>
+<style>
+  th{
+    text-align: center;
+  }
+  td{
+    text-align: center;
+  }
+</style>
+<div class="content">
+              <div class="container-fluid">
+                <div class="header text-center">
+                  <h3 class="title">{{ title }}</h3>
+                  <p class="category">Click on Application No. to view document </p>
+              </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card " style="width: 100%;">
+                      <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                          <i class="material-icons"></i>
+                        </div>
+                        <h4 class="card-title">Global Sales by Top Locations</h4>
+                      </div>
+                      <div class="card-body ">
+                        <div class="row">
+                          
+                          <div id="tablebox" class="wrap-table100" style="width: 50%;height: 75vh;overflow-y: auto
+                          ;">
+                            <div class="table100 ver1">
+                              <div class="table100-firstcol" style="width: 240px;">
+                                <table id="fixtable">
+                                  <thead>
+                                    <tr class="row100 head">
+                                      <th class="cell100 column1"><div style="height: 38.5px;overflow: auto;width: 100%;">Application No.</div></th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="myTable">
+
+                                    {% for p in mtech%}
+                                    {% if current_user.username== p['Tutor_name'] or current_user.is_admin==True or current_user.is_manager == True%}
+                                    {% if p['Validation'] != 'Done' and p['Submission'] != 'Done' %}
+                                    <tr class="row100 body">
+                                      <td class="cell100 column1"><div style="height: 80px;overflow: auto;width: 100%;padding-top: 15%;"><a  href="../static/pdf/{{p['Application Ref. No.']}}.pdf" target="mapframe"> {{p['Application Ref. No.']}}</a></div></td>
+                                    </tr>
+                                    {% else %}
+                                    <tr class="row100 body">
+                                      <td class="cell100 column1"><div style="height: 80px;overflow: auto;width: 100%;padding-top: 15%;"><a style="color: orange;"  href="../static/pdf/{{p['Application Ref. No.']}}.pdf" target="mapframe"> {{p['Application Ref. No.']}}</a></div></td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                  </tbody>
+                                </table>
+                              </div>
+                              
+                              <div class="wrap-table100-nextcols js-pscroll">
+                                <div class="table100-nextcols">
+                                  <table style="margin-left: -310px;">
+                                    <thead>
+                                      
+                                      <tr class="row100 head">
+                                        
+                                          <th class="cell100 column8">Application</TH>
+                                            {% if  current_user.is_admin==True or current_user.is_manager == True%}
+                                            <th class="cell100 column8">Tutor</TH>
+                                          <th class="cell100 column8">Submission</TH>
+                                            <th class="cell100 column8">Verification</TH>
+                                          <th class="cell100 column8">alloc_status</TH>
+                                          {% endif %}
+                                          <th class="cell100 column8">View</TH>
+                                            <th class="cell100 column8">Application Ref. No.</TH>
+                                            <th class="cell100 column8">Submission Date</TH>
+                                            <th class="cell100 column8">Payment Status</TH>
+                                            <th class="cell100 column8">Fee</TH>
+                                            <th class="cell100 column8">Payment Date</TH>
+                                            <th class="cell100 column8">Name</TH>
+                                            <th class="cell100 column8">Gender</TH>
+                                            <th class="cell100 column8">DOB</TH>
+                                            <th class="cell100 column8">Nationality</TH>
+                                            <th class="cell100 column8">Category</TH>
+                                            <th class="cell100 column8">PwD?</TH>
+                                            <th class="cell100 column8">Marital Status</TH>
+                                            <th class="cell100 column8">Email</TH>
+                                            <th class="cell100 column8">Alt. Email</TH>
+                                            <th class="cell100 column8">Mobile</TH>
+                                            <th class="cell100 column8">Father&#39;s Name</TH>
+                                            <th class="cell100 column8">Mother&#39;s Name</TH>
+                                            <th class="cell100 column8">Parent Email Id</TH>
+                                            <th class="cell100 column8">Aadhaar Number</TH>
+                                            <th class="cell100 column8">Permanent Address</TH>
+                                            <th class="cell100 column8">Status</TH>
+                                            <th class="cell100 column8">Programme</TH>
+                                            <th class="cell100 column8">Department</TH>
+                                            <th class="cell100 column8">Preference 1</TH>
+                                            <th class="cell100 column8">Preference 2</TH>
+                                            <th class="cell100 column8">Preference 3</TH>
+                                            <th class="cell100 column8">Phd area of research</TH>
+                                            <th class="cell100 column8">Institute Assistantship</TH>
+                                            <th class="cell100 column8">Finance Method</TH>
+                                            <th class="cell100 column8">Finance Details</TH>
+                                            <th class="cell100 column8">GATE 2019 Reg ID</TH>
+                                            <th class="cell100 column8">GATE 2019 Discipline</TH>
+                                            <th class="cell100 column8">GATE 2019 Score</TH>
+                                            <th class="cell100 column8">GATE 2019 Rank</TH>
+                                            <th class="cell100 column8">GATE 2018 Reg ID</TH>
+                                            <th class="cell100 column8">GATE 2018 Discipline</TH>
+                                            <th class="cell100 column8">GATE 2018 Score</TH>
+                                            <th class="cell100 column8">GATE 2018 Rank</TH>
+                                            <th class="cell100 column8">GATE 2017 Reg ID</TH>
+                                            <th class="cell100 column8">GATE 2017 Discipline</TH>
+                                            <th class="cell100 column8">GATE 2017 Score</TH>
+                                            <th class="cell100 column8">GATE 2017 Rank</TH>
+                                            <th class="cell100 column8">Other 1 Roll No./ Reg ID</TH>
+                                            <th class="cell100 column8">Other 1 Score</TH>
+                                            <th class="cell100 column8">Other 1 Max Score</TH>
+                                            <th class="cell100 column8">Other 1 Valid Upto</TH>
+                                            <th class="cell100 column8">Other 1 Test Name</TH>
+                                            <th class="cell100 column8">Other 1 Test Year</TH>
+                                            <th class="cell100 column8">Other 1 Discipline</TH>
+                                            <th class="cell100 column8">Other 1 Rank</TH>
+                                            <th class="cell100 column8">Percentile</TH>
+                                            <th class="cell100 column8">Quantitative Aptitude Percentile</TH>
+                                            <th class="cell100 column8">Data Integration &amp; Logical Reasoning Percentile</TH>
+                                            <th class="cell100 column8">Verbal &amp; Reading Comprehension Percentile</TH>
+                                            <th class="cell100 column8">Other 2 Roll No./ Reg ID</TH>
+                                            <th class="cell100 column8">Other 2 Score</TH>
+                                            <th class="cell100 column8">Other 2 Max Score</TH>
+                                            <th class="cell100 column8">Other 2 Valid Upto</TH>
+                                            <th class="cell100 column8">Other 2 Test Name</TH>
+                                            <th class="cell100 column8">Other 2 Test Year</TH>
+                                            <th class="cell100 column8">Other 2 Discipline</TH>
+                                            <th class="cell100 column8">Other 2 Rank</TH>
+                                            <th class="cell100 column8">Qualifying Degree</TH>
+                                            <th class="cell100 column8">Qualifying Discipline</TH>
+                                            <th class="cell100 column8">University Name</TH>
+                                            <th class="cell100 column8">University City</TH>
+                                            <th class="cell100 column8">University Country</TH>
+                                            <th class="cell100 column8">Institute Name</TH>
+                                            <th class="cell100 column8">Year of Admission</TH>
+                                            <th class="cell100 column8">Year of Completion</TH>
+                                            <th class="cell100 column8">Duration</TH>
+                                            <th class="cell100 column8">Degree Status</TH>
+                                            <th class="cell100 column8">Rank</TH>
+                                            <th class="cell100 column8">Evaluation Pattern</TH>
+                                            <th class="cell100 column8">Evaluation Method</TH>
+                                            <th class="cell100 column8">Marks Obtained</TH>
+                                            <th class="cell100 column8">Maximum Marks</TH>
+                                            <th class="cell100 column8">Percentage</TH>
+                                            <th class="cell100 column8">Total Experience</TH>
+                                            <th class="cell100 column8">Experience 1 Organization</TH>
+                                            <th class="cell100 column8">Experience 1 Designation</TH>
+                                            <th class="cell100 column8">Experience 1 From</TH>
+                                            <th class="cell100 column8">Experience 1 To</TH>
+                                            <th class="cell100 column8">Experience 1 Roles &amp; Responsibility</TH>
+                                            <th class="cell100 column8">Experience 1 Total Pay</TH>
+                                            <th class="cell100 column8">No. of Papers</TH>
+                                            <th class="cell100 column8">No. of Papers in Conference</TH>
+                                            <th class="cell100 column8">No. of Papers in Conf Not published</TH>
+                                            <th class="cell100 column8">No. of Book Chapters</TH>
+                                            <th class="cell100 column8">Referee 1 Name</TH>
+                                            <th class="cell100 column8">Referee 1 Organization</TH>
+                                            <th class="cell100 column8">Referee 1 Email</TH>
+                                            <th class="cell100 column8">Referee 1 Phone</TH>
+                                            <th class="cell100 column8">Referee 1 Address</TH>
+                                            <th class="cell100 column8">Referee 2 Name</TH>
+                                            <th class="cell100 column8">Referee 2 Organization</TH>
+                                            <th class="cell100 column8">Referee 2 Email</TH>
+                                            <th class="cell100 column8">Referee 2 Phone</TH>
+                                            <th class="cell100 column8">Referee 2 Address</TH>
+                                            <th class="cell100 column8">PE 1 Degree</TH>
+                                            <th class="cell100 column8">PE 1 Year</TH>
+                                            <th class="cell100 column8">PE 1 Board / University</TH>
+                                            <th class="cell100 column8">PE 1 Subjects</TH>
+                                            <th class="cell100 column8">PE 1 Score</TH>
+                                            <th class="cell100 column8">PE 1 Max Score</TH>
+                                            <th class="cell100 column8">PE 1 Percentage</TH>
+                                            <th class="cell100 column8">PE 1 Rank</TH>
+                                            <th class="cell100 column8">PE 2 Degree</TH>
+                                            <th class="cell100 column8">PE 2 Year</TH>
+                                            <th class="cell100 column8">PE 2 Board / University</TH>
+                                            <th class="cell100 column8">PE 2 Subjects</TH>
+                                            <th class="cell100 column8">PE 2 Score</TH>
+                                            <th class="cell100 column8">PE 2 Max Score</TH>
+                                            <th class="cell100 column8">PE 2 Percentage</TH>
+                                            <th class="cell100 column8">PE 2 Rank</TH>
+                                            <th class="cell100 column8">PE 3 Degree</TH>
+                                            <th class="cell100 column8">PE 3 Year</TH>
+                                            <th class="cell100 column8">PE 3 Board / University</TH>
+                                            <th class="cell100 column8">PE 3 Subjects</TH>
+                                            <th class="cell100 column8">PE 3 Score</TH>
+                                            <th class="cell100 column8">PE 3 Max Score</TH>
+                                            <th class="cell100 column8">PE 3 Percentage</TH>
+                                            <th class="cell100 column8">PE 3 Rank</TH>
+
+                                          {% if current_user.is_admin != True or current_user.is_manager != True%}
+                                          <th class="cell100 column8">Submit</TH>
+                                            {% endif %}
+                                      </tr>
+                                      
+                                    </thead>
+                                    <tbody id="myTable">
+                                      {% for i in mtech%}
+                                      {% if current_user.username== i['Tutor_name'] or current_user.is_admin==True or current_user.is_manager == True%}
+                                    
+                                      
+                                      <tr class="row100 body">
+                                        
+                                          <td class="cell100 column8">{{i['Application Ref. No.']}}</td>
+                                          {% if  current_user.is_admin==True or current_user.is_manager == True%}
+                                        
+                                          <td class="cell100 column8">{{i['Tutor_name']}}</td>
+                                          <td class="cell100 column8">{{i['Submission']}}</td>
+                                          <td class="cell100 column8">{{i['Validation']}}</td>
+                                        <td class="cell100 column8">{{i['alloc_status']}}</td>
+                                        {% endif %}
+                                        <th class="cell100 column8">{{i['View']}}</th>
+                                            <th class="cell100 column8">{{i['Application Ref. No.']}}</th>
+                                            <th class="cell100 column8">{{i['Submission Date']}}</th>
+                                            <th class="cell100 column8">{{i['Payment Status']}}</th>
+                                            <th class="cell100 column8">{{i['Fee']}}</th>
+                                            <th class="cell100 column8">{{i['Payment Date']}}</th>
+                                            <th class="cell100 column8">{{i['Name']}}</th>
+                                            <th class="cell100 column8">{{i['Gender']}}</th>
+                                            <th class="cell100 column8">{{i['DOB']}}</th>
+                                            <th class="cell100 column8">{{i['Nationality']}}</th>
+                                            <th class="cell100 column8">{{i['Category']}}</th>
+                                            <th class="cell100 column8">{{i['PwD?']}}</th>
+                                            <th class="cell100 column8">{{i['Marital Status']}}</th>
+                                            <th class="cell100 column8">{{i['Email']}}</th>
+                                            <th class="cell100 column8">{{i['Alt. Email']}}</th>
+                                            <th class="cell100 column8">{{i['Mobile']}}</th>
+                                            <th class="cell100 column8">{{i['Father&#39;s Name']}}</th>
+                                            <th class="cell100 column8">{{i['Mother&#39;s Name']}}</th>
+                                            <th class="cell100 column8">{{i['Parent Email Id']}}</th>
+                                            <th class="cell100 column8">{{i['Aadhaar Number']}}</th>
+                                            <th class="cell100 column8">{{i['Permanent Address']}}</th>
+                                            <th class="cell100 column8">{{i['Status']}}</th>
+                                            <th class="cell100 column8">{{i['Programme']}}</th>
+                                            <th class="cell100 column8">{{i['Department']}}</th>
+                                            <th class="cell100 column8">{{i['Preference 1']}}</th>
+                                            <th class="cell100 column8">{{i['Preference 2']}}</th>
+                                            <th class="cell100 column8">{{i['Preference 3']}}</th>
+                                            <th class="cell100 column8">{{i['Phd area of research']}}</th>
+                                            <th class="cell100 column8">{{i['Institute Assistantship']}}</th>
+                                            <th class="cell100 column8">{{i['Finance Method']}}</th>
+                                            <th class="cell100 column8">{{i['Finance Details']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2019 Reg ID']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2019 Discipline']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2019 Score']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2019 Rank']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2018 Reg ID']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2018 Discipline']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2018 Score']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2018 Rank']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2017 Reg ID']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2017 Discipline']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2017 Score']}}</th>
+                                            <th class="cell100 column8">{{i['GATE 2017 Rank']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Roll No./ Reg ID']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Score']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Max Score']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Valid Upto']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Test Name']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Test Year']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Discipline']}}</th>
+                                            <th class="cell100 column8">{{i['Other 1 Rank']}}</th>
+                                            <th class="cell100 column8">{{i['Percentile']}}</th>
+                                            <th class="cell100 column8">{{i['Quantitative Aptitude Percentile']}}</th>
+                                            <th class="cell100 column8">{{i['Data Integration &amp; Logical Reasoning Percentile']}}</th>
+                                            <th class="cell100 column8">{{i['Verbal &amp; Reading Comprehension Percentile']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Roll No./ Reg ID']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Score']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Max Score']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Valid Upto']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Test Name']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Test Year']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Discipline']}}</th>
+                                            <th class="cell100 column8">{{i['Other 2 Rank']}}</th>
+                                            <th class="cell100 column8">{{i['Qualifying Degree']}}</th>
+                                            <th class="cell100 column8">{{i['Qualifying Discipline']}}</th>
+                                            <th class="cell100 column8">{{i['University Name']}}</th>
+                                            <th class="cell100 column8">{{i['University City']}}</th>
+                                            <th class="cell100 column8">{{i['University Country']}}</th>
+                                            <th class="cell100 column8">{{i['Institute Name']}}</th>
+                                            <th class="cell100 column8">{{i['Year of Admission']}}</th>
+                                            <th class="cell100 column8">{{i['Year of Completion']}}</th>
+                                            <th class="cell100 column8">{{i['Duration']}}</th>
+                                            <th class="cell100 column8">{{i['Degree Status']}}</th>
+                                            <th class="cell100 column8">{{i['Rank']}}</th>
+                                            <th class="cell100 column8">{{i['Evaluation Pattern']}}</th>
+                                            <th class="cell100 column8">{{i['Evaluation Method']}}</th>
+                                            <th class="cell100 column8">{{i['Marks Obtained']}}</th>
+                                            <th class="cell100 column8">{{i['Maximum Marks']}}</th>
+                                            <th class="cell100 column8">{{i['Percentage']}}</th>
+                                            <th class="cell100 column8">{{i['Total Experience']}}</th>
+                                            <th class="cell100 column8">{{i['Experience 1 Organization']}}</th>
+                                            <th class="cell100 column8">{{i['Experience 1 Designation']}}</th>
+                                            <th class="cell100 column8">{{i['Experience 1 From']}}</th>
+                                            <th class="cell100 column8">{{i['Experience 1 To']}}</th>
+                                            <th class="cell100 column8">{{i['Experience 1 Roles &amp; Responsibility']}}</th>
+                                            <th class="cell100 column8">{{i['Experience 1 Total Pay']}}</th>
+                                            <th class="cell100 column8">{{i['No. of Papers']}}</th>
+                                            <th class="cell100 column8">{{i['No. of Papers in Conference']}}</th>
+                                            <th class="cell100 column8">{{i['No. of Papers in Conf Not published']}}</th>
+                                            <th class="cell100 column8">{{i['No. of Book Chapters']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 1 Name']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 1 Organization']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 1 Email']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 1 Phone']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 1 Address']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 2 Name']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 2 Organization']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 2 Email']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 2 Phone']}}</th>
+                                            <th class="cell100 column8">{{i['Referee 2 Address']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Degree']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Year']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Board / University']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Subjects']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Score']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Max Score']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Percentage']}}</th>
+                                            <th class="cell100 column8">{{i['PE 1 Rank']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Degree']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Year']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Board / University']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Subjects']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Score']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Max Score']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Percentage']}}</th>
+                                            <th class="cell100 column8">{{i['PE 2 Rank']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Degree']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Year']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Board / University']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Subjects']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Score']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Max Score']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Percentage']}}</th>
+                                            <th class="cell100 column8">{{i['PE 3 Rank']}}</th>
+ 
+                                        {% if current_user.is_admin != True or current_user.is_manager != True%}
+                                          
+                                          <td class="cell100 column8"><a href="{{url_for('send',application=i['Application Ref. No.'])}}"><button class="btn btn-primary">Submit</button></a></td>
+                                          {% endif %}
+                                      </tr>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                      
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="mybox" style="width: 50%;">
+                            <iframe name="mapframe" id="mapframe"  style="width: 100%; height: 75vh;" src="../static/test.html" frameborder="0"></iframe>
+                          </div>
+                              </div>
+                              </div>
+                              </div>
+                              
+                              </div>
+                              
+                            </div>
+                            <div class="col-md-12">
+                              <div class="card">
+                                  <div class="card-content">
+                                      <div class="places-buttons">
+                                          <div class="row">
+                                              <div class="col-md-6 col-md-offset-3 text-center">
+                                                  <h4 class="card-title">
+                                                      Notifications Places
+                                                      <p class="category">Click to view notifications</p>
+                                                  </h4>
+                                              </div>
+                                          </div>
+                                          
+                                      </div>
+                  
+                                      <div class="row">
+                                          <div class="col-md-12 text-center">
+                                              <div class="card-header">
+                                                  <h4 class="card-title">Modal</h4>
+                                              </div>
+                  
+                                            <a href="#"><button class="btn btn-raised btn-round btn-rose">
+                                                  Allocate
+                                            </button></a>
+                                              
+                  
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                            
+                          </div>
+</div>
+<script src="../static/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/assets/vendor/bootstrap/js/popper.js"></script>
+	<script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/assets/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../static/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	
+  <script>
+    function setURL(url){
+        document.getElementById('iframe').src = url;
+    }
+    </script>
+
+<script>
+  $(document).ready(function() {
+      $(".state a").click(function(e) {
+          e.preventDefault();
+   
+          $("#mapframe").attr("src", $(this).attr("url"));
+      })
+  });
+  </script>
+{% endblock content %}    

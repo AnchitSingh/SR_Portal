@@ -1,14 +1,16 @@
 from datetime import datetime
-from flask import abort
+from flask import abort, render_template, url_for, flash, redirect, request
 from portal import app,db, login_manager,bcrypt
 from flask_login import UserMixin
 from flask_admin import Admin,BaseView,expose
 from flask_admin.contrib import sqla
 from flask_security import utils
 from flask_admin.contrib.sqla import ModelView
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import current_user
 from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
+from sqlalchemy.ext.automap import automap_base
 
 
 @login_manager.user_loader
@@ -27,6 +29,18 @@ class User(db.Model, UserMixin):
     is_manager = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+    def get_reset_token(self,expires_sec=1800):
+        s = Serializer(app.config['SECRET_KEY'],expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
+            return None
+        return User.query.get(user_id) 
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -57,65 +71,22 @@ class Controller(ModelView):
         else:
             return abort(404)
 
+admin = Admin(app, template_mode='bootstrap3')
 
-class phd(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    View = db.Column(db.String(50))
-    Application = db.Column(db.String(50), unique=True, nullable=False)
-    payment = db.Column(db.String(50))
-    fee=db.String(db.String(50))
-
-    def __repr__(self):
-        return f"phd('{self.View}', '{self.Application}')"
+class NotificationsView(BaseView):
+    @expose('/')
+    def index(self):
+        return redirect('workspace')
 
 
-class beast(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    View = db.Column(db.String(50))
-    Application_Ref = db.Column('Application Ref.',db.String(50), unique=True, nullable=False)
-    payment = db.Column(db.String(50))
-    fee=db.String(db.String(50))
 
-    def __repr__(self):
-        return f"beast('{self.View}')"
-
-
-admin =Admin(app,template_mode='bootstrap3')
 admin.add_view(Controller(User,db.session))
 path = op.join(op.dirname(__file__), 'static')
 admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
+admin.add_view(NotificationsView(name='Back', endpoint='notify'))
 
+Base=automap_base()
+Base.prepare(db.engine,reflect=True)
+phd=Base.classes.phd
+# mtech=Base.classes.mtech
 
-
-#  i=0
-#     user=User.query.all()
-#     phds=phd.query.all()
-#     user_val=0
-#     phd_val=0
-#     for x in user:
-#         if x.is_admin == False and x.is_manager == False:
-#             user_val=user_val+1
-#     for pd in phds:
-#         phd_val=phd_val+1
-#     quotient = phd_val//user_val
-#     remainder = phd_val%user_val
-
-#     for u in user:
-#         if u.is_admin==False and u.is_manager==False:
-#             for p in phds:
-#                 if i==quotient:
-#                     if remainder > 0 and p.payment == '1':
-#                         p.View=u.username
-#                         p.payment='0'
-#                         db.session.add(p)
-#                         db.session.commit()
-#                         db.update(phd)
-#                         remainder =remainder - 1
-#                     break
-#                 if i<quotient and p.payment=='1':
-#                     p.View=u.username
-#                     p.payment='0'
-#                     db.session.add(p)
-#                     db.session.commit()
-#                     db.update(phd)
-#                     i=i+1

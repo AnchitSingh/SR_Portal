@@ -823,31 +823,7 @@ demo = {
     },
 
     showSwal: function(type) {
-        if (type == 'basic') {
-            swal({
-                title: "Here's a message!",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-success"
-            }).catch(swal.noop)
-
-        } else if (type == 'title-and-text') {
-            swal({
-                title: "Here's a message!",
-                text: "It's pretty, isn't it?",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-info"
-            }).catch(swal.noop)
-
-        } else if (type == 'success-message') {
-            swal({
-                title: "Good job!",
-                text: "You clicked the button!",
-                buttonsStyling: false,
-                confirmButtonClass: "btn btn-success",
-                type: "success"
-            }).catch(swal.noop)
-
-        } else if (type == 'warning-message-and-confirmation') {
+        if (type == 'warning-message-and-confirmation') {
             swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -855,12 +831,12 @@ demo = {
                 showCancelButton: true,
                 confirmButtonClass: 'btn btn-success',
                 cancelButtonClass: 'btn btn-danger',
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: 'Yes, allot them!',
                 buttonsStyling: false
             }).then(function() {
                 swal({
-                    title: 'Deleted!',
-                    text: 'Your file has been deleted.',
+                    title: 'Alloted',
+                    text: 'Your files has been alloted to TAs',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
@@ -869,18 +845,18 @@ demo = {
         } else if (type == 'warning-message-and-cancel') {
             swal({
                 title: 'Are you sure?',
-                text: 'You will not be able to recover this imaginary file!',
+                text: "You won't be able to revert this!",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, keep it',
+                confirmButtonText: 'Yes, allot them!',
+                cancelButtonText: 'No, wait',
                 confirmButtonClass: "btn btn-success",
                 cancelButtonClass: "btn btn-danger",
                 buttonsStyling: false
             }).then(function() {
                 swal({
-                    title: 'Deleted!',
-                    text: 'Your imaginary file has been deleted.',
+                    title: 'Alloted!',
+                    text: 'Your files has been alloted',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
@@ -890,7 +866,7 @@ demo = {
                 if (dismiss === 'cancel') {
                     swal({
                         title: 'Cancelled',
-                        text: 'Your imaginary file is safe :)',
+                        text: 'Task aborted:)',
                         type: 'error',
                         confirmButtonClass: "btn btn-info",
                         buttonsStyling: false

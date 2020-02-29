@@ -57,12 +57,15 @@
                     </div>
                   </div>
                 <ul class="nav">
+                    {% if current_user.is_admin==True or current_user.is_manager == True %}
+                 
                     <li class="nav-item ">
                       <a class="nav-link" href="{{url_for('dashboard')}}">
                         <i class="material-icons">dashboard</i>
                         <p> Dashboard </p>
                       </a>
                     </li>
+                    {% endif %}
                     <li class="nav-item ">
                       <a class="nav-link" href="{{url_for('workspace')}}">
                         <i class="material-icons">work</i>
@@ -84,6 +87,12 @@
                         <p> people </p>
                       </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{url_for('new_post')}}">
+                          <i class="material-icons">record_voice_over</i>
+                          <p> Annoucements </p>
+                        </a>
+                      </li>
                     {% if current_user.is_admin==True or current_user.is_manager == True %}
                     <li class="nav-item ">
                       <a class="nav-link" href="{{url_for('calendar')}}">
@@ -206,9 +215,54 @@
                                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
                                     <div class="material-datatables">
-                                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                        <table id="datatables" class="display nowrap" >
                                             <thead>
                                                 <tr>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
                                                     <th>Name</th>
                                                     <th>Position</th>
                                                     <th>Email</th>
@@ -224,6 +278,51 @@
                                                     <th>Email</th>
                                                     <th>Age</th>
                                                     <th>Start date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Start date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Email</th>
+                                                    <th>Age</th>
+                                                    <th>Date</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </tfoot>
@@ -243,12 +342,130 @@
                                                     <td>{{user.email}}</td>
                                                     <td>61</td>
                                                     <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td><a href="{{ url_for( 'user',username=user.username )}}">{{user.username}}</a></td>
+                                                    {% if user.is_admin == True %}
+                                                        <td>Adminstrator</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == True %}
+                                                        <td>Manager</td>
+                                                    {%endif %}
+                                                    {% if user.is_admin == False and user.is_manager == False %}
+                                                        <td>Teaching Assistant</td>
+                                                    {%endif %}
+                                                    <td>{{user.email}}</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    
                                                     <td class="text-right">
                                                         <!-- <button class="btn btn-rose btn-fill" onclick="demo.showSwal('warning-message-and-cancel')">Try me!<div class="ripple-container"></div></button> -->
                                     
                                                         <a href="#" class="btn btn-simple btn-info btn-icon like" onclick="demo.showSwal('warning-message-and-cancel')"><i class="material-icons" >favorite</i></a>
                                                         <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
-                                                        <a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="material-icons">close</i></a>
+                                                        <a href="../admin/user" class="btn btn-simple btn-danger btn-icon"><i class="material-icons">close</i></a>
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
@@ -351,6 +568,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#datatables').DataTable({
+            "scrollX": true,
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],

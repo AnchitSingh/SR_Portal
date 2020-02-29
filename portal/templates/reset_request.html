@@ -59,8 +59,8 @@
         <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto">
           <li class="nav-item">
             <a href="{{url_for('home')}}" class="nav-link">
-              <!-- <i class="material-icons">home</i> -->
-              <span class="nav-link-inner--text">Home</span>
+              <i class="material-icons">home</i>
+              <!-- <span class="nav-link-inner--text">Home</span> -->
             </a>
           </li>
         	{% if current_user.is_authenticated %}
@@ -85,16 +85,11 @@
           {% else %}
           <li class="nav-item">
             <a href="{{url_for('login')}}" class="nav-link">
-              <!-- <i class="material-icons">fingerprint</i> -->
-              <span class="nav-link-inner--text">Login</span>
+              <i class="material-icons">fingerprint</i>
+              <!-- <span class="nav-link-inner--text">Login</span> -->
             </a>
           </li>
-          <li class="nav-item ">
-            <a href="{{url_for('register')}}" class="nav-link" >
-              <!-- <i class="material-icons">person_add</i> -->
-              <span class="nav-link-inner--text">Register</span>
-            </a>
-          </li>
+          
           {% endif %}
         </ul>
       </div>
@@ -109,7 +104,7 @@
                         <div class="form-container sign-in-container">
                             <form method="POST" action="" role="form">
                               {{ form.hidden_tag() }}
-                              <h2>Sign in</h2>
+                              <h2>Reset Password</h2>
                               <div class="form-group mb-3">
                                 <div class="input-group input-group-alternative">
                                   <div class="input-group-prepend">
@@ -127,26 +122,10 @@
                                                               {% endif %}  
                                 </div>
                               </div>
-                              <div class="form-group">
-                                <div class="input-group input-group-alternative">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                                  </div>
-                                  {% if form.password.errors %}
-                                                                  {{ form.password(class="form-control form-control-lg is-invalid") }}
-                                                                  <div class="invalid-feedback">
-                                                                      {% for error in form.password.errors %}
-                                                                          <span>{{ error }}</span>
-                                                                      {% endfor %}
-                                                                  </div>
-                                                              {% else %}
-                                                                  {{ form.password(class="form-control",placeholder="Password" ) }}
-                                                              {% endif %}
-                                </div>
-                              </div>
+                             
                               
                               
-                              <a href="{{url_for('reset_request')}}">Forgot your password?</a>
+                              
                               {{ form.submit(class="btn btn-primary mt-3") }}
                               
                             </form>

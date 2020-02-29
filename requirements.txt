@@ -21,4 +21,3 @@ WTForms==2.1
 flask_admin
 flask_security
 flask_user
-flask_uploads

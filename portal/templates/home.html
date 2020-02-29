@@ -60,22 +60,22 @@
         <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto">
           <li class="nav-item">
             <a href="{{url_for('home')}}" class="nav-link">
-              <i class="material-icons">home</i>
-              <!-- <span class="nav-link-inner--text">Home</span> -->
+              <!-- <i class="material-icons">home</i> -->
+              <span class="nav-link-inner--text">Home</span>
             </a>
           </li>
         	{% if current_user.is_authenticated %}
           <li class="nav-item">
             <a href="{{url_for('account')}}" class="nav-link">
-              <!-- <i class="ni ni-ui-04 d-lg-none"></i>
-              <span class="nav-link-inner--text">Account</span> -->
-              <i class="material-icons">assignment_ind</i>
+              <i class="ni ni-ui-04 d-lg-none"></i>
+              <span class="nav-link-inner--text">Account</span>
+              <!-- <i class="material-icons">assignment_ind</i> -->
             </a>
           </li>
           <li class="nav-item">
             <a href="{{url_for('dashboard')}}" class="nav-link">
-              <i class="material-icons">dashboard</i>
-              <!-- <span class="nav-link-inner--text">Dashboard</span> -->
+              <!-- <i class="material-icons">dashboard</i> -->
+              <span class="nav-link-inner--text">Dashboard</span>
             </a>
           </li>
           <li class="nav-item ">
@@ -88,14 +88,14 @@
           {% else %}
           <li class="nav-item">
             <a href="{{url_for('login')}}" class="nav-link">
-              <i class="material-icons">fingerprint</i>
-              <!-- <span class="nav-link-inner--text">Login</span> -->
+              <!-- <i class="material-icons">fingerprint</i> -->
+              <span class="nav-link-inner--text">Login</span>
             </a>
           </li>
           <li class="nav-item ">
             <a href="{{url_for('register')}}" class="nav-link" >
-              <i class="material-icons">person_add</i>
-              <!-- <span class="nav-link-inner--text">Register</span> -->
+              <!-- <i class="material-icons">person_add</i> -->
+              <span class="nav-link-inner--text">Register</span>
             </a>
           </li>
           {% endif %}

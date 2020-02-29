@@ -70,12 +70,15 @@
                   </div>
                 </div>
                 <ul class="nav">
+                  {% if current_user.is_admin==True or current_user.is_manager == True %}
+                 
                   <li class="nav-item active ">
                     <a class="nav-link" href="{{url_for('dashboard')}}">
                       <i class="material-icons">dashboard</i>
                       <p> Dashboard </p>
                     </a>
                   </li>
+                  {% endif %}
                   <li class="nav-item active ">
                     <a class="nav-link" href="{{url_for('workspace')}}">
                       <i class="material-icons">work</i>
@@ -91,11 +94,18 @@
                   </li>
                   {% endif %}
                   <li class="nav-item ">
+                    <a class="nav-link" href="{{url_for('new_post')}}">
+                      <i class="material-icons">record_voice_over</i>
+                      <p> Annoucements </p>
+                    </a>
+                  </li>
+                  <li class="nav-item ">
                     <a class="nav-link" href="{{url_for('people')}}">
                       <i class="material-icons">timeline</i>
                       <p> people </p>
                     </a>
                   </li>
+                  
                   {% if current_user.is_admin==True or current_user.is_manager == True %}
                   <li class="nav-item ">
                     <a class="nav-link" href="{{url_for('calendar')}}">
@@ -148,19 +158,7 @@
                             </a>
                         </li>
                         {% endif %}
-                        <li class="nav-item dropdown">
-                          <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons">notifications</i>
-                            
-                            <span class="notification">{{i}}</span>
-                            <p class="d-lg-none d-md-block">
-                              Notification
-                            </p>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{ url_for('workspace')}}">You have {{i}} tasks pending</a>
-                          </div>
-                        </li>
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="{{url_for('profile')}}"   aria-haspopup="true" aria-expanded="false">
                             <i class="material-icons">person</i>
