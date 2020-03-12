@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                          {% if messages %}
+                            {% for category, message in messages %}
+                            <div id="mydivs" class="alert alert-{{ category }}" role="alert" style="z-index: 100;width: 35%;position: absolute;left: 65%;">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              {{ message }}
+                              </div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endwith %}
+                        <script>
+                            setTimeout(function() {
+                              $('#mydivs').fadeOut('slow');
+                          }, 2000);
+                          </script>
+					 	    <div class="header text-center">
+        <h3 class="title">{{ title }}</h3>
+        <p class="category">Please upload files to their corresponding sections only!! </p>
+                </div>
+                <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    <h4 class="card-title">PHD Section</h4>
+                </div>
+                <div class="card-content" >
+                    
+                    
+                    <div class="table-responsive table-sales" style="display: flex;justify-content: center; align-items: center;">
+                        <a href="{{ url_for('phd')}}"><button class="btn btn-primary btn-lg" >Phd Files</button></a>
+                          
+                    </div>
+                      
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    <h4 class="card-title">Mtech Section</h4>
+                </div>
+                <div class="card-content" >
+                    
+                    
+                    <div class="table-responsive table-sales" style="display: flex;justify-content: center; align-items: center;">
+                        <a href="{{ url_for('mtech')}}"><button class="btn btn-primary btn-lg" >Mtech Files</button></a>
+                          
+                    </div>
+                      
+                </div>
+            </div>
+        </div>
+        
+                </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,182 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                          {% if messages %}
+                            {% for category, message in messages %}
+                            <div id="mydivs" class="alert alert-{{ category }}" role="alert" style="z-index: 100;width: 35%;position: absolute;left: 65%;">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              {{ message }}
+                              </div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endwith %}
+                        <script>
+                            setTimeout(function() {
+                              $('#mydivs').fadeOut('slow');
+                          }, 2700);
+                          </script>
+					 	    <div class="header text-center">
+        <h3 class="title">Annoucements</h3>
+        <p class="category">All annoucements will appear here</p>
+                    
+    </div>
+    <div class="row" style="height: 80%;overflow: auto;">
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-content">
+                    <ul class="timeline">
+                        {% for post in post%}
+                        {% if post.id%2 != 0%}
+                        <li class="timeline-inverted">
+                            <div class="timeline-badge warning">
+                                <i class="material-icons">flight_land</i>
+                            </div>
+                            <div class="timeline-panel" style="position: relative;">
+                                <div class="timeline-heading">
+                                    <span class="label label-warning">{{post.title}}</span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>{{post.content}}</p>
+
+                                </div>
+                                <div class="modal fade" id="deleteModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-small ">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <h5>Are you sure you want delete? </h5>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+                                                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                                                    <input class="btn btn-danger btn-simple" type="submit" value="Delete">
+                                                  </form>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                            <div style="position:relative; width: 20%;left: 70%;top: 70%;">
+                                <p>
+                                    <i class="ti-time"></i>
+                                    - <a href="{{ url_for( 'user',username=post.author.username )}}">{{post.author.username}} </a>
+                                    </p>
+                                    {% if post.author == current_user%}
+                                    <button data-toggle="modal" data-target="#deleteModal1" style="position: absolute;bottom: -40%;left: 80%;" class="btn btn-danger btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">delete</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                   {% endif %}
+                               </div>
+                          </div>
+                        </li>
+                        {% else %}
+                        <li>
+                            <div class="timeline-badge info">
+                                <i class="material-icons">extension</i>
+                            </div>
+                            <div class="timeline-panel" style="position: relative;">
+                                <div class="timeline-heading">
+                                  <span class="label label-info">{{post.title}}</span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>{{post.content}}</p>
+                                </div>
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-small ">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <h5>Are you sure you want delete? </h5>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+                                                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                                                    <input class="btn btn-danger btn-simple" type="submit" value="Delete">
+                                                  </form>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="position:relative; width: 20%;left: 70%;top: 70%;">
+                                    <p>
+                                        <i class="ti-time"></i>
+                                        - <a href="{{ url_for( 'user',username=post.author.username )}}">{{post.author.username}} </a>
+                                    </p>
+                                    {% if post.author == current_user%}
+                                    <button data-toggle="modal" data-target="#deleteModal" style="position: absolute;bottom: -40%;left: 80%;" class="btn btn-danger btn-round btn-fab btn-fab-mini">
+                                        <i class="material-icons">delete</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    {% if current_user.is_admin==True or current_user.is_manager == True %}
+                 
+    <div class="col-md-6" style="width: 100%;position: relative;">
+        <div class="card">
+            <form  method="POST" action="" role="form">
+                {{ form.hidden_tag() }}
+                <div class="card-header card-header-icon" data-background-color="rose">
+                    <i class="material-icons">contacts</i>
+                </div>
+                <div class="card-content" >
+                    <h4 class="card-title">New Annoucement</h4>
+                    <div class="form-group label-floating" style="width: 40%;">
+                        <!-- <label class="control-label">Title</label> -->
+                        {{ form.title.label(class="control-label") }}
+                        {% if form.title.errors %}
+                            {{ form.title(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.title.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.title(class="form-control") }}
+                        {% endif %}
+                        <!-- <input class="form-control" name="email" type="text" required="true" /> -->
+                    </div>
+                    <div class="form-group label-floating" style="width: 80%;">
+                        <!-- <label class="control-label">Content</label> -->
+                        {{ form.content.label(class="control-label") }}
+                        {% if form.content.errors %}
+                            {{ form.content(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.content.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.content(class="form-control") }}
+                        {% endif %}
+                        <!-- <input class="form-control" name="password" type="text"required="true" /> -->
+                    </div>
+
+                    <div class="text-center" style="position: absolute; top: 60%;right: 3%;">
+                        {{ form.submit(class="btn btn-rose btn-fill btn-wd") }}
+                        <!-- <button type="submit" class="btn btn-rose btn-fill btn-wd" style="position: absolute; top: 60%;right: 3%;">Post</button> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}				

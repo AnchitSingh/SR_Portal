@@ -1,0 +1,570 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<!-- -----------------HIDDEN PART START----------------- -->
+<div id="tablebox" class="wrap-table100" style="display: none;">
+        
+              <table id="finaltab" style="margin-left: -310px;">
+                <thead>
+                  
+                  <tr>
+                      <th>Application</TH>
+                      <th>View</TH>
+                      <th>Submission Date</TH>
+                      <th>Payment Status</TH>
+                      <th>Fee</TH>
+                      <th>Payment Date</TH>
+                      <th>Name</TH>
+                      <th>Gender</TH>
+                      <th>DOB</TH>
+                      <th>Nationality</TH>
+                      <th>Category</TH>
+                      <th>PwD?</TH>
+                      <th>Marital Status</TH>
+                      <th>Email</TH>
+                      <th>Alt. Email</TH>
+                      <th>Mobile</TH>
+                      <th>Father's Name</TH>
+                      <th>Mother's Name</TH>
+                      <th>Parent Email Id</TH>
+                      <th>Aadhaar Number</TH>
+                      <th>Permanent Address</TH>
+                      <th>DegreeStatus</TH>
+                      <th>Programme</TH>
+                      <th>Department</TH>
+                      <th>Preference 1</TH>
+                      <th>Preference 2</TH>
+                      <th>Preference 3</TH>
+                      <th>Phd area of research</TH>
+                      <th>Institute Assistantship</TH>
+                      <th>Finance Method</TH>
+                      <th>Finance Details</TH>
+                      <th>GATE 2019 Reg ID</TH>
+                      <th>GATE 2019 Discipline</TH>
+                      <th>GATE 2019 Score</TH>
+                      <th>GATE 2019 Rank</TH>
+                      <th>GATE 2018 Reg ID</TH>
+                      <th>GATE 2018 Discipline</TH>
+                      <th>GATE 2018 Score</TH>
+                      <th>GATE 2018 Rank</TH>
+                      <th>GATE 2017 Reg ID</TH>
+                      <th>GATE 2017 Discipline</TH>
+                      <th>GATE 2017 Score</TH>
+                      <th>GATE 2017 Rank</TH>
+                      <th>Other 1 Roll No./ Reg ID</TH>
+                      <th>Other 1 Score</TH>
+                      <th>Other 1 Max Score</TH>
+                      <th>Other 1 Valid Upto</TH>
+                      <th>Other 1 Test Name</TH>
+                      <th>Other 1 Test Year</TH>
+                      <th>Other 1 Discipline</TH>
+                      <th>Other 1 Rank</TH>
+                      <th>Percentile</TH>
+                      <th>Quantitative Aptitude Percentile</TH>
+                      <th>Data Integration Logical Reasoning Percentile</TH>
+                      <th>Verbal Reading Comprehension Percentile</TH>
+                      <th>Other 2 Roll No./ Reg ID</TH>
+                      <th>Other 2 Score</TH>
+                      <th>Other 2 Max Score</TH>
+                      <th>Other 2 Valid Upto</TH>
+                      <th>Other 2 Test Name</TH>
+                      <th>Other 2 Test Year</TH>
+                      <th>Other 2 Discipline</TH>
+                      <th>Other 2 Rank</TH>
+                      <th>Qualifying Degree</TH>
+                      <th>Qualifying Discipline</TH>
+                      <th>University Name</TH>
+                      <th>University City</TH>
+                      <th>University Country</TH>
+                      <th>Institute Name</TH>
+                      <th>Year of Admission</TH>
+                      <th>Year of Completion</TH>
+                      <th>Duration</TH>
+                      <th>Status</TH>
+                      <th>Rank</TH>
+                      <th>Evaluation Pattern</TH>
+                      <th>Evaluation Method</TH>
+                      <th>Marks Obtained</TH>
+                      <th>Maximum Marks</TH>
+                      <th>Percentage</TH>
+                      <th>Total Experience</TH>
+                      <th>Experience 1 Organization</TH>
+                      <th>Experience 1 Designation</TH>
+                      <th>Experience 1 From</TH>
+                      <th>Experience 1 To</TH>
+                      <th>Experience 1 Roles Responsibility</TH>
+                      <th>Experience 1 Total Pay</TH>
+                      <th>No. of Papers</TH>
+                      <th>No. of Papers in Conference</TH>
+                      <th>No. of Papers in Conf Not published</TH>
+                      <th>No. of Book Chapters</TH>
+                      <th>Referee 1 Name</TH>
+                      <th>Referee 1 Organization</TH>
+                      <th>Referee 1 Email</TH>
+                      <th>Referee 1 Phone</TH>
+                      <th>Referee 1 Address</TH>
+                      <th>Referee 2 Name</TH>
+                      <th>Referee 2 Organization</TH>
+                      <th>Referee 2 Email</TH>
+                      <th>Referee 2 Phone</TH>
+                      <th>Referee 2 Address</TH>
+                      <th>PE 1 Degree</TH>
+                      <th>PE 1 Year</TH>
+                      <th>PE 1 Board / University</TH>
+                      <th>PE 1 Subjects</TH>
+                      <th>PE 1 Score</TH>
+                      <th>PE 1 Max Score</TH>
+                      <th>PE 1 Percentage</TH>
+                      <th>PE 1 Rank</TH>
+                      <th>PE 2 Degree</TH>
+                      <th>PE 2 Year</TH>
+                      <th>PE 2 Board / University</TH>
+                      <th>PE 2 Subjects</TH>
+                      <th>PE 2 Score</TH>
+                      <th>PE 2 Max Score</TH>
+                      <th>PE 2 Percentage</TH>
+                      <th>PE 2 Rank</TH>
+                      <th>PE 3 Degree</TH>
+                      <th>PE 3 Year</TH>
+                      <th>PE 3 Board / University</TH>
+                      <th>PE 3 Subjects</TH>
+                      <th>PE 3 Score</TH>
+                      <th>PE 3 Max Score</TH>
+                      <th>PE 3 Percentage</TH>
+                      <th>PE 3 Rank</TH>
+                  </tr>
+                  
+                </thead>
+                <tbody id="myTable">
+                  {% for i in phd%}
+                  
+                  
+                  <tr>
+                      <td>{{i['Application Ref. No.']}}</td>
+                      <td>{{i['View']}}</td>
+                      <td>{{i['Submission Date']}}</td>
+                      <td>{{i['Payment Status']}}</td>
+                      <td>{{i['Fee']}}</td>
+                      <td>{{i['Payment Date']}}</td>
+                      <td>{{i['Name']}}</td>
+                      <td>{{i['Gender']}}</td>
+                      <td>{{i['DOB']}}</td>
+                      <td>{{i['Nationality']}}</td>
+                      <td>{{i['Category']}}</td>
+                      <td>{{i['PwD?']}}</td>
+                      <td>{{i['Marital Status']}}</td>
+                      <td>{{i['Email']}}</td>
+                      <td>{{i['Alt. Email']}}</td>
+                      <td>{{i['Mobile']}}</td>
+                      <td>{{i["Father's Name"]}}</td>
+                      <td>{{i["Mother's Name"]}}</td>
+                      <td>{{i['Parent Email Id']}}</td>
+                      <td>{{i['Aadhaar Number']}}</td>
+                      <td>{{i['Permanent Address']}}</td>
+                      <td>{{i['DegreeStatus']}}</td>
+                      <td>{{i['Programme']}}</td>
+                      <td>{{i['Department']}}</td>
+                      <td>{{i['Preference 1']}}</td>
+                      <td>{{i['Preference 2']}}</td>
+                      <td>{{i['Preference 3']}}</td>
+                      <td>{{i['Phd area of research']}}</td>
+                      <td>{{i['Institute Assistantship']}}</td>
+                      <td>{{i['Finance Method']}}</td>
+                      <td>{{i['Finance Details']}}</td>
+                      <td>{{i['GATE 2019 Reg ID']}}</td>
+                      <td>{{i['GATE 2019 Discipline']}}</td>
+                      <td>{{i['GATE 2019 Score']}}</td>
+                      <td>{{i['GATE 2019 Rank']}}</td>
+                      <td>{{i['GATE 2018 Reg ID']}}</td>
+                      <td>{{i['GATE 2018 Discipline']}}</td>
+                      <td>{{i['GATE 2018 Score']}}</td>
+                      <td>{{i['GATE 2018 Rank']}}</td>
+                      <td>{{i['GATE 2017 Reg ID']}}</td>
+                      <td>{{i['GATE 2017 Discipline']}}</td>
+                      <td>{{i['GATE 2017 Score']}}</td>
+                      <td>{{i['GATE 2017 Rank']}}</td>
+                      <td>{{i['Other 1 Roll No./ Reg ID']}}</td>
+                      <td>{{i['Other 1 Score']}}</td>
+                      <td>{{i['Other 1 Max Score']}}</td>
+                      <td>{{i['Other 1 Valid Upto']}}</td>
+                      <td>{{i['Other 1 Test Name']}}</td>
+                      <td>{{i['Other 1 Test Year']}}</td>
+                      <td>{{i['Other 1 Discipline']}}</td>
+                      <td>{{i['Other 1 Rank']}}</td>
+                      <td>{{i['Percentile']}}</td>
+                      <td>{{i['Quantitative Aptitude Percentile']}}</td>
+                      <td>{{i['Data Integration & Logical Reasoning Percentile']}}</td>
+                      <td>{{i['Verbal & Reading Comprehension Percentile']}}</td>
+                      <td>{{i['Other 2 Roll No./ Reg ID']}}</td>
+                      <td>{{i['Other 2 Score']}}</td>
+                      <td>{{i['Other 2 Max Score']}}</td>
+                      <td>{{i['Other 2 Valid Upto']}}</td>
+                      <td>{{i['Other 2 Test Name']}}</td>
+                      <td>{{i['Other 2 Test Year']}}</td>
+                      <td>{{i['Other 2 Discipline']}}</td>
+                      <td>{{i['Other 2 Rank']}}</td>
+                      <td>{{i['Qualifying Degree']}}</td>
+                      <td>{{i['Qualifying Discipline']}}</td>
+                      <td>{{i['University Name']}}</td>
+                      <td>{{i['University City']}}</td>
+                      <td>{{i['University Country']}}</td>
+                      <td>{{i['Institute Name']}}</td>
+                      <td>{{i['Year of Admission']}}</td>
+                      <td>{{i['Year of Completion']}}</td>
+                      <td>{{i['Duration']}}</td>
+                      <td>{{i['Status']}}</td>
+                      <td>{{i['Rank']}}</td>
+                      <td>{{i['Evaluation Pattern']}}</td>
+                      <td>{{i['Evaluation Method']}}</td>
+                      <td>{{i['Marks Obtained']}}</td>
+                      <td>{{i['Maximum Marks']}}</td>
+                      <td>{{i['Percentage']}}</td>
+                      <td>{{i['Total Experience']}}</td>
+                      <td>{{i['Experience 1 Organization']}}</td>
+                      <td>{{i['Experience 1 Designation']}}</td>
+                      <td>{{i['Experience 1 From']}}</td>
+                      <td>{{i['Experience 1 To']}}</td>
+                      <td>{{i['Experience 1 Roles & Responsibility']}}</td>
+                      <td>{{i['Experience 1 Total Pay']}}</td>
+                      <td>{{i['No. of Papers']}}</td>
+                      <td>{{i['No. of Papers in Conference']}}</td>
+                      <td>{{i['No. of Papers in Conf Not published']}}</td>
+                      <td>{{i['No. of Book Chapters']}}</td>
+                      <td>{{i['Referee 1 Name']}}</td>
+                      <td>{{i['Referee 1 Organization']}}</td>
+                      <td>{{i['Referee 1 Email']}}</td>
+                      <td>{{i['Referee 1 Phone']}}</td>
+                      <td>{{i['Referee 1 Address']}}</td>
+                      <td>{{i['Referee 2 Name']}}</td>
+                      <td>{{i['Referee 2 Organization']}}</td>
+                      <td>{{i['Referee 2 Email']}}</td>
+                      <td>{{i['Referee 2 Phone']}}</td>
+                      <td>{{i['Referee 2 Address']}}</td>
+                      <td>{{i['PE 1 Degree']}}</td>
+                      <td>{{i['PE 1 Year']}}</td>
+                      <td>{{i['PE 1 Board / University']}}</td>
+                      <td>{{i['PE 1 Subjects']}}</td>
+                      <td>{{i['PE 1 Score']}}</td>
+                      <td>{{i['PE 1 Max Score']}}</td>
+                      <td>{{i['PE 1 Percentage']}}</td>
+                      <td>{{i['PE 1 Rank']}}</td>
+                      <td>{{i['PE 2 Degree']}}</td>
+                      <td>{{i['PE 2 Year']}}</td>
+                      <td>{{i['PE 2 Board / University']}}</td>
+                      <td>{{i['PE 2 Subjects']}}</td>
+                      <td>{{i['PE 2 Score']}}</td>
+                      <td>{{i['PE 2 Max Score']}}</td>
+                      <td>{{i['PE 2 Percentage']}}</td>
+                      <td>{{i['PE 2 Rank']}}</td>
+                      <td>{{i['PE 3 Degree']}}</td>
+                      <td>{{i['PE 3 Year']}}</td>
+                      <td>{{i['PE 3 Board / University']}}</td>
+                      <td>{{i['PE 3 Subjects']}}</td>
+                      <td>{{i['PE 3 Score']}}</td>
+                      <td>{{i['PE 3 Max Score']}}</td>
+                      <td>{{i['PE 3 Percentage']}}</td>
+                      <td>{{i['PE 3 Rank']}}</td>
+                  </tr>
+                  {% endfor %}
+                  
+                  
+                </tbody>
+              </table>
+            
+</div>
+<!-- -----------------HIDDEN PART END----------------- -->
+<div class="container-fluid">
+            <div class="header text-center">
+              <h3 class="title">Dashboard</h3>
+              <p class="category">All submissions will appear here</p>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header" data-background-color="orange">
+                  <i class="material-icons">timeline</i>
+                </div>
+                <div class="card-content">
+                  <p class="category">Total Files</p>
+                  <h3 class="card-title">{{pi+mi}}</h3>
+                </div>
+                <div class="card-footer" style="position: relative;">
+                  <div class="stats">
+                    Phd Bundle Size : ~{{pi//u_val}}  
+                    <br>
+                    <p style="margin: 0;position: absolute;top: 10px;right: 0px;">Mtech Bundle Size : ~{{mi//u_val}}</p>
+                  </div>
+                  <br>
+                  <div class="stats">
+                  <i class="material-icons">update</i> <a style="color: #999999;" href="{{url_for('dashboard')}}">   Update</a>
+                  </div>
+                
+              </div>
+              </div>
+            </div>
+          
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header" data-background-color="rose">
+                  <i class="material-icons">equalizer</i>
+                </div>
+                <div class="card-content">
+                  <p class="category">Submissions</p>
+                  <h3 class="card-title">{{p_sub_count+m_sub_count}}</h3>
+                </div>
+                <div class="card-footer" style="position: relative;">
+                  <div class="stats">
+                    Phd Pending : {{ pi - p_sub_count }}
+                    <br>
+                    <p style="margin: 0;position: absolute;top: 10px;right: 0px;">Mtech Pending : {{ mi - m_sub_count }}</p>
+                  </div>
+                  <br>  
+                  <div class="stats">
+                  <i class="material-icons">update</i> <a style="color: #999999;" href="{{url_for('dashboard')}}">  Update</a>
+                  </div>
+                
+              </div>
+              </div>
+            </div>
+          
+          
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header" data-background-color="green">
+                  <i class="fa fa-calendar-check-o"></i>
+                </div>
+                <div class="card-content">
+                  <p class="category">Verifications</p>
+                  <h3 class="card-title">{{p_val_count+m_val_count}}</h3>
+                </div>
+                <div class="card-footer" style="position: relative;">
+                  
+                  <div class="stats">
+                    Phd Pending : {{ pi - p_val_count }}
+                    <br>
+                    <p style="margin: 0;position: absolute;top: 10px;right: 0px;">Mtech Pending : {{ mi - m_val_count }}</p>
+                  </div>
+                  <br>
+                  <div class="stats">
+                    <i class="material-icons">update</i> <a style="color: #999999;" href="{{url_for('dashboard')}}">  Update</a>
+                    </div>
+              </div>
+              </div>
+            </div>
+          
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header" data-background-color="blue">
+                  <i class="fa fa-address-card"></i>
+                </div>
+                <div class="card-content">
+                  <p class="category">TA & Managers</p>
+                  <h3 class="card-title">{{u_val}}</h3>
+                </div>
+                <div class="card-footer" style="position: relative;">
+                  <div class="stats">
+                    Managers : {{ m_val }}
+                    <br>
+                    <p style="margin: 0;position: absolute;top: 10px;right: 0px;">Admin : {{a_val}}</p>
+                  </div>
+                  <br>
+                    <div class="stats">
+                    <i class="material-icons">update</i> <a style="color: #999999;" href="{{url_for('dashboard')}}">   Update</a>
+                    </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="places-buttons">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 text-center">
+                                    <h4 class="card-title">
+                                      
+                                        Download CSV
+                                        <p class="category">Only download when all files have been verified</p>
+                                    </h4>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        
+    
+                        <div class="row" style="justify-content: center;display: flex;">
+                            
+    
+                              <button class="btn btn-raised btn-md btn-round btn-rose">
+                                    Mtech csv
+                                </button>
+                                
+                                <button id="downbtn" class="btn btn-md btn-raised btn-round btn-rose">
+                                    Phd csv
+                              </button>
+                                
+    
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+          
+					 	    <div class="row">
+        <div class="col-md-12">
+            <div class="card" >
+                <div class="card-header card-header-icon" data-background-color="rose">
+                    <i class="material-icons">assignment</i>
+                </div>
+                <div class="card-content" >
+                    <h4 class="card-title">All Submissions</h4>
+                    <div class="table-responsive" style="max-height:50vh;overflow: auto;">
+                        <table id="myTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Application</th>
+                                    <th>Error Found</th>
+                                    <th>Tutor</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                    {% for phd in phd%}
+                                    {% if  current_user.is_admin==True or current_user.is_manager == True%}
+                                    {% if phd['Submission']=='Done'%}
+                                    
+                                    <tr>
+                                    <td class="text-center">&bull;</td>
+                                    <td><h4>{{phd['Application Ref. No.']}}</h4></td>
+                                    <td ><div  style="height: 50px;max-width:270px ;overflow: auto;padding-top: 4%;">{{phd['Comment']}}</div></td>
+                                    <td>{{phd['Tutor_name']}}</td>
+                                    <td class="text-center">PHD</td>
+                                    <td class=" text-center">
+                                      {% if phd['Validation'] != 'Done' %}
+                                      <a href="{{url_for('lab_phd',application=phd['Application Ref. No.'])}}">
+                                        <button class="btn btn-primary btn-sm">
+                                          Verify
+                                        </button>
+                                      </a>
+                                      {% else %}
+                                      <a href="{{url_for('lab_phd',application=phd['Application Ref. No.'])}}">
+                                        <button style="background-image: linear-gradient(#ffa726, #fb8c00);" class="btn btn-sm">
+                                          Verified
+                                        </button>
+                                      </a>
+                                      {% endif %}
+                                    </td>
+                                  </tr>
+                                  {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+
+                                    {% for mtech in mtech%}
+                                    {% if  current_user.is_admin==True or current_user.is_manager == True%}
+                                    {% if mtech['Submission']=='Done'%}
+                                    
+                                    <tr>
+                                    <td class="text-center">&bull;</td>
+                                    <td><h4>{{mtech['Application Ref. No.']}}</h4></td>
+                                    <td ><div  style="height: 50px;max-width:270px ;overflow: auto;padding-top: 4%;">{{mtech['Comment']}}</div></td>
+                                    <td>{{mtech['Tutor_name']}}</td>
+                                    <td class="text-center">M.TECH</td>
+                                    <td class=" text-center">
+                                      {% if mtech['Validation'] != 'Done' %}
+                                      <a href="{{url_for('lab_mtech',application=mtech['Application Ref. No.'])}}">
+                                        <button class="btn btn-primary btn-sm">
+                                          Verify
+                                        </button>
+                                      </a>
+                                      {% else %}
+                                      <a href="{{url_for('lab_mtech',application=mtech['Application Ref. No.'])}}">
+                                        <button style="background-image: linear-gradient(#ffa726, #fb8c00);" class="btn btn-sm">
+                                          Verified
+                                        </button>
+                                      </a>
+                                      {% endif %}
+                                    </td>
+                                    </tr>
+                                  {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+<script>
+    function download_csv(csv, filename) {
+      var csvFile;
+      var downloadLink;
+  
+      // CSV FILE
+      csvFile = new Blob([csv], {type: "text/csv"});
+  
+      // Download link
+      downloadLink = document.createElement("a");
+  
+      // File name
+      downloadLink.download = filename;
+  
+      // We have to create a link to the file
+      downloadLink.href = window.URL.createObjectURL(csvFile);
+  
+      // Make sure that the link is not displayed
+      downloadLink.style.display = "none";
+  
+      // Add the link to your DOM
+      document.body.appendChild(downloadLink);
+  
+      // Lanzamos
+      downloadLink.click();
+  }
+  
+  function export_table_to_csv(html, filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("#finaltab tr");
+    
+      for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+      
+          for (var j = 0; j < cols.length; j++) 
+              row.push(cols[j].innerText);
+          
+      csv.push(row.join(","));		
+    }
+  
+      // Download CSV
+      download_csv(csv.join("\n"), filename);
+  }
+  
+  document.querySelector("#downbtn").addEventListener("click", function () {
+      var html = document.querySelector("#finaltab").outerHTML;
+    export_table_to_csv(html, "table.csv");
+  });
+</script>
+{% endblock content %}    

@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+            <div class="header text-center">
+              <h3 class="title">Dashboard</h3>
+              <p class="category">All submissions will appear here</p>
+          </div>
+					 	    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="rose">
+                    <i class="material-icons">assignment</i>
+                </div>
+
+                <div class="card-content">
+                    <h4 class="card-title">All Files</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Application</th>
+                                    <th>Error Found</th>
+                                    <th>Tutor</th>
+                                    <th class="text-center">Submission</th>
+                                    <th class="text-center">View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                    {% for phd in phd%}
+                                    {% if current_user.username == phd.Tutor_name or current_user.is_admin == True or  current_user.is_manager == True %}
+                                    <tr>
+                                    <td class="text-center">&bull;</td>
+                                    <td><h4>{{phd['Application Ref. No.']}}</h4></td>
+                                    <td><div style="height: 50px;max-width:270px ;overflow: auto;">{{phd['Comment']}}</div></td>
+                                    <td>{{phd['Tutor_name']}}</td>
+                                    <td class="text-center">{{phd['Submission']}}</td>
+                                    <td class=" text-center">
+                                      {% if phd['Submission'] != 'Done' %}
+                                      <a href="{{url_for('ta_lab_phd',application=phd['Application Ref. No.'])}}">
+                                        <button class="btn btn-primary btn-sm">
+                                          View
+                                        </button>
+                                      </a>
+                                      {% else %}
+                                      <a href="{{url_for('ta_lab_phd',application=phd['Application Ref. No.'])}}">
+                                        <button style="background-image: linear-gradient(#ffa726, #fb8c00);" class="btn btn-sm">
+                                          Submitted
+                                        </button>
+                                      </a>
+                                      {% endif %}
+                                    </td>
+                                  </tr>
+                                  {% endif %}
+                                    {% endfor %}
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+{% endblock content %}			
