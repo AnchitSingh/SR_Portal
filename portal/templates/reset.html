@@ -1,6 +1,103 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container-fluid">
-  <button class="btn btn-lg btn-primary">Reset Phd</button>
-</div>
+  <script src="../static/assets/fonts/nfa.js" ></script>
+   
+  <div class="row">
+      <div class="col-md-6">
+          <div class="col-lg-6">
+              <div class="card card-pricing card-raised">
+                  <div class="content">
+                      <h4 class="card-title">Phd Database</h4>
+                      <div class="icon icon-rose">
+                        <i class="fas fa-biohazard"></i>
+                      </div>
+                      <h3 class="card-title">DANGER</h3>
+                      <p class="card-description">
+                        Once deleted it can't be reverted back
+                      </p>
+                      <a href="{{url_for('reset_phd')}}" class="btn btn-rose btn-round">Reset Phd</a>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-pricing card-raised">
+                <div class="content">
+                  <h4 class="card-title">Mtech Database</h4>
+                    <div class="icon icon-rose">
+                      <i class="fas fa-biohazard"></i>
+                    </div>
+                    <h3 class="card-title">DANGER</h3>
+                    <p class="card-description">
+                      Once deleted it can't be reverted back
+                    </p>
+                    <a href="{{url_for('reset_mtech')}}" class="btn btn-rose btn-round">Reset Mtech</a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12" style="width: 50%;">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="orange">
+              <i class="fas fa-user-ninja fa-2x"></i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Violations</h4>
+      <div style="height: 60vh; overflow: auto;" >
+        
+          <ul class="timeline timeline-simple">
+           {% for v in violations %}
+          <li class="timeline-inverted">
+            {% if v[0]%3 ==1 %}
+              <div class="timeline-badge danger">
+                <i class="fas fa-biohazard"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <span class="label label-danger">{{v[2]}}</span>
+              </div>
+            {% elif v[0]%3 ==2  %}
+            <div class="timeline-badge success">
+              <i class="fas fa-user-secret"></i>
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <span class="label label-success">{{v[2]}}</span>
+            </div>
+            {% else %}
+            <div class="timeline-badge info">
+              <i class="fas fa-bomb"></i>
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <span class="label label-info">{{v[2]}}</span>
+            </div>
+            {% endif %}
+            
+                <div class="timeline-body">
+                  <p> {{v[1]}} </p>
+                </div>
+            <h6 id="demo">
+              <i class="ti-time"></i>
+              {{ v[3][10:19]}}
+            </h6>
+            
+            </div>
+          </li>
+          {% endfor %}
+          
+      </ul>
+      </div>
+      </div>
+      </div>
+      </div>
+  </div>
+  
+            </div>
+
+            
 {% endblock content %}
+
+					
+
+			 

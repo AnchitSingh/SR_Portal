@@ -24,11 +24,17 @@
 
 <body class="profile-page sidebar-collapse">
 
+    {{ moment.include_moment() }}
     <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
+                {% if current_user.is_admin==True or current_user.is_manager ==True%}
                 <a class="navbar-brand" href="{{url_for('dashboard')}}">
           SR Portal </a>
+          {%else%}
+          <a class="navbar-brand" href="{{url_for('workspace')}}">
+            SR Portal </a>
+            {% endif %}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
           <span class="navbar-toggler-icon"></span>
@@ -46,7 +52,7 @@
                             Dashboard
                         </a>
                             {% else %}
-                            <a href="{{url_for('dashboard')}}" class=" nav-link" >
+                            <a href="{{url_for('workspace')}}" class=" nav-link" >
                                 <i class="material-icons">apps</i>
                             
                             Workspace
@@ -69,13 +75,23 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile">
                             <div class="avatar">
-                                <img src="../static/faces/{{ user.image_file }}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                <img src="../static/assets/img/faces/{{ user.image_file }}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
                             </div>
                             <div class="name">
                                 <h3 class="title">{{ user.username }}</h3>
-                                <h6>{% if user.is_admin == True%} Admin {% endif %} {% if user.is_manager == True %} {% if user.is_admin == False %} Manager {% endif %} {% else %} Teaching Assistant {% endif %}
+                                <h6>
+                                    {% if user.is_admin == True%}
+                                    Admin 
+                                    {% endif %} 
+                                    {% if user.is_manager == True %} {% if user.is_admin == False %} 
+                                    Manager 
+                                    {% endif %}
+                                    {% else %}
+                                    Teaching Assistant 
+                                    {% endif %}
                                 </h6>
-
+                                    {% if user.last_seen %}<p>Last seen on: {{ moment(user.last_seen).format('LLL') }}</p>{% endif %}
+                                
                             </div>
                         </div>
                     </div>

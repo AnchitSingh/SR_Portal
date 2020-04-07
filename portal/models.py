@@ -10,7 +10,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_login import current_user
 from flask_admin.contrib.fileadmin import FileAdmin
 import os.path as op
-from sqlalchemy.ext.automap import automap_base
+
 
 
 @login_manager.user_loader
@@ -25,6 +25,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     password = db.Column(db.String(60), nullable=False)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     is_admin = db.Column(db.Boolean, default=False)
     is_manager = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=False)
@@ -62,6 +63,7 @@ class Controller(ModelView):
     can_edit=True
     can_delete=True
     can_export=True
+    column_list = ('id','username', 'email','is_admin','is_manager','is_active','password')
     def on_model_change(self,form,model,is_create):
         model.password=bcrypt.generate_password_hash(model.password).decode('utf-8')
         return current_user.is_authenticated
@@ -83,10 +85,6 @@ class NotificationsView(BaseView):
 admin.add_view(Controller(User,db.session))
 path = op.join(op.dirname(__file__), 'static')
 admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
-admin.add_view(NotificationsView(name='Back', endpoint='notify'))
+admin.add_view(NotificationsView(name='Dashboard', endpoint='notify'))
 
-Base=automap_base()
-Base.prepare(db.engine,reflect=True)
-phd=Base.classes.phd
-mtech=Base.classes.mtech
 

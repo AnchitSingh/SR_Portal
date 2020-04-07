@@ -1,218 +1,146 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
-  {% if title %}
-        <title>{{ title }}</title>
-    {% else %}
-        <title>Flask Blog</title>
-    {% endif %}
-
-  <!--  -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <!-- Nucleo Icons -->
-  <link href="./static/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="./static/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <link href="./static/assets/css/font-awesome.css" rel="stylesheet" />
-  <link href="./static/assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link href="./static/assets/css/argon-design-system.min.css?v=1.0.0" rel="stylesheet" />
-  
-</head>
-
-<body class="sections-page">
-
-  <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg bg-default navbar-dark headroom">
-    <div class="container">
-      <a class="navbar-brand mr-lg-5" href="./index.html">
-        <img src="./static/assets/img/brand/white.png">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse" id="navbar_global">
-        <div class="navbar-collapse-header">
-          <div class="row">
-            <div class="col-6 collapse-brand">
-              <a href="./index.html">
-                <img src="./static/assets/img/brand/blue.png">
-              </a>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags-->
+      <!-- Title-->
+      {% if title %}
+      <title>{{ title }}</title>
+      {% else %}
+      <title>Flask Blog</title>
+      {% endif %}
+      <!-- Favicon-->
+      <link rel="icon" href="../static/assets/home/img/core-img/favicon.ico">
+      <!-- Core Stylesheet-->
+      <link rel="stylesheet" href="../static/assets/home/style.css">
+   </head>
+   <body>
+      <!-- Header Area-->
+      <header class="header-area">
+         <div class="container">
+            <div class="classy-nav-container breakpoint-off">
+               <nav class="classy-navbar justify-content-between" id="radixNav">
+                  <a class="nav-brand mr-5" href="{{url_for('home')}}"><img src="../static/assets/home/img/core-img/logo2.png" style="width: 80px;" alt=""></a>
+                  <!-- Navbar Toggler-->
+                  <div class="classy-navbar-toggler"><span class="navbarToggler"><span></span><span></span><span></span><span></span></span>
+                  </div>
+                  <!-- Menu-->
+                  <div class="classy-menu">
+                     <!-- close btn-->
+                     <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                     </div>
+                     <!-- Nav Start-->
+                     <div class="classynav">
+                        <ul id="corenav">
+                           <li>
+                              <a href="{{url_for('home')}}">Home</a>
+                           </li>
+                           {% if current_user.is_authenticated %}
+                           <li>
+                              <a href="{{url_for('account')}}">Account</a>
+                           </li>
+                           {% if current_user.is_admin == True or current_user.is_manager == True %}
+                           <li>
+                              <a href="{{url_for('dashboard')}}">Dashboard</a>
+                           </li>
+                           {% else %}
+                           <li>
+                              <a href="{{url_for('workspace')}}">Workspace</a>
+                           </li>
+                           {% endif %}
+                           <li>
+                              <a href="{{url_for('logout')}}">Logout</a>
+                           </li>
+                           {% else %}
+                           <li>
+                              <a href="{{url_for('login')}}">Login</a>
+                           </li>
+                           <li>
+                              <a href="{{url_for('register')}}">Register</a>
+                           </li>
+                           {% endif %}
+                        </ul>
+                        <!-- Login Button-->
+                     </div>
+                  </div>
+               </nav>
             </div>
-            <div class="col-6 collapse-close">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <ul class="navbar-nav navbar-nav-hover align-items-lg-center ml-lg-auto">
-          <li class="nav-item">
-            <a href="{{url_for('home')}}" class="nav-link">
-              <!-- <i class="material-icons">home</i> -->
-              <span class="nav-link-inner--text">Home</span>
-            </a>
-          </li>
-        	{% if current_user.is_authenticated %}
-          <li class="nav-item">
-            <a href="{{url_for('account')}}" class="nav-link">
-              <i class="ni ni-ui-04 d-lg-none"></i>
-              <span class="nav-link-inner--text">Account</span>
-              <!-- <i class="material-icons">assignment_ind</i> -->
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url_for('dashboard')}}" class="nav-link">
-              <!-- <i class="material-icons">dashboard</i> -->
-              <span class="nav-link-inner--text">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a href="{{url_for('logout')}}" class="nav-link" >
-              <!-- <i class="ni ni-tablet-button d-lg-none"></i>
-              <span class="nav-link-inner--text">Logout</span> -->
-              <i class="material-icons">logout</i>
-            </a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a href="{{url_for('login')}}" class="nav-link">
-              <!-- <i class="material-icons">fingerprint</i> -->
-              <span class="nav-link-inner--text">Login</span>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a href="{{url_for('register')}}" class="nav-link" >
-              <!-- <i class="material-icons">person_add</i> -->
-              <span class="nav-link-inner--text">Register</span>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- End Navbar -->
-  <div class="wrapper">
-    <div class="cd-section" id="headers">
-      <header class="header-1">
-        
-        <div class="page-header">
-          <div class="page-header-image" style="background-image: url('./static/assets/img/ill/p2.svg')"></div>
-          <div class="container">
-            <div class="row">
-              
-              <div class="col-lg-5 col-md-7 mr-auto text-left d-flex justify-content-center flex-column">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                          {% if messages %}
-                            {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              {{ message }}
-                              </div>
-                            {% endfor %}
-                          {% endif %}
-                        {% endwith %}
-                <h3 class="display-3">SR Portal</h3>
-                <p class="lead mt-0">The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. </p>
-                <br />
-                <div class="buttons">
-                  {% if current_user.is_authenticated %}
-                  <a href="{{url_for('dashboard')}}" class="btn btn-danger">
-                    Get Started
-                  </a>
-                  {% else %}
-                  <a href="{{url_for('login')}}" class="btn btn-danger">
-                    Get Started
-                  </a>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+         </div>
       </header>
-    </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="./static/assets/js/core/jquery.min.js" type="text/javascript"></script>
-  <script src="./static/assets/js/core/popper.min.js" type="text/javascript"></script>
-  <script src="./static/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-  <script src="./static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-  <script src="./static/assets/js/plugins/bootstrap-switch.js"></script>
-  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-  <script src="./static/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-  <!--  Plugin for the Carousel, full documentation here: http://jedrzejchalubek.com/ -->
-  <script src="./static/assets/js/plugins/glide.js" type="text/javascript"></script>
-  <!--  Plugin for the DatePicker, full documentation here: https://flatpickr.js.org/ -->
-  <script src="./static/assets/js/plugins/moment.min.js"></script>
-  <!--	Plugin for Select, full documentation here: https://joshuajohnson.co.uk/Choices/ -->
-  <script src="./static/assets/js/plugins/choices.min.js" type="text/javascript"></script>
-  <!--  Plugin for the DateTimePicker, full documentation here: https://flatpickr.js.org/ -->
-  <script src="./static/assets/js/plugins/datetimepicker.js" type="text/javascript"></script>
-  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-  <script src="./static/assets/js/plugins/jasny-bootstrap.min.js"></script>
-  <!-- Plugin for Headrom, full documentation here: https://wicky.nillia.ms/headroom.js/ -->
-  <script src="./static/assets/js/plugins/headroom.min.js"></script>
-  <!-- Control Center for Argon UI Kit: parallax effects, scripts for the example pages etc -->
-  <!--  Google Maps Plugin    -->
- <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script src="./static/assets/js/argon-design-system.min.js?v=1.0.0" type="text/javascript"></script> <!-- Sharrre libray -->
-  <script src="./static/assets/demo/jquery.sharrre.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
-    <script>
-    window.setTimeout(function() {
-      $(".alert").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove(); 
-      });
-  }, 2000);
-  </script>
-  <script>
-    // Carousel
-    new Glide('.glide', {
-      type: 'carousel',
-      startAt: 0,
-      focusAt: 2,
-      perTouch: 1,
-      perView: 4
-    }).mount();
-
-
-    // Testimonial Carousel
-    new Glide('.testimonial-glide', {
-      type: 'carousel',
-      startAt: 0,
-      focusAt: 2,
-      perTouch: 1,
-      perView: 4
-    }).mount();
-
-    ArgonKit.initGoogleMaps();
-    ArgonKit.initGoogleMaps2();
-  </script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "argon-design-system-pro"
-      });
-  </script>
-</body>
-
+      <!-- Welcome Area-->
+      <section class="welcome-area" id="home" style="height: 100vh;background-color: darkorange;">
+         <!-- Background Shape-->
+         <div class="background-shape">
+            <div class="circle1 wow fadeInRightBig" data-wow-duration="4000ms"></div>
+            <div class="circle2 wow fadeInRightBig" data-wow-duration="4000ms"></div>
+            <div class="circle3 wow fadeInRightBig" data-wow-duration="4000ms"></div>
+            <div class="circle4 wow fadeInRightBig" data-wow-duration="4000ms"></div>
+         </div>
+         <!-- Background Animation-->
+         <div class="background-animation">
+            <div class="star-ani"></div>
+            <div class="cloud-ani"></div>
+            <div class="triangle-ani"></div>
+            <div class="circle-ani"></div>
+            <div class="box-ani"></div>
+            <div class="line-ani"></div>
+         </div>
+         <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-between">
+               <!-- Welcome Content-->
+               <div class="col-12 col-md-7">
+                  <div class="welcome-content">
+                     {% with messages = get_flashed_messages(with_categories=true) %}
+                     {% if messages %}
+                     {% for category, message in messages %}
+                     <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style=" background-color: darkolivegreen;display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 60px; right: 2px;color: whitesmoke;border: none;">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span data-notify="title"></span> 
+                        <span data-notify="message">{{ message }}</span>
+                     </div>
+                     {% endfor %}
+                     {% endif %}
+                     {% endwith %}
+                     <h2 class="wow fadeInUp" data-wow-duration="1000ms">SR Portal - Multipurpose template for Saas, SEO, Business &amp; Agency.</h2>
+                     <p class="mb-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="200ms">It's crafted with the latest trend of design & coded with all modern approaches. It's a robust & multi-dimensional usable template.</p>
+                     <a class="btn radix-btn white-btn mt-3 wow fadeInUp" href="{{url_for('login')}}" data-wow-duration="1000ms" data-wow-delay="400ms" style="background-color: saddlebrown;">Get Started</a>
+                  </div>
+               </div>
+               <!-- Welcome Thumb-->
+               <div class="col-10 col-md-5">
+                  <div class="welcome-thumb hero1 wow fadeInUp" data-wow-delay="300ms">
+                     <img src="../static/assets/home/img/bg-img/hero-3.png" alt="">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- All JavaScript Files-->
+      <script src="../static/assets/home/js/jquery.min.js"></script>
+      <script src="../static/assets/home/js/popper.min.js"></script>
+      <script src="../static/assets/home/js/bootstrap.min.js"></script>
+      <script src="../static/assets/home/js/default/classy-nav.min.js"></script>
+      <script src="../static/assets/home/js/waypoints.min.js"></script>
+      <script src="../static/assets/home/js/jquery.easing.min.js"></script>
+      <script src="../static/assets/home/js/default/jquery.scrollup.min.js"></script>
+      <script src="../static/assets/home/js/owl.carousel.min.js"></script>
+      <script src="../static/assets/home/js/imagesloaded.pkgd.min.js"></script>
+      <script src="../static/assets/home/js/default/isotope.pkgd.min.js"></script>
+      <script src="../static/assets/home/js/jquery.magnific-popup.min.js"></script>
+      <script src="../static/assets/home/js/jquery.animatedheadline.min.js"></script>
+      <script src="../static/assets/home/js/jquery.counterup.min.js"></script>
+      <script src="../static/assets/home/js/wow.min.js"></script>
+      <script src="../static/assets/home/js/jarallax.min.js"></script>
+      <script src="../static/assets/home/js/jarallax-video.min.js"></script>
+      <script src="../static/assets/home/js/default/cookiealert.js"></script>
+      <script src="../static/assets/home/js/default/jquery.passwordstrength.js"></script>
+      <script src="../static/assets/home/js/default/mail.js"></script>
+      <script src="../static/assets/home/js/default/active.js"></script>
+   </body>
 </html>

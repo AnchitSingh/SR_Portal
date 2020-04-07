@@ -17,10 +17,14 @@
                       {% with messages = get_flashed_messages(with_categories=true) %}
                           {% if messages %}
                             {% for category, message in messages %}
-                            <div id="mydivs" class="alert alert-with-icon alert-{{ category }}" role="alert" style="z-index: 100;width: 35%;position: absolute;left: 65%;">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              {{ message }}
-                              </div>
+                            <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                              <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <i data-notify="icon" class="material-icons">notifications</i>
+                              <span data-notify="title"></span> 
+                              <span data-notify="message">{{ message }}</span>
+                            </div>
                             {% endfor %}
                           {% endif %}
                         {% endwith %}
@@ -38,14 +42,15 @@
                                   </tr>
                                 </thead>
                                 <tbody id="myTable">
-
                                   <tr class="row100 body">
                                     <td class="cell100 column1" >
                                       <div style="height: 80px;overflow: auto;width: 100%;padding-top: 15%;color: rgb(213, 48, 224);">
-                                      {{cand['Application Ref. No.']}}
+                                      {{cand[0]}}
+                                     
                                       </div>
                                     </td>
                                   </tr>
+                                  
                                   
                                 </tbody>
                               </table>
@@ -54,279 +59,42 @@
                             <div  class="wrap-table100-nextcols js-pscroll">
                               <div class="table100-nextcols">
                                 <table style="margin-left: -310px;">
-                                  <thead >
-                                    
-                                    <tr class="row100 head" style="height: 32px;">
+                                  <thead>
                                       
-                                        <th class="cell100 column8">Application</TH>
-                                        <th class="cell100 column8">View</TH>
-                                        <th class="cell100 column8">Submission Date</TH>
-                                        <th class="cell100 column8">Payment Status</TH>
-                                        <th class="cell100 column8">Fee</TH>
-                                        <th class="cell100 column8">Payment Date</TH>
-                                        <th class="cell100 column8">Name</TH>
-                                        <th class="cell100 column8">Gender</TH>
-                                        <th class="cell100 column8">DOB</TH>
-                                        <th class="cell100 column8">Nationality</TH>
-                                        <th class="cell100 column8">Category</TH>
-                                        <th class="cell100 column8">PwD?</TH>
-                                        <th class="cell100 column8">Marital Status</TH>
-                                        <th class="cell100 column8">Email</TH>
-                                        <th class="cell100 column8">Alt. Email</TH>
-                                        <th class="cell100 column8">Mobile</TH>
-                                        <th class="cell100 column8">Father&#39;s Name</TH>
-                                        <th class="cell100 column8">Mother&#39;s Name</TH>
-                                        <th class="cell100 column8">Parent Email Id</TH>
-                                        <th class="cell100 column8">Aadhaar Number</TH>
-                                        <th class="cell100 column8">Permanent Address</TH>
-                                        <th class="cell100 column8">DegreeStatus</TH>
-                                        <th class="cell100 column8">Programme</TH>
-                                        <th class="cell100 column8">Department</TH>
-                                        <th class="cell100 column8">Preference 1</TH>
-                                        <th class="cell100 column8">Preference 2</TH>
-                                        <th class="cell100 column8">Preference 3</TH>
-                                        <th class="cell100 column8">Phd area of research</TH>
-                                        <th class="cell100 column8">Institute Assistantship</TH>
-                                        <th class="cell100 column8">Finance Method</TH>
-                                        <th class="cell100 column8">Finance Details</TH>
-                                        <th class="cell100 column8">GATE 2019 Reg ID</TH>
-                                        <th class="cell100 column8">GATE 2019 Discipline</TH>
-                                        <th class="cell100 column8">GATE 2019 Score</TH>
-                                        <th class="cell100 column8">GATE 2019 Rank</TH>
-                                        <th class="cell100 column8">GATE 2018 Reg ID</TH>
-                                        <th class="cell100 column8">GATE 2018 Discipline</TH>
-                                        <th class="cell100 column8">GATE 2018 Score</TH>
-                                        <th class="cell100 column8">GATE 2018 Rank</TH>
-                                        <th class="cell100 column8">GATE 2017 Reg ID</TH>
-                                        <th class="cell100 column8">GATE 2017 Discipline</TH>
-                                        <th class="cell100 column8">GATE 2017 Score</TH>
-                                        <th class="cell100 column8">GATE 2017 Rank</TH>
-                                        <th class="cell100 column8">Other 1 Roll No./ Reg ID</TH>
-                                        <th class="cell100 column8">Other 1 Score</TH>
-                                        <th class="cell100 column8">Other 1 Max Score</TH>
-                                        <th class="cell100 column8">Other 1 Valid Upto</TH>
-                                        <th class="cell100 column8">Other 1 Test Name</TH>
-                                        <th class="cell100 column8">Other 1 Test Year</TH>
-                                        <th class="cell100 column8">Other 1 Discipline</TH>
-                                        <th class="cell100 column8">Other 1 Rank</TH>
-                                        <th class="cell100 column8">Percentile</TH>
-                                        <th class="cell100 column8">Quantitative Aptitude Percentile</TH>
-                                        <th class="cell100 column8">Data Integration &amp; Logical Reasoning Percentile</TH>
-                                        <th class="cell100 column8">Verbal &amp; Reading Comprehension Percentile</TH>
-                                        <th class="cell100 column8">Other 2 Roll No./ Reg ID</TH>
-                                        <th class="cell100 column8">Other 2 Score</TH>
-                                        <th class="cell100 column8">Other 2 Max Score</TH>
-                                        <th class="cell100 column8">Other 2 Valid Upto</TH>
-                                        <th class="cell100 column8">Other 2 Test Name</TH>
-                                        <th class="cell100 column8">Other 2 Test Year</TH>
-                                        <th class="cell100 column8">Other 2 Discipline</TH>
-                                        <th class="cell100 column8">Other 2 Rank</TH>
-                                        <th class="cell100 column8">Qualifying Degree</TH>
-                                        <th class="cell100 column8">Qualifying Discipline</TH>
-                                        <th class="cell100 column8">University Name</TH>
-                                        <th class="cell100 column8">University City</TH>
-                                        <th class="cell100 column8">University Country</TH>
-                                        <th class="cell100 column8">Institute Name</TH>
-                                        <th class="cell100 column8">Year of Admission</TH>
-                                        <th class="cell100 column8">Year of Completion</TH>
-                                        <th class="cell100 column8">Duration</TH>
-                                        <th class="cell100 column8">Status</TH>
-                                        <th class="cell100 column8">Rank</TH>
-                                        <th class="cell100 column8">Evaluation Pattern</TH>
-                                        <th class="cell100 column8">Evaluation Method</TH>
-                                        <th class="cell100 column8">Marks Obtained</TH>
-                                        <th class="cell100 column8">Maximum Marks</TH>
-                                        <th class="cell100 column8">Percentage</TH>
-                                        <th class="cell100 column8">Total Experience</TH>
-                                        <th class="cell100 column8">Experience 1 Organization</TH>
-                                        <th class="cell100 column8">Experience 1 Designation</TH>
-                                        <th class="cell100 column8">Experience 1 From</TH>
-                                        <th class="cell100 column8">Experience 1 To</TH>
-                                        <th class="cell100 column8">Experience 1 Roles &amp; Responsibility</TH>
-                                        <th class="cell100 column8">Experience 1 Total Pay</TH>
-                                        <th class="cell100 column8">No. of Papers</TH>
-                                        <th class="cell100 column8">No. of Papers in Conference</TH>
-                                        <th class="cell100 column8">No. of Papers in Conf Not published</TH>
-                                        <th class="cell100 column8">No. of Book Chapters</TH>
-                                        <th class="cell100 column8">Referee 1 Name</TH>
-                                        <th class="cell100 column8">Referee 1 Organization</TH>
-                                        <th class="cell100 column8">Referee 1 Email</TH>
-                                        <th class="cell100 column8">Referee 1 Phone</TH>
-                                        <th class="cell100 column8">Referee 1 Address</TH>
-                                        <th class="cell100 column8">Referee 2 Name</TH>
-                                        <th class="cell100 column8">Referee 2 Organization</TH>
-                                        <th class="cell100 column8">Referee 2 Email</TH>
-                                        <th class="cell100 column8">Referee 2 Phone</TH>
-                                        <th class="cell100 column8">Referee 2 Address</TH>
-                                        <th class="cell100 column8">PE 1 Degree</TH>
-                                        <th class="cell100 column8">PE 1 Year</TH>
-                                        <th class="cell100 column8">PE 1 Board / University</TH>
-                                        <th class="cell100 column8">PE 1 Subjects</TH>
-                                        <th class="cell100 column8">PE 1 Score</TH>
-                                        <th class="cell100 column8">PE 1 Max Score</TH>
-                                        <th class="cell100 column8">PE 1 Percentage</TH>
-                                        <th class="cell100 column8">PE 1 Rank</TH>
-                                        <th class="cell100 column8">PE 2 Degree</TH>
-                                        <th class="cell100 column8">PE 2 Year</TH>
-                                        <th class="cell100 column8">PE 2 Board / University</TH>
-                                        <th class="cell100 column8">PE 2 Subjects</TH>
-                                        <th class="cell100 column8">PE 2 Score</TH>
-                                        <th class="cell100 column8">PE 2 Max Score</TH>
-                                        <th class="cell100 column8">PE 2 Percentage</TH>
-                                        <th class="cell100 column8">PE 2 Rank</TH>
-                                        <th class="cell100 column8">PE 3 Degree</TH>
-                                        <th class="cell100 column8">PE 3 Year</TH>
-                                        <th class="cell100 column8">PE 3 Board / University</TH>
-                                        <th class="cell100 column8">PE 3 Subjects</TH>
-                                        <th class="cell100 column8">PE 3 Score</TH>
-                                        <th class="cell100 column8">PE 3 Max Score</TH>
-                                        <th class="cell100 column8">PE 3 Percentage</TH>
-                                        <th class="cell100 column8">PE 3 Rank</TH>
+                                    <tr class="row100 head">
+                                        {% for col in t%}
+                                        {% if col[1]=='alloc_status' or col[1]=='Tutor1' or col[1]=='Tutor2' or col[1]=='Submission1' or col[1]=='Submission2' or col[1]=='Validation' or col[1]=='Comment1' or col[1]=='Reject_Reason'  or col[1]=='Comment2' or col[1]=='Application Ref. No.' or   col[1]=='ft2' or col[1]=='ft1'  or  col[1]=='st2' or col[1]=='st1' or  col[1]=='tt2' or col[1]=='tt1' %}
+                                          <th class="cell100 column8" style="display: none;">{{ col[1]}} </TH>
+                                        {%else%}
+                                        <th class="cell100 column8">{{ col[1]}} </TH>
+                                          {% endif %}
+                                        {% endfor %} 
                                         <th class="cell100 column8">Verify</TH>
                                     </tr>
-                                    
                                   </thead>
+                                  
                                   <tbody id="myTable">
-                                    
-                                    
                                     <tr class="row100 body">
-                                      
-                                        <td class="cell100 column8">{{cand['Application Ref. No.']}}</td>
+                                      {% for i in range(length-1)%}
+                                      {% if  i==1 or i==2 or i==3 or i==4 or i==5 or i==6 or i==7 or i==8 or i==9 or i==10 or i==11 or i==12 or i==13 or i==14 or i==15 %}
                                         
-                                        <td class="cell100 column8">{{cand['View']}}</td>
-                                        <td class="cell100 column8">{{cand['Submission Date']}}</td>
-                                        <td class="cell100 column8">{{cand['Payment Status']}}</td>
-                                        <td class="cell100 column8">{{cand['Fee']}}</td>
-                                        <td class="cell100 column8">{{cand['Payment Date']}}</td>
-                                        <td class="cell100 column8">{{cand['Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Gender']}}</td>
-                                        <td class="cell100 column8">{{cand['DOB']}}</td>
-                                        <td class="cell100 column8">{{cand['Nationality']}}</td>
-                                        <td class="cell100 column8">{{cand['Category']}}</td>
-                                        <td class="cell100 column8">{{cand['PwD?']}}</td>
-                                        <td class="cell100 column8">{{cand['Marital Status']}}</td>
-                                        <td class="cell100 column8">{{cand['Email']}}</td>
-                                        <td class="cell100 column8">{{cand['Alt. Email']}}</td>
-                                        <td class="cell100 column8">{{cand['Mobile']}}</td>
-                                        <td class="cell100 column8">{{cand['Father&#39;s Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Mother&#39;s Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Parent Email Id']}}</td>
-                                        <td class="cell100 column8">{{cand['Aadhaar Number']}}</td>
-                                        <td class="cell100 column8">{{cand['Permanent Address']}}</td>
-                                        <td class="cell100 column8">{{cand['DegreeStatus']}}</td>
-                                        <td class="cell100 column8">{{cand['Programme']}}</td>
-                                        <td class="cell100 column8">{{cand['Department']}}</td>
-                                        <td class="cell100 column8">{{cand['Preference 1']}}</td>
-                                        <td class="cell100 column8">{{cand['Preference 2']}}</td>
-                                        <td class="cell100 column8">{{cand['Preference 3']}}</td>
-                                        <td class="cell100 column8"><div style="height: 80px;overflow: auto;width: 100%;">{{cand['Phd area of research']}}</div></td>
-                                        <td class="cell100 column8">{{cand['Institute Assistantship']}}</td>
-                                        <td class="cell100 column8">{{cand['Finance Method']}}</td>
-                                        <td class="cell100 column8">{{cand['Finance Details']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2019 Reg ID']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2019 Discipline']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2019 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2019 Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2018 Reg ID']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2018 Discipline']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2018 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2018 Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2017 Reg ID']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2017 Discipline']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2017 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['GATE 2017 Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Roll No./ Reg ID']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Max Score']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Valid Upto']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Test Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Test Year']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Discipline']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 1 Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['Percentile']}}</td>
-                                        <td class="cell100 column8">{{cand['Quantitative Aptitude Percentile']}}</td>
-                                        <td class="cell100 column8">{{cand['Data Integration &amp; Logical Reasoning Percentile']}}</td>
-                                        <td class="cell100 column8">{{cand['Verbal &amp; Reading Comprehension Percentile']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Roll No./ Reg ID']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Max Score']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Valid Upto']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Test Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Test Year']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Discipline']}}</td>
-                                        <td class="cell100 column8">{{cand['Other 2 Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['Qualifying Degree']}}</td>
-                                        <td class="cell100 column8">{{cand['Qualifying Discipline']}}</td>
-                                        <td class="cell100 column8">{{cand['University Name']}}</td>
-                                        <td class="cell100 column8">{{cand['University City']}}</td>
-                                        <td class="cell100 column8">{{cand['University Country']}}</td>
-                                        <td class="cell100 column8">{{cand['Institute Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Year of Admission']}}</td>
-                                        <td class="cell100 column8">{{cand['Year of Completion']}}</td>
-                                        <td class="cell100 column8">{{cand['Duration']}}</td>
-                                        <td class="cell100 column8">{{cand['Status']}}</td>
-                                        <td class="cell100 column8">{{cand['Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['Evaluation Pattern']}}</td>
-                                        <td class="cell100 column8">{{cand['Evaluation Method']}}</td>
-                                        <td class="cell100 column8">{{cand['Marks Obtained']}}</td>
-                                        <td class="cell100 column8">{{cand['Maximum Marks']}}</td>
-                                        <td class="cell100 column8">{{cand['Percentage']}}</td>
-                                        <td class="cell100 column8">{{cand['Total Experience']}}</td>
-                                        <td class="cell100 column8">{{cand['Experience 1 Organization']}}</td>
-                                        <td class="cell100 column8">{{cand['Experience 1 Designation']}}</td>
-                                        <td class="cell100 column8">{{cand['Experience 1 From']}}</td>
-                                        <td class="cell100 column8">{{cand['Experience 1 To']}}</td>
-                                        <td class="cell100 column8">{{cand['Experience 1 Roles &amp; Responsibility']}}</td>
-                                        <td class="cell100 column8">{{cand['Experience 1 Total Pay']}}</td>
-                                        <td class="cell100 column8">{{cand['No. of Papers']}}</td>
-                                        <td class="cell100 column8">{{cand['No. of Papers in Conference']}}</td>
-                                        <td class="cell100 column8">{{cand['No. of Papers in Conf Not published']}}</td>
-                                        <td class="cell100 column8">{{cand['No. of Book Chapters']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 1 Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 1 Organization']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 1 Email']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 1 Phone']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 1 Address']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 2 Name']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 2 Organization']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 2 Email']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 2 Phone']}}</td>
-                                        <td class="cell100 column8">{{cand['Referee 2 Address']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Degree']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Year']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Board / University']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Subjects']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Max Score']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Percentage']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 1 Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Degree']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Year']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Board / University']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Subjects']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Max Score']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Percentage']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 2 Rank']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Degree']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Year']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Board / University']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Subjects']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Score']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Max Score']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Percentage']}}</td>
-                                        <td class="cell100 column8">{{cand['PE 3 Rank']}}</td>
+                                        {% else %}
                                         <td class="cell100 column8">
-                                          
-                                          <a href="{{url_for('verify_mtech',application=cand['Application Ref. No.'])}}">
-                                            <button class="btn btn-primary">
-                                              Verify
-                                            </button>
-                                          </a>
+                                          <div style="height: 80px;overflow: auto;width: 100%;padding-top: 10%;">
+                                            {{cand[i]}}
+                                          </div>
                                         </td>
-                                    
+                                        {% endif %}
+
+                                      {% endfor %}
+                                      <td class="cell100 column8">
+                                        <a href="{{url_for('verify_mtech',application=cand[0])}}">
+                                          <button class="btn btn-primary">
+                                            Verify
+                                          </button>
+                                        </a>
+                                      </td>
                                     </tr>
-                                    
                                     
                                     
                                   </tbody>
@@ -341,14 +109,14 @@
                   
               </div>
           
-              <div class="row">
+              <div class="row" style="position: relative;">
                   <div class="col-md-6" style="width: 60%;">
                       <div class="card">
                         <div class="card-header">
                           <h4 class="card-title">PDF Viewer</h4>
                         </div>
                         <div class="card-content">
-                            <iframe src="../static/pdf/{{cand['Application Ref. No.']}}.pdf" style="width: 100%;height: 70vh;border: none;" frameborder="0"></iframe>
+                            <iframe src="../static/mtech/pdf/{{cand['Application Ref. No.']}}.pdf" style="width: 100%;height: 70vh;border: none;" frameborder="0"></iframe>
                         </div>
                         </div>
                   </div>
@@ -356,7 +124,7 @@
                   <div class="col-md-6" style="width: 40%;">
                       <div class="card">
                           <div class="card-header">
-                              <h4 class="card-title">Error Report</h4>
+                              <h4 class="card-title">Error Report from TA1</h4>
                           </div>
                           <div class="card-content">
                               <div class="row" style="height: 30vh;overflow: auto;">
@@ -364,7 +132,7 @@
                                   <div class="col-md-8">
                                       <div class="tab-content">
                                           <div class="tab-pane active" id="dashboard-2">
-                                            {{cand['Comment']}}
+                                            {{cand[5]}}
                                           </div>
                                           
                                       </div>
@@ -373,6 +141,51 @@
                           </div>
                       </div>
                   </div>
+                  <div class="col-md-6" style="width: 40%;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Error Report from TA2</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="row" style="height: 30vh;overflow: auto;">
+                                
+                                <div class="col-md-8">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="dashboard-2">
+                                          {{cand[9]}}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                  <div class="modal fade" id="smallAlertModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-large" style="width: 30%;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h5>Are you sure you want to reject? </h5>
+                            </div>
+                            <div class="modal-footer text-center">
+                            <form action="{{url_for('reject_mtech',application=cand[0])}}" method="POST">
+                              <textarea placeholder="Type the message"   style="width: 100%;font-size: large;"   rows="3" class="form-control" type="text" name="msg"></textarea>                 
+                              <button type="submit" class="btn btn-danger btn-simple">Notify TA</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <button data-toggle="modal" data-target="#smallAlertModal1" class="btn btn-lg btn-danger" style="position: relative;right: -9%;background: red;">Reject Application</button>
+                
+
               </div>
           
           
