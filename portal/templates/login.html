@@ -39,9 +39,6 @@
                                     <a href="{{url_for('home')}}">Home</a>
                                  </li>
                                  {% if current_user.is_authenticated %}
-                                 <li>
-                                    <a href="{{url_for('account')}}">Account</a>
-                                 </li>
                                  {% if current_user.is_admin == True or current_user.is_manager == True %}
                                  <li>
                                     <a href="{{url_for('dashboard')}}">Dashboard</a>
@@ -102,7 +99,6 @@
                               <h4>Login into account</h4>
                               <p class="mb-10">Use your credentials to access your account.</p>
                            </div>
-                           <link href="../static/assets/css/material-icon.css" rel="stylesheet">
                            {% with messages = get_flashed_messages(with_categories=true) %}
                            {% if messages %}
                            {% for category, message in messages %}

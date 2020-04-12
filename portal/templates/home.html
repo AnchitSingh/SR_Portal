@@ -40,9 +40,6 @@
                               <a href="{{url_for('home')}}">Home</a>
                            </li>
                            {% if current_user.is_authenticated %}
-                           <li>
-                              <a href="{{url_for('account')}}">Account</a>
-                           </li>
                            {% if current_user.is_admin == True or current_user.is_manager == True %}
                            <li>
                               <a href="{{url_for('dashboard')}}">Dashboard</a>

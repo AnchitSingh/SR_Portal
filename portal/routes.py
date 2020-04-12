@@ -16,7 +16,6 @@ import sqlite3
 from datetime import datetime ,date ,timedelta
 
 
-
 @app.before_request
 def before_request():
     if current_user.is_authenticated:
@@ -175,6 +174,7 @@ def allocate_phd():
             fillReport(report,current_user.username,datetime.now())
             return render_template('error.html',error=404)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -326,6 +326,7 @@ def allocate_mtech():
             fillReport(report,current_user.username,datetime.now())
             return render_template('error.html',error=404)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 @app.route("/mcsv", methods=['GET', 'POST'])
@@ -335,7 +336,7 @@ def mcsv():
         if current_user.is_admin == True:
             conn = sqlite3.connect('portal/site.db') 
             c = conn.cursor()
-            df=pd.read_csv('portal/mtech.csv')
+            df=pd.read_csv('portal/static/original-csv/mtech.csv')
             c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='mtech' ''')
             if c.fetchone()[0]==1 :
                 c.execute('''DROP TABLE mtech;''')
@@ -374,6 +375,7 @@ def mcsv():
         else:
             return render_template('error.html',error=404)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -385,7 +387,7 @@ def pcsv():
         if current_user.is_admin == True:
             conn = sqlite3.connect('portal/site.db') 
             c = conn.cursor()
-            df=pd.read_csv('portal/phd-10.csv')
+            df=pd.read_csv('portal/static/original-csv/phd-10.csv')
             c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='phd' ''')
             if c.fetchone()[0]==1 :
                 c.execute('''DROP TABLE phd;''')
@@ -424,6 +426,7 @@ def pcsv():
         else:
             return render_template('error.html',error=404)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -460,6 +463,7 @@ def violation():
         else:
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -486,6 +490,7 @@ def upload():
         else:
             return render_template('error.html',error=404)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -514,6 +519,7 @@ def reset_phd():
             flash('This incident will be reported ','danger')
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 @app.route("/reset_mtech", methods=['GET', 'POST'])
@@ -534,6 +540,7 @@ def reset_mtech():
             flash('This incident will be reported ','danger')
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -606,16 +613,6 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-
-@app.route("/account")
-@login_required
-def account():
-    if current_user.is_active == True:
-        image_file = url_for('static',filename='assets/img/faces/' + current_user.image_file)
-        return render_template('account.html', title='Account',image_file=image_file)
-    else:
-        return redirect(url_for('logout'))
-
 @app.route("/checkUser")
 @login_required
 def checkUser():
@@ -638,6 +635,7 @@ def checkUser():
         else:
             return redirect('workspace')
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -746,6 +744,7 @@ def dashboard():
         else:
             return render_template('error.html',error=404)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -789,6 +788,7 @@ def downloadpCsv():
         else:
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -822,6 +822,7 @@ def downloadmCsv():
         else:
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -843,6 +844,7 @@ def reset():
             flash('This incident will be reported ','danger')
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -853,6 +855,7 @@ def profile():
         image_file = url_for('static',filename='assets/img/faces/' + current_user.image_file)
         return render_template('profile.html', title='Profile',image_file=image_file)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -864,6 +867,7 @@ def workspace():
         image_file = url_for('static',filename='assets/img/faces/' + current_user.image_file)
         return render_template('workspace.html', title='WorkSpace',image_file=image_file,user=user)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -889,6 +893,7 @@ def phd():
         else:
             return render_template('phd_ta.html', title='Phd',user=user,image_file=image_file,phd=test,t=t,length=length)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -914,6 +919,7 @@ def mtech():
         else:
             return render_template('mtech_ta.html', title='M.TECH',user=user,image_file=image_file,mtech=test,t=t,length=length)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -925,6 +931,7 @@ def people():
         image_file = url_for('static',filename='assets/img/faces/' + current_user.image_file)
         return render_template('people.html',image_file=image_file,user=user,title='Members')
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 @app.route("/post/new", methods=['GET', 'POST'])
@@ -944,6 +951,7 @@ def new_post():
                 return redirect(url_for('new_post'))
         return render_template('announcements.html',image_file=image_file,user=user,title='Announcements',form=form,post=post)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 @app.route("/delete_post/<post_id>", methods=['POST','GET'])
@@ -966,6 +974,7 @@ def user(username):
         user = User.query.filter_by(username=username).first_or_404()
         return render_template('user.html', user=user,title='Users')
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -992,6 +1001,7 @@ def lab_phd(application):
                 else:
                     return render_template('lab_phd.html',image_file=image_file,title='Lab',cand=p,t=t,length=length)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 @app.route('/lab_mtech/<application>')
@@ -1017,6 +1027,7 @@ def lab_mtech(application):
                 else:
                     return render_template('lab_mtech.html',image_file=image_file,title='Lab',cand=p,t=t,length=length)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1047,6 +1058,7 @@ def ta_lab_phd(application):
                         conn.commit()
                 return render_template('ta_lab_phd.html',image_file=image_file,title='Lab',cand=p,t=t,length=length)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1069,6 +1081,7 @@ def ta_lab_mtech(application):
             if p[0]==application:
                 return render_template('ta_lab_mtech.html',image_file=image_file,title='Lab',cand=p,t=t,length=length)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1109,6 +1122,7 @@ def send_phd1(application):
         too(test)
         return redirect('phd')
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1184,6 +1198,7 @@ def send_phd2(application):
         too(test)
         return redirect('phd')
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1222,6 +1237,7 @@ def send_mtech1(application):
         too(test)
         return redirect('mtech')
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1259,6 +1275,7 @@ def send_mtech2(application):
         too(test)
         return redirect('mtech')
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1291,6 +1308,7 @@ def verify_phd(application):
             flash('This incident will be reported','danger')
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1322,6 +1340,7 @@ def verify_mtech(application):
             flash('This incident will be reported','danger')
             return render_template('error.html',error=403)
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1352,6 +1371,7 @@ def comment_phd1(application):
         too(test)
         return redirect(url_for('ta_lab_phd',application=application))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1381,6 +1401,7 @@ def comment_phd2(application):
         too(test)
         return redirect(url_for('ta_lab_phd',application=application))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1410,6 +1431,7 @@ def comment_mtech1(application):
         too(test)
         return redirect(url_for('ta_lab_mtech',application=application))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1439,38 +1461,63 @@ def comment_mtech2(application):
         too(test)
         return redirect(url_for('ta_lab_mtech',application=application))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
 
-# @app.route('/edit_phd/<application>', methods=['GET', 'POST'])
-# @login_required
-# def edit_phd(application):
-#     if current_user.is_active == True:
-#         conn = sqlite3.connect('portal/site.db') 
-#         c = conn.cursor()
-#         test=c.execute('''SELECT * FROM phd''').fetchall()  
-#         t=c.execute('''PRAGMA table_info('phd')''').fetchall()
-#         t.reverse() 
-#         test=[tup[::-1] for tup in test] 
-#         test = [list(ele) for ele in test]         
-#         def too(test):
-#             for p in test:
-#                 if p[0]==application:
-#                     if p[3] == current_user.username or p[2] == current_user.username:
-#                         c.execute('''update phd set  = "hi" "'''+request.form[t[1]]+'''" WHERE Application = "'''+application+'''";''')
-#                         conn.commit()
-#                         flash('Comment added successfully', 'info')
-#                         break
-#                     else:
-#                         report=str(current_user.username)+'  tried to add comment an unassigned file = '+str(application)
-#                         fillReport(report,current_user.username,datetime.now())
-#                         flash('This incident will be reported ','danger')
-#                         break
-#         too(test)
-#         return redirect(url_for('ta_lab_mtech',application=application))
-#     else:
-#         return redirect(url_for('logout'))
+@app.route('/edit_phd/<application>/<key>', methods=['GET', 'POST'])
+@login_required
+def edit_phd(application,key):
+    if current_user.is_active == True:
+        if current_user.is_manager==True or current_user.is_admin==True:
+            conn = sqlite3.connect('portal/site.db') 
+            c = conn.cursor()
+            test=c.execute('''SELECT * FROM phd''').fetchall()  
+            t=c.execute('''PRAGMA table_info('phd')''').fetchall()
+            t.reverse() 
+            test=[tup[::-1] for tup in test] 
+            test = [list(ele) for ele in test]         
+            def too(test):
+                var=key
+                c.execute("update phd set '"+var+"' = ? WHERE Application = ?",(request.form[var],application))
+                conn.commit() 
+                flash('Updated '+var,'success')        
+            too(test)
+            return redirect(url_for('lab_phd',application=application))
+        else:
+            report=str(current_user.username)+'  tried to submit an unassigned file = '+str(application)
+            fillReport(report,current_user.username,datetime.now())
+            flash('This incident will be reported ','danger')
+    else:
+        return redirect(url_for('logout'))
+
+
+@app.route('/edit_mtech/<application>/<key>', methods=['GET', 'POST'])
+@login_required
+def edit_mtech(application,key):
+    if current_user.is_active == True:
+        if current_user.is_manager==True or current_user.is_admin==True:
+            conn = sqlite3.connect('portal/site.db') 
+            c = conn.cursor()
+            test=c.execute('''SELECT * FROM mtech''').fetchall()  
+            t=c.execute('''PRAGMA table_info('mtech')''').fetchall()
+            t.reverse() 
+            test=[tup[::-1] for tup in test] 
+            test = [list(ele) for ele in test]         
+            def too(test):
+                var=key
+                c.execute("update mtech set '"+var+"' = ? WHERE Application = ?",(request.form[var],application))
+                conn.commit() 
+                flash('Updated '+var,'success')        
+            too(test)
+            return redirect(url_for('lab_mtech',application=application))
+        else:
+            report=str(current_user.username)+'  tried to submit an unassigned file = '+str(application)
+            fillReport(report,current_user.username,datetime.now())
+            flash('This incident will be reported ','danger')
+    else:
+        return redirect(url_for('logout'))
 
 
 
@@ -1500,6 +1547,7 @@ def reject_phd(application):
             too(test)
             return redirect(url_for('dashboard'))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 @app.route('/reject_mtech/<application>', methods=['GET', 'POST'])
@@ -1526,6 +1574,7 @@ def reject_mtech(application):
             too(test)
             return redirect(url_for('dashboard'))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 @app.route('/change_phd1/<application>', methods=['GET', 'POST'])
@@ -1553,6 +1602,7 @@ def change_phd1(application):
         too(test)
         return redirect(url_for('phd'))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1582,6 +1632,7 @@ def change_phd2(application):
         too(test)
         return redirect(url_for('phd'))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1610,6 +1661,7 @@ def change_mtech1(application):
         too(test)
         return redirect(url_for('mtech'))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
@@ -1639,6 +1691,7 @@ def change_mtech2(application):
         too(test)
         return redirect(url_for('mtech'))
     else:
+        flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
 
