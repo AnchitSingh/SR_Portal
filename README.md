@@ -57,9 +57,9 @@ Dillinger requires [Node.js](https://nodejs.org/) v4+ to run.
 Install the dependencies and devDependencies and start the server.
 
 ```sh
-$ cd dillinger
-$ npm install -d
-$ node app
+$ cd FlaskBeta
+$ pip3 install -r requirements.txt
+$ python3 app.py
 ```
 
 For production environments...
