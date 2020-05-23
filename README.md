@@ -1,16 +1,10 @@
-<p align="center">
-  <a href="https://edgedb.com"><img width="160px" src="logo.svg"></a>
-</p>
-
+## SR Portal
 
 SR Portal is an **open-source** object-relational database built on top of
 PostgreSQL. The goal of EdgeDB is to _empower_ its users to build safe
 and efficient software with less effort.
 
-EdgeDB features:
-
-
-![Alt text](/src/p1.png?raw=true "Optional Title")
+![Alt text](/src/p1.png?raw=true "SR Portal")
 
 ## Table of Contents
 
@@ -24,8 +18,7 @@ EdgeDB features:
 
 ## Installation
 
-- All the `code` required to get started
-- Images of what it should look like
+- This software requires python version>=3.8 .
 
 ### Clone
 
@@ -33,7 +26,7 @@ EdgeDB features:
 
 ### Setup
 
-- This software requires python version>=3.8:
+
 
 > update and install these package first
 
@@ -54,8 +47,7 @@ $ bower install
 
 ## Features
 
-- strict, strongly typed schema;
-- powerful and expressive query language;
+- supports automatic and manual allocation of files;
 - rich standard library;
 - built-in support for schema migrations;
 - native GraphQL support.
