@@ -1,15 +1,14 @@
+<p align="center">
+  <a href="https://edgedb.com"><img width="160px" src="logo.svg"></a>
+</p>
 
-# SR Portal
 
+SR Portal is an **open-source** object-relational database built on top of
+PostgreSQL. The goal of EdgeDB is to _empower_ its users to build safe
+and efficient software with less effort.
 
+EdgeDB features:
 
-> Subtitle or Short Description Goes Here
-
-> ideally one sentence
-
-> include terms/tags that can be searched
-
-***INSERT ANOTHER GRAPHIC HERE***
 
 ![Alt text](/src/p1.png?raw=true "Optional Title")
 
@@ -34,16 +33,15 @@
 
 ### Setup
 
-- If you want more syntax highlighting, format your code like this:
+- This software requires python version>=3.8:
 
-> update and install this package first
+> update and install these package first
 
 ```shell
-$ brew update
-$ brew install fvcproductions
+$ pip install -r requirements.txt
 ```
 
-> now install npm and bower packages
+> 
 
 ```shell
 $ npm install
@@ -55,9 +53,15 @@ $ bower install
 ---
 
 ## Features
+
+- strict, strongly typed schema;
+- powerful and expressive query language;
+- rich standard library;
+- built-in support for schema migrations;
+- native GraphQL support.
 ## Usage 
 ## Documentation
-
+- The EdgeDB documentation can be found at edgedb.com/docs.
 - Going into more detail on code and technologies used
 - I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
 
