@@ -37,11 +37,10 @@ $ pip install -r requirements.txt
 > 
 
 ```shell
-$ npm install
-$ bower install
+$ python3 flask_app.py
 ```
 
-- For all the possible languages that support syntax highlithing on GitHub (which is basically all of them), refer <a href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml" target="_blank">here</a>.
+- Click <a href="http://127.0.0.1:5000" target="_blank">here</a>.
 
 ---
 
@@ -53,7 +52,7 @@ $ bower install
 - native GraphQL support.
 ## Usage 
 ## Documentation
-- The EdgeDB documentation can be found at edgedb.com/docs.
+- The EdgeDB documentation can be found at .
 - Going into more detail on code and technologies used
 - I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
 
