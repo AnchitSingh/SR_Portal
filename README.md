@@ -52,9 +52,7 @@ $ python3 flask_app.py
 - native GraphQL support.
 ## Usage 
 ## Documentation
-- The EdgeDB documentation can be found at .
-- Going into more detail on code and technologies used
-- I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
+- You can view full documentation from  <a href="https://github.com/AnchitSingh/FlaskBeta/blob/master/SR_Portal.docx?raw=true" target="_blank">here</a>.
 
 ---
 
