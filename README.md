@@ -47,12 +47,14 @@ $ python3 flask_app.py
 
 ## Features
 
-- There are 3 types of role assignments- Admin, Manager, TA(Tutors).
-- Anyone can sign up for an account but he/she won't be able to login until Admin approves his/her account.
-- Admins and Managers can upload csv and pdf of students.
-- All the files can be allocated automatically, however there is an option for manual allocation too.
-- TAs can view only those files that are allocated to them.
-- There is an option to add new course.
+- Role Based Access Control.
+- Option for automatic and manual allocation of files to Tutors.
+- Any no. of new courses can be added besides Phd and MTech.
+- Files are cross verified by two tutors before submission to manager.
+- Only authorized person can have active account.
+- Contains common platform for making annoucements.
+- Cool and nice looking User Interface.
+- 32 bit hashed passwords
 ## Usage 
 ## Documentation
 - You can view full documentation from  <a href="https://github.com/AnchitSingh/FlaskBeta/blob/master/SR_Portal.docx?raw=true" target="_blank">here</a>.
