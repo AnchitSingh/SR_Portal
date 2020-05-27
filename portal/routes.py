@@ -397,7 +397,7 @@ def course():
         if current_user.is_admin==True or current_user.is_manager== True:
             new_course=request.form['ncourse']
             cdir(new_course)
-            return redirect(url_for('workspace'))
+            return redirect(url_for('add_course'))
         else:
             report=str(current_user.username)+'  tried to accessed unauthorized route -> Reset '
             fillReport(report,current_user.username,datetime.now())
