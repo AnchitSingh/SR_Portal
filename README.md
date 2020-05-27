@@ -1,8 +1,6 @@
 ## SR Portal
 
-SR Portal is an **open-source** object-relational database built on top of
-PostgreSQL. The goal of EdgeDB is to _empower_ its users to build safe
-and efficient software with less effort.
+SR Portal is an one step platform for verifications of huge and large no. of csv files and pdf.
 
 ![Alt text](/src/p1.png?raw=true "SR Portal")
 
@@ -22,7 +20,7 @@ and efficient software with less effort.
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/fvcproductions/SOMEREPO`
+- Clone this repo to your local machine using `https://github.com/AnchitSingh/FlaskBeta`
 
 ### Setup
 
