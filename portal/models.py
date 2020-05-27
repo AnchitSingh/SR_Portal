@@ -78,7 +78,7 @@ admin = Admin(app, template_mode='bootstrap3')
 class NotificationsView(BaseView):
     @expose('/')
     def index(self):
-        return redirect('dashboard')
+        return redirect(url_for('dashboard'))
 
 
 

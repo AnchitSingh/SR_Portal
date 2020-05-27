@@ -1,0 +1,210 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="../../static/assets/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/css/util.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/css/main.css">
+<div class="container-fluid">
+   {% with messages = get_flashed_messages(with_categories=true) %}
+   {% if messages %}
+   {% for category, message in messages %}
+   <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      <i data-notify="icon" class="material-icons">notifications</i>
+      <span data-notify="title"></span> 
+      <span data-notify="message">{{ message }}</span>
+   </div>
+   {% endfor %}
+   {% endif %}
+   {% endwith %}
+   <script type="text/javascript">
+      setTimeout(function() {
+        $('#mydivs').fadeOut('slow');
+      }, 2700);
+   </script>
+   <div class="header text-center">
+      <h3 class="title">{{ title }}</h3>
+      <p class="category">Click on Application No. to view document </p>
+      <button id="hidebtn"  class="btn btn-primary" onclick="myFunction()" >Enable viewer</button>
+   </div>
+   <div class="row">
+      <div class="col-md-12">
+         <div class="card">
+            <div class="card-header card-header-icon" data-background-color="green">
+               <i class="material-icons">&#xE894;</i>
+            </div>
+            <div class="card-content">
+               <h4 class="card-title">All files</h4>
+               <div class="row">
+                  <div id="tableBox" class="col-md-5" style="width: 100%;">
+                     <div  class="wrap-table100" style="width: 100%;height: 75vh;overflow-y: auto;">
+                        <div class="table100 ver1">
+                           <div class="table100-firstcol" style="width: 240px;">
+                              <table id="fixtable">
+                                 <thead>
+                                    <tr class="row100 head">
+                                       <th class="cell100 column1">
+                                          <div style="height: 38.5px;overflow: auto;width: 100%;">Application No.</div>
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody id="myTable">
+                                    {% for row in mtech%}
+                                    {% if mtech['Validation'] != 'Done'  and mtech['Submission'] != 'Done' %}
+                                    <tr class="row100 body">
+                                       <td class="cell100 column1">
+                                          <div style="height: 88px;overflow: auto;width: 100%;padding-top: 15%;">
+                                             <a  href="../../static/mtech/pdf/{{row[0]}}.pdf" target="mapframe">
+                                             {{row[0]}}
+                                             </a>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr class="row100 body">
+                                       <td class="cell100 column1">
+                                          <div style="height: 88px;overflow: auto;width: 100%;padding-top: 15%;">
+                                             <a style="color: orange;"  href="../../static/mtech/pdf/{{row[0]}}.pdf" target="mapframe">
+                                             {{row[0]}}
+                                             </a>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                 </tbody>
+                              </table>
+                           </div>
+                           <div class="wrap-table100-nextcols js-pscroll">
+                              <div class="table100-nextcols">
+                                 <table id="finaltab" style="margin-left: -310px;">
+                                    <thead>
+                                       <tr class="row100 head">
+                                          {% for col in t%}
+                                          {% if col[1]=='alloc_status' or col[1]=='Reject_Reason'  or  col[1]=='ft2' or col[1]=='ft1'  or  col[1]=='st2' or col[1]=='st1' or  col[1]=='tt2' or col[1]=='tt1' %}
+                                          {% elif  col[1]=='Tutor1'%}
+                                          <th style="text-align: center;" class="cell100 column8">Tutor 1</TH>
+                                          {% elif col[1]=='Tutor2' %}
+                                          <th style="text-align: center;" class="cell100 column8">Tutor 2</TH>
+                                          {% else %}
+                                          <th style="text-align: center;" class="cell100 column8">{{ col[1]}} </TH>
+                                          {% endif %}
+                                          {% endfor %} 
+                                       </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                       {% for row in mtech%}
+                                       <tr class="row100 body">
+                                          {% for i in range(0,length)%}
+                                          {% if i==1 or i==7 or i==10 or i==11 or i==12 or i==13  or i==14 or i==15 %}
+                                          {% elif i==2 %}
+                                          <td style="text-align: center;" class="cell100 column8">
+                                             <div style="max-height: 80px;width: 100%;">
+                                                <form action="{{url_for('mtechs.change_mtech2',application=row[0])}}" method="POST">
+                                                   <input  style="width: 100%;text-align: center;position: relative;"   value="{{row[2]}}" class="form-control" type="text" name="tutor2">
+                                                   <input  class="btn btn-success btn-sm" type="submit" value="change">
+                                                </form>
+                                             </div>
+                                          </td>
+                                          {% elif i==3 %}
+                                          <td style="text-align: center;" class="cell100 column8">
+                                             <div style="max-height: 80px;width: 100%;">
+                                                <form action="{{url_for('mtechs.change_mtech1',application=row[0])}}" method="POST">
+                                                   <input  style="width: 100%;text-align: center;position: relative;"   value="{{row[3]}}" class="form-control" type="text" name="tutor1">
+                                                   <input  class="btn btn-success btn-sm" type="submit" value="change">
+                                                </form>
+                                             </div>
+                                          </td>
+                                          {% else %}
+                                          <td style="text-align: center;" class="cell100 column8">
+                                             <div style="height: 80px;overflow: auto;width: 100%;padding-top: 10%;">
+                                                {{row[i]}}
+                                             </div>
+                                          </td>
+                                          {% endif %}
+                                          {% endfor %}
+                                       </tr>
+                                       {% endfor %}
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="myDIV" class="col-md-6" style="display: none;">
+                     <iframe name="mapframe" id="mapframe"  style="width: 100%; height: 75vh;" src="../../static/assets/test.html" frameborder="0"></iframe>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   function setURL(url){
+       document.getElementById('iframe').src = url;
+   }
+</script>
+<script>
+   $(document).ready(function() {
+       $(".state a").click(function(e) {
+           e.preventDefault();
+    
+           $("#mapframe").attr("src", $(this).attr("url"));
+       })
+   });
+</script>
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+   $('.js-pscroll').each(function(){
+       var ps = new PerfectScrollbar(this);
+   
+       $(window).on('resize', function(){
+           ps.update();
+       })
+   
+       $(this).on('ps-x-reach-start', function(){
+           $(this).parent().find('.table100-firstcol').removeClass('shadow-table100-firstcol');
+       });
+   
+       $(this).on('ps-scroll-x', function(){
+           $(this).parent().find('.table100-firstcol').addClass('shadow-table100-firstcol');
+       });
+   
+   });
+   
+   
+   
+   
+</script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+<script type="text/javascript">
+   function myFunction() {
+     var x = document.getElementById("myDIV");
+     var y = document.getElementById("tableBox");
+     var z = document.getElementById("hidebtn");
+     if (x.style.display === "none") {
+       x.style.display = "block";
+       y.style.width="50%";
+       z.innerHTML="Disable Viewer";
+     } else {
+       x.style.display = "none";
+       y.style.width="100%";
+       z.innerHTML="Enable Viewer";
+     }
+   }
+    
+</script>
+{% endblock content %}

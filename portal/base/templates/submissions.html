@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+   $(document).ready(function(){
+     $("#myInput").on("keyup", function() {
+       var value = $(this).val().toLowerCase();
+       $("#myTable tr").filter(function() {
+         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+       });
+     });
+   });
+</script>
+<div class="container-fluid">
+   {% with messages = get_flashed_messages(with_categories=true) %}
+   {% if messages %}
+   {% for category, message in messages %}
+   <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      <i data-notify="icon" class="material-icons">notifications</i>
+      <span data-notify="title"></span> 
+      <span data-notify="message">{{ message }}</span>
+   </div>
+   {% endfor %}
+   {% endif %}
+   {% endwith %}
+   <script type="text/javascript">
+      setTimeout(function() {
+        $('#mydivs').fadeOut('slow');
+      }, 2700);
+   </script>
+   <div class="header text-center">
+      <h3 class="title">Dashboard</h3>
+      <p class="category">All submissions will appear here</p>
+   </div>
+   
+   <div class="row">
+      <div class="col-md-12">
+         <div class="card" >
+            <div class="card-header card-header-icon" data-background-color="rose">
+               <i class="material-icons">assignment</i>
+            </div>
+            <div class="card-content" >
+               <h4 id="subtour" class="card-title">All Submissions</h4>
+               <div class="table-responsive" style="max-height:50vh;overflow: auto;">
+                  <table id="myTable" class="table">
+                     <thead>
+                        <tr>
+                           <th class="text-center">#</th>
+                           <th>Application</th>
+                           <th>Tutor1</th>
+                           <th>Tutor2</th>
+                           <th class="text-center">Type</th>
+                           <th class="text-center">View</th>
+                        </tr>
+                     </thead>
+                     <div style="display: none;">
+                        <tbody>
+    {% for phd in phd%}
+    {% if  current_user.is_admin==True or current_user.is_manager == True%}
+    {% if phd[4] == 'Done' and phd[8] == 'Done' %}
+    <tr>
+       <td class="text-center">&bull;</td>
+       <td>
+          <h4>{{phd[0]}}</h4>
+       </td>
+       {% if phd[14] < 300 %}
+       <td style="color:red;">
+          <button type="button" style="background-color: transparent;border: none;" data-toggle="popover" title="Early Submission" data-content="{{phd[3]}} has submitted file within 5 minutes.Thus file might not been checked properly.">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{phd[3]}}
+          </button>
+       </td>
+       {% else %}
+       <td>{{phd[3]}}</td>
+       {% endif %}
+       {% if phd[15] < 300%}
+       <td style="color:red;">
+          <button type="button" style="background-color: transparent;border: none;" data-toggle="popover" title="Early Submission" data-content="{{phd[2]}} has submitted file within 5 minutes.Thus file might not been checked properly.">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{phd[2]}}
+          </button>
+       </td>
+       {% else %}
+       <td>{{phd[2]}}</td>
+       {% endif %}
+       <td class="text-center">phd</td>
+       <td class=" text-center">
+          {% if phd[6] != 'Done' %}
+          <a href="{{url_for('phds.lab_phd',application=phd[0])}}">
+          <button class="btn btn-primary btn-sm">
+          Verify
+          </button>
+          </a>
+          {% else %}
+          <a href="{{url_for('phds.lab_phd',application=phd[0])}}">
+          <button style="background-image: linear-gradient(#ffa726, #fb8c00);" class="btn btn-sm">
+          Verified
+          </button>
+          </a>
+          {% endif %}
+       </td>
+    </tr>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+</tbody>
+</div>
+</table>
+</div>
+</div>
+</div>
+</div>
+   </div>
+  
+</div>
+<script>
+$(document).ready(function(){
+$('[data-toggle="popover"]').popover({
+placement : 'top',
+trigger: 'hover'
+});
+});
+</script>
+ {% endblock content %}
