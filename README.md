@@ -37,10 +37,7 @@ $ pip install -r requirements.txt
 ```shell
 $ python3 flask_app.py
 ```
-- For first time use when no admin account exits go to <a href="http://127.0.0.1:5000/admin_register/180085180200" target="_blank">Admin Registration</a> page.
-- This link is accessible only if no admin account exists. 
-- Click <a href="http://127.0.0.1:5000" target="_blank">here</a>.
-
+- Click <a href="http://127.0.0.1:5000" target="_blank">here</a>
 ---
 
 ## Features
@@ -48,12 +45,18 @@ $ python3 flask_app.py
 - Role Based Access Control.
 - Option for automatic and manual allocation of files to Tutors.
 - Any no. of new courses can be added besides Phd and MTech.
+- Feature to track how much time did Tutor spent on each document.
 - Files are cross verified by two tutors before submission to manager.
 - Only authorized person can have active account.
 - Contains common platform for making annoucements.
 - Cool and nice looking User Interface.
 - 32 bit hashed passwords
 ## Usage 
+- For first time use when no admin account exits go to <a href="http://127.0.0.1:5000/admin_register/180085180200" target="_blank">Admin Registration</a> page.
+- Above link is accessible only if no admin account exists. 
+- In the Upload section upload csv file with name as <course name>.csv (eg: phd.csv,mtech.csv ,btech.csv), then click on create database button and upload pdf files.
+
+
 ## Documentation
 - You can view full documentation from  <a href="https://github.com/AnchitSingh/FlaskBeta/blob/master/SR_Portal.docx?raw=true" target="_blank">here</a>.
 
