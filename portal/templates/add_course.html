@@ -53,12 +53,21 @@
                                                     </span>
                                                     <div class="form-group label-floating is-empty">
                                                       <label class="control-label">Course Name <small>(required)</small></label>
-                                                      <input name="ncourse" type="text" class="form-control">
+                                                      <input name="ncourse" type="text" class="form-control" onkeypress="return AvoidSpace(event)">
                                                       <input class="btn btn-rose btn-lg" type="submit" value="Add">
                                                     <span class="material-input"></span></div>
                                                 </div>
             
-                                                
+                                                <script type="text/javascript">
+                                                        function AvoidSpace(event) {
+                                                            var k = event ? event.which : window.event.keyCode;
+                                                            if (k <= 47|| (k>=58 && k<=64) || (k>=91 && k<=96)|| k>=123 ) 
+                                                                return false;
+                                                            
+                                                                }
+
+
+                                                </script>
                                             </div>
                                             
                                         </div>

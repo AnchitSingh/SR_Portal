@@ -259,11 +259,14 @@ def downloadphdCsv():
         if current_user.is_admin == True or current_user.is_manager==True:
             conn = sqlite3.connect('portal/site.db') 
             c = conn.cursor()
-            db_df=pd.read_sql_query("SELECT * FROM phd", conn)
-            db_df=db_df.drop('alloc_status',1)
-            db_df=db_df.drop('Submission1',1)
-            db_df=db_df.drop('Submission2',1)
-            db_df=db_df.drop('Comment2',1)
+            if 'alloc_status' in db_df.columns:
+                db_df=db_df.drop('alloc_status',1)
+            if 'Submission1' in db_df.columns:
+                db_df=db_df.drop('Submission1',1)
+            if 'Submission2' in db_df.columns:
+                db_df=db_df.drop('Submission2',1)
+            if 'Comment2' in db_df.columns:
+                db_df=db_df.drop('Comment2',1)
             if 'st1' in db_df.columns:
                 db_df=db_df.drop('st1',1)
             if 'ft1' in db_df.columns:
@@ -276,12 +279,18 @@ def downloadphdCsv():
                 db_df=db_df.drop('tt1',1)
             if 'tt2' in db_df.columns:
                 db_df=db_df.drop('tt2',1)
-            db_df=db_df.drop('Reject_Reason',1)
-            db_df=db_df.drop('Validation',1)
-            db_df=db_df.drop('Application',1)
-            db_df=db_df.drop('Comment1',1)
-            db_df=db_df.drop('Tutor1',1)
-            db_df=db_df.drop('Tutor2',1)
+            if 'Reject_Reason' in db_df.columns:
+                db_df=db_df.drop('Reject_Reason',1)
+            if 'Validation' in db_df.columns:
+                db_df=db_df.drop('Validation',1)
+            if 'Application' in db_df.columns:
+                db_df=db_df.drop('Application',1)
+            if 'Comment1' in db_df.columns:
+                db_df=db_df.drop('Comment1',1)
+            if 'Tutor1' in db_df.columns:
+                db_df=db_df.drop('Tutor1',1)
+            if 'Tutor2' in db_df.columns:
+                db_df=db_df.drop('Tutor2',1)
             db_df.to_csv('portal/static/Updated-CSV/Updated-phd.csv', index=False)
             p="static/Updated-CSV/Updated-phd.csv"
             conn.close()
