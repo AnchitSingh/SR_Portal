@@ -6,10 +6,9 @@ SR Portal is an one step platform for verifications of huge and large no. of csv
 
 ## Table of Contents
 
-> If your `README` has a lot of info, section headers might be nice.
-
 - [Installation](#installation)
 - [Features](#features)
+- [Usage](#usage)
 - [License](#license)
 
 
@@ -20,7 +19,7 @@ SR Portal is an one step platform for verifications of huge and large no. of csv
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/AnchitSingh/FlaskBeta`
+- Clone this repo to your local machine using `https://github.com/AnchitSingh/FlaskBeta.git`
 
 ### Setup
 
