@@ -2,7 +2,7 @@
 
 SR Portal is an one step platform for verifications of huge and large no. of csv files and pdf.
 
-![Alt text](/screenshots/p1.png?raw=true "SR Portal")
+![Alt text](/screenshots/p9.png?raw=true "SR Portal")
 
 ## Table of Contents
 
