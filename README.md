@@ -20,7 +20,7 @@ SR Portal is an one stop platform for verifications of huge and large no. of csv
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/AnchitSingh/FlaskBeta.git`
+- Clone this repo to your local machine using `https://github.com/AnchitSingh/SR-Protal.git`
 
 ### Setup
 
