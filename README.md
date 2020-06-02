@@ -9,6 +9,7 @@ SR Portal is an one step platform for verifications of huge and large no. of csv
 - [Installation](#installation)
 - [Features](#features)
 - [Usage](#usage)
+- [Screenshots](#screen)
 - [License](#license)
 
 
@@ -60,6 +61,9 @@ $ python3 flask_app.py
 - You can view full documentation from  <a href="https://github.com/AnchitSingh/FlaskBeta/blob/master/SR_Portal.docx?raw=true" target="_blank">here</a>.
 
 ---
+## Screenshots
+-Teaching Assistant verification window:
+![Alt text](/screenshots/p1.png?raw=true "SR Portal")
 
 
 ## License
