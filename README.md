@@ -63,7 +63,7 @@ $ python3 flask_app.py
 ---
 ## Screenshots
 -Teaching Assistant verification window:
-![Alt text](/screenshots/Screenshot from 2020-06-01 18-51-07.png?raw=true "SR Portal")
+![Alt text](/screenshots/p6.png?raw=true "SR Portal")
 
 
 ## License
