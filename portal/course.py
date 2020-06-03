@@ -7,6 +7,11 @@ from flask import flash
 def cdir(var):
     directory = "portal/extra_courses/"+str(var)
     directory2 = "portal/"+str(var)
+    directory3 = "portal/extra_courses"
+    if os.path.exists(directory3):
+        pass
+    else:
+        os.mkdir(directory3)
     if os.path.exists(directory):
         flash('Course already exists','danger')
     elif os.path.exists(directory2):
