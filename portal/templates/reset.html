@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+{% block content %}
+        <div class="container-fluid">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category, message in messages %}
+          <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+             <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+             <span aria-hidden="true">&times;</span>
+             </button>
+             <i data-notify="icon" class="material-icons">notifications</i>
+             <span data-notify="title"></span> 
+             <span data-notify="message">{{ message }}</span>
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+          <script type="text/javascript">
+            setTimeout(function() {
+              $('#mydivs').fadeOut('slow');
+            }, 2700);
+         </script>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-lg-6">
+                        <div class="card card-pricing card-raised">
+                            <div class="content">
+                                <h4 class="card-title">Phd Database</h4>
+                                <div class="icon icon-rose">
+                                  <span class="material-icons">
+                                    delete_sweep
+                                    </span>
+                                </div>
+                                <h3 class="card-title">DANGER</h3>
+                                <p class="card-description">
+                                  Once deleted it can't be reverted back
+                                </p>
+                                <a href="{{url_for('phds.reset_phd')}}" class="btn btn-rose btn-round">Reset Phd</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="card card-pricing card-raised">
+                          <div class="content">
+                            <h4 class="card-title">Mtech Database</h4>
+                              <div class="icon icon-rose">
+                                <span class="material-icons">
+                                  delete_sweep
+                                  </span>
+                              </div>
+                              <h3 class="card-title">DANGER</h3>
+                              <p class="card-description">
+                                Once deleted it can't be reverted back
+                              </p>
+                              <a href="{{url_for('mtechs.reset_mtech')}}" class="btn btn-rose btn-round">Reset Mtech</a>
+                          </div>
+                      </div>
+                    </div>
+                    
+                    {% include 'resetadd.html' %}
+
+      </div>
+      <div class="col-md-12" style="width: 50%;">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="orange">
+              <span class="material-icons">
+                score
+                </span>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Violations</h4>
+      <div style="height: 60vh; overflow: auto;" >
+        
+          <ul class="timeline timeline-simple">
+           {% for v in violations %}
+          <li class="timeline-inverted">
+            {% if v[0]%3 ==1 %}
+              <div class="timeline-badge danger">
+                <i class="fas fa-biohazard"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <span class="label label-danger">{{v[2]}}</span>
+              </div>
+            {% elif v[0]%3 ==2  %}
+            <div class="timeline-badge success">
+              <i class="fas fa-user-secret"></i>
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <span class="label label-success">{{v[2]}}</span>
+            </div>
+            {% else %}
+            <div class="timeline-badge info">
+              <i class="fas fa-bomb"></i>
+          </div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <span class="label label-info">{{v[2]}}</span>
+            </div>
+            {% endif %}
+            
+                <div class="timeline-body">
+                  <p> {{v[1]}} </p>
+                </div>
+            <h6 id="demo">
+              <i class="ti-time"></i>
+              {{ v[3][10:19]}}
+            </h6>
+            
+            </div>
+          </li>
+          {% endfor %}
+          
+      </ul>
+      </div>
+            </div>
+      </div>
+      </div>
+  </div>
+    <a href="{{url_for('dcourse')}}"><button class="btn btn-lg" style="position: relative;left: 52%;">Delete Extra Courses</button></a>
+            </div>
+            {% endblock content %}

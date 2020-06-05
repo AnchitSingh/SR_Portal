@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block content %}
+
+        <div class="container-fluid"> 
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                  <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <i data-notify="icon" class="material-icons">notifications</i>
+                  <span data-notify="title"></span> 
+                  <span data-notify="message">{{ message }}</span>
+                </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            <script>
+                setTimeout(function() {
+                  $('#mydivs').fadeOut('slow');
+              }, 2000);
+              </script>
+                <div class="col-sm-8 col-sm-offset-2">
+                    <!--      Wizard container        -->
+                    <div class="wizard-container">
+                        <div class="card wizard-card active" data-color="rose" id="wizardProfile">
+                            <form action="{{url_for('course')}}" method="POST" novalidate="novalidate">
+                        <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+            
+                                <div class="wizard-header">
+                                    <h3 class="wizard-title">
+                                       Add New Course
+                                    </h3>
+                                    <h5>Make sure there is atleast one column with name "Application Ref. No."</h5>
+                                </div>
+                                <div class="wizard-navigation">
+                                    <ul class="nav nav-pills">
+                                        <li class="active" style="width: 33.3333%;"><a href="#about" data-toggle="tab" aria-expanded="true">About</a></li>
+                                        
+                                    </ul>
+                                <div class="moving-tab" style="width: 203.588px; transform: translate3d(-8px, 0px, 0px); transition: transform 0s ease 0s;">About</div></div>
+            
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="about">
+                                      <div class="row">
+                                            <h4 class="info-text"> Let's start with the basic information (with validation)</h4>
+                                            
+                                            <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="material-icons">face</i>
+                                                    </span>
+                                                    <div class="form-group label-floating is-empty">
+                                                      <label class="control-label">Course Name <small>(required)</small></label>
+                                                      <input name="ncourse" type="text" class="form-control" onkeypress="return AvoidSpace(event)">
+                                                      <input class="btn btn-rose btn-lg" type="submit" value="Add">
+                                                    <span class="material-input"></span></div>
+                                                </div>
+            
+                                                <script type="text/javascript">
+                                                        function AvoidSpace(event) {
+                                                            var k = event ? event.which : window.event.keyCode;
+                                                            if (k <= 47|| (k>=58 && k<=64) || (k>=91 && k<=96)|| k>=123 ) 
+                                                                return false;
+                                                            
+                                                                }
+
+
+                                                </script>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="wizard-footer">
+                                   
+                                </div>
+                            </form>
+                        </div>
+                    </div> <!-- wizard container -->
+                </div>
+        </div>
+{% endblock content %}

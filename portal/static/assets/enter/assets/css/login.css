@@ -1,0 +1,135 @@
+body {
+  font-family: "Karla", sans-serif;
+  background-color: #fff;
+  min-height: 100vh; }
+  @media (max-width: 767px) {
+    body {
+      padding-top: 16px;
+      padding-bottom: 16px; } }
+
+.brand-wrapper {
+  padding-top: 7px;
+  padding-bottom: 8px;
+  margin-bottom: 7px; }
+  .brand-wrapper .logo {
+    height: 25px; }
+
+.login-wrapper {
+  width: 370px;
+  max-width: 100%;
+  padding: 34px;
+  border-radius: 8px;
+  border: 0;
+  background-color: #fff; }
+  .login-wrapper .form-control {
+    border: none;
+    padding: 16px 18px;
+    border-radius: 0;
+    min-height: 48px;
+    font-size: 14px;
+    font-weight: normal;
+    background-color: transparent; }
+    .login-wrapper .form-control::-webkit-input-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control::-moz-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control:-ms-input-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control::-ms-input-placeholder {
+      color: #b0adad; }
+    .login-wrapper .form-control::placeholder {
+      color: #b0adad; }
+  .login-wrapper .input-group {
+    margin-bottom: 18px;
+    border-radius: 24px;
+    border: solid 1px #f5f5f5; }
+    .login-wrapper .input-group .input-group-prepend {
+      margin-right: 0; }
+      .login-wrapper .input-group .input-group-prepend .input-group-text {
+        border: 0;
+        background-color: transparent;
+        padding-left: 27px;
+        color: #000; }
+      .login-wrapper .input-group .input-group-prepend + .form-control {
+        padding-left: 5px;
+        border-top-right-radius: 24px;
+        border-bottom-right-radius: 24px; }
+  .login-wrapper .login-btn {
+    padding: 13px 20px;
+    background-color: #ff4600;
+    border-radius: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 32px; }
+    .login-wrapper .login-btn:hover {
+      border: 1px solid #ff4600;
+      background-color: #fff;
+      color: #ff4600; }
+  .login-wrapper-footer-text {
+    font-size: 13px;
+    color: #000;
+    text-align: center;
+    margin-bottom: 32px; }
+  .login-wrapper .social-links {
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px; }
+    .login-wrapper .social-links a {
+      display: inline-block;
+      font-size: 20px;
+      color: #000; }
+      .login-wrapper .social-links a + a {
+        margin-left: 10px; }
+
+.login-description {
+  font-size: 20px;
+  color: #000;
+  font-weight: normal;
+  margin-bottom: 32px; }
+
+.login-img {
+  width: 100%;
+  height: 100vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: left;
+     object-position: left; }
+
+.login-check-box {
+  padding-left: 34px; }
+  @media (max-width: 767px) {
+    .login-check-box {
+      margin-bottom: 10px; } }
+  .login-check-box .custom-control-label::before {
+    width: 24px;
+    height: 21px;
+    border: solid 1px #f5f5f5;
+    left: -34px;
+    top: 0px; }
+  .login-check-box .custom-control-label::after {
+    left: -34px;
+    width: 24px;
+    height: 21px;
+    top: 0; }
+
+.form-options-wrapper {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #000; }
+  .form-options-wrapper a.forgot-password-link {
+    color: #ff4600; }
+    .form-options-wrapper a.forgot-password-link:hover {
+      text-decoration: none; }
+  @media (max-width: 576px) {
+    .form-options-wrapper {
+      display: block; } }
+
+/*# sourceMappingURL=login.css.map */

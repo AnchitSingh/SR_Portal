@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+          <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <i data-notify="icon" class="material-icons">notifications</i>
+          <span data-notify="title"></span> 
+          <span data-notify="message">{{ message }}</span>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <script>
+      setTimeout(function() {
+        $('#mydivs').fadeOut('slow');
+    }, 2000);
+    </script>
+<div class="header text-center">
+<h3 class="title">{{ title }}</h3>
+<p class="category">Please upload files to their corresponding sections only!! </p>
+</div>
+
+<div class="row">
+<div class="col-md-6">
+<div class="card">
+<div class="card-header" style="text-align: center;">
+<h4 class="card-title">CSV Section</h4>
+</div>
+<div class="card-content" >
+
+
+<div class="table-responsive table-sales" style="display: flex;justify-content: center; align-items: center;">
+  <form action="{{url_for('upload_csv')}}" method="POST" enctype="multipart/form-data">
+    <label value="Choose"  class="btn  btn-lg" id="wizard-picture"> 
+      <input style="display: none;" type="file"  name="file" multiple  data-show-upload="true">
+       Choose File
+  </label>
+      <!-- <button type="submit" class="btn btn-primary btn-lg"></button> -->
+      
+<div class="modal fade" id="smallAlertModalCsv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-small ">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+          </div>
+          <div class="modal-body text-center">
+              <h5>Are you sure you want upload? </h5>
+          </div>
+          <div class="modal-footer text-center">
+              <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+              <button type="submit" class="btn btn-success btn-simple">Yes</button>
+          </div>
+      </div>
+  </div>
+</div>
+  </form>
+  
+  
+</div>
+<div class="col-md-12 text-center">
+<button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModalCsv">
+  Upload
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="card">
+<div class="card-header" style="text-align: center;">
+<h4 class="card-title">PDF Section</h4>
+</div>
+<div class="card-content" >
+  
+
+<div class="table-responsive table-sales" style="display: flex;justify-content: center; align-items: center;">
+  <form action="{{url_for('upload_pdf')}}" method="POST" enctype="multipart/form-data">
+    <label value="Choose"  class="btn  btn-lg" id="wizard-picture"> 
+      <input style="display: none;" type="file"  name="file" multiple  data-show-upload="true">
+       Choose File
+  </label>
+      <!-- <button type="submit" class="btn btn-primary btn-lg"></button> -->
+      
+<div class="modal fade" id="smallAlertModalPdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-small ">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+          </div>
+          <div class="modal-body text-center">
+              <h5>Are you sure you want to upload? </h5>
+          </div>
+          <div class="modal-footer text-center">
+              <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+              <button type="submit" class="btn btn-success btn-simple">Yes</button>
+          </div>
+      </div>
+  </div>
+</div>
+  </form>
+  
+  
+</div>
+<div class="col-md-12 text-center">
+<button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModalPdf">
+  Upload
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-12">
+<div class="card">
+<div class="card-content">
+<div class="places-buttons">
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+          <h4 class="card-title">
+              Allocate Files
+              <p class="category">Once allocated it can't be reverted</p>
+          </h4>
+      </div>
+  </div>
+  
+</div>
+<div class="modal fade" id="smallAlertModalphd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-small ">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+          </div>
+          <div class="modal-body text-center">
+              <h5>Are you sure you want to submit? </h5>
+          </div>
+          <div class="modal-footer text-center">
+              <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+              <a href="{{url_for('phds.allocate_phd')}}"><button type="submit" class="btn btn-success btn-simple">Yes</button></a>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="modal fade" id="smallAlertModalmtech" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-small ">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+          </div>
+          <div class="modal-body text-center">
+              <h5>Are you sure you want to submit? </h5>
+          </div>
+          <div class="modal-footer text-center">
+              <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+              <a href="{{url_for('mtechs.allocate_mtech')}}"><button type="submit" class="btn btn-success btn-simple">Yes</button></a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row" style="justify-content: center;display: flex;">
+  
+
+    <button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModalphd">
+          Allocate Phd
+      </button>
+      
+      <button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModalmtech">
+          Allocate Mtech
+    </button>
+    {% include 'uploadadd_top.html' %}
+      </div>
+                        
+                        
+    </div>
+    
+</div>
+</div>
+<div class="row" style="justify-content: center;display: flex;">
+        
+
+<a href="{{url_for('phds.phdcsv')}}"><button class="btn btn-raised btn-round btn-rose" >
+Create phd database
+</button></a>
+
+<a href="{{url_for('mtechs.mtechcsv')}}"> <button class="btn btn-raised btn-round btn-rose" >
+Create Mtech database
+</button></a>
+{% include 'uploadadd_bottom.html' %}
+</div>
+</div>
+</div>
+{% endblock content %}
