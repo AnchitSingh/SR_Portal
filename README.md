@@ -52,7 +52,7 @@ $ python3 flask_app.py
 - Cool and nice looking User Interface.
 - 32 bit hashed passwords
 ## Usage 
-- For first time use when no admin account exits go to <a href="http://127.0.0.1:5000/admin_register/180085180200" target="_blank">Admin Registration</a> page.
+- For first time use when no admin account exits go to <a href="http://127.0.0.1:5000/admin_register/1800" target="_blank">Admin Registration</a> page.
 - Above link is accessible only if no admin account exists. 
 - In the Upload section upload csv file with name as <course name>.csv (eg: phd.csv,mtech.csv ,btech.csv), then click on create database button and upload pdf files.
 
