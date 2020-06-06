@@ -29,7 +29,7 @@ SR Portal is an one stop platform for verifications of huge and large no. of csv
 > update and install these package first
 
 ```shell
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 > 
