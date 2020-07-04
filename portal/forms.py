@@ -32,7 +32,7 @@ class LoginForm(FlaskForm):
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
-    submit = SubmitField('Logins')
+    submit = SubmitField('Login')
 
 
 class PostForm(FlaskForm):
