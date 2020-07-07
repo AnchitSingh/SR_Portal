@@ -36,6 +36,63 @@ def fillReport(msg,usr,dt):
     return
 
 
+@app.route("/")
+def root():
+    return redirect(url_for('login'))
+
+#----------------- Login route start---------------------#
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('checkUser'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('checkUser'))
+        else:
+            flash('Login Unsuccessful. Please check email and password', 'danger')
+    return render_template('login.html', title='Login', form=form)
+
+#----------------- Login route end-----------------------#
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+@app.route("/checkUser")
+@login_required
+def checkUser():
+    if current_user.is_active == True:
+        check1=0
+        if current_user.is_admin==True or current_user.is_manager==True:
+            conn = sqlite3.connect('portal/site.db') 
+            c = conn.cursor()
+            c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='phd' ''')
+            if c.fetchone()[0]==1 :
+                check1=1
+            else:
+                phdData()
+            c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='mtech' ''')
+            if c.fetchone()[0]==1 :
+                check1=1
+            else:
+                mData()
+            return redirect(url_for('dashboard'))
+        else:
+            return redirect(url_for('workspace'))
+    else:
+        flash('Your account has been deactivated by administrator','danger')
+        return redirect(url_for('logout'))
+
+
+
+
 @app.route("/violation", methods=['GET', 'POST'])
 @login_required
 def violation():
@@ -188,57 +245,6 @@ def admin_register(key):
         render_template('error.html',error=404)
 
 
-
-@app.route("/")
-def root():
-    return redirect(url_for('login'))
-
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('checkUser'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('checkUser'))
-        else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
-
-
-@app.route("/logout")
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
-
-@app.route("/checkUser")
-@login_required
-def checkUser():
-    if current_user.is_active == True:
-        check1=0
-        if current_user.is_admin==True or current_user.is_manager==True:
-            conn = sqlite3.connect('portal/site.db') 
-            c = conn.cursor()
-            c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='phd' ''')
-            if c.fetchone()[0]==1 :
-                check1=1
-            else:
-                phdData()
-            c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='mtech' ''')
-            if c.fetchone()[0]==1 :
-                check1=1
-            else:
-                mData()
-            return redirect(url_for('dashboard'))
-        else:
-            return redirect(url_for('workspace'))
-    else:
-        flash('Your account has been deactivated by administrator','danger')
-        return redirect(url_for('logout'))
 
 
 
@@ -525,8 +531,12 @@ def reset_token(token):
     return render_template('reset_token.html', title='Reset Password', form=form)
 
 
+#----------------------Error Handler-----------------------------#
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html',error=404)
 
+@app.errorhandler(500)
+def server_error(e):
+    return render_template('error.html',error=500)

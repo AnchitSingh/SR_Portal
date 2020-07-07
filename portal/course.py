@@ -62,4 +62,3 @@ def cdir(var):
         f.write("from portal.extra_courses."+var+".routes import "+var+"s\napp.register_blueprint("+var+"s)\n")
         Data(var)
         flash('New Course added','success')
-

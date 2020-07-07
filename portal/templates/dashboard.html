@@ -283,13 +283,13 @@
                            {% endif %}
                            {% endfor %}
                            {% include 'dash_sub.html' %}
-    </tbody>
-</div>
-</table>
-</div>
-</div>
-</div>
-</div>
+                        </tbody>
+                     </div>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
    </div>
    <div class="card-content">
       <div class="places-buttons">
@@ -297,21 +297,20 @@
             <div class="col-md-6 col-md-offset-3 text-center">
                <h4 class="card-title">
                   <a href="{{url_for('extra_courses')}}"><button  class="btn btn-raised btn-md btn-round" data-background-color="orange">
-                     Extra Courses Submissions
-                     </button></a>
+                  Extra Courses Submissions
+                  </button></a>
                </h4>
             </div>
          </div>
       </div>
-      
    </div>
 </div>
 <script>
-$(document).ready(function(){
-$('[data-toggle="popover"]').popover({
-placement : 'top',
-trigger: 'hover'
-});
-});
+   $(document).ready(function(){
+   $('[data-toggle="popover"]').popover({
+   placement : 'top',
+   trigger: 'hover'
+   });
+   });
 </script>
- {% endblock content %}
+{% endblock content %}
