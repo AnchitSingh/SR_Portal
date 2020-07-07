@@ -46,6 +46,7 @@ $ python3 flask_app.py
 
 - Role Based Access Control.
 - Option for automatic and manual allocation of files to Tutors.
+- App can automatically detect corrupted csv. 
 - Any no. of new courses can be added besides Phd and MTech.
 - Feature to track how much time did Tutor spent on each document.
 - Files are cross verified by two tutors before submission to manager.

@@ -181,40 +181,43 @@ def phdcsv():
                 conn = sqlite3.connect('portal/site.db') 
                 c = conn.cursor()
                 df=pd.read_csv('portal/static/original-csv/phd.csv')
-                c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='phd' ''')
-                if c.fetchone()[0]==1 :
-                    c.execute('''DROP TABLE phd;''')
-                c.execute('''
-                        CREATE TABLE phd (
-                            "Application Ref. No." TEXT  PRIMARY KEY UNIQUE
-                );''')
                 new_columns=set(df.columns)
-                new_columns.remove('Application Ref. No.')
-                s=list(new_columns)
-                for i in range(len(s)):
-                    c.execute('''ALTER TABLE phd ADD'''+''' "'''+s[i]+'''" '''+'''TEXT''')
-                df.to_sql(name='phd', con=db.engine, if_exists = 'append', index=False)
-                c.execute('''ALTER TABLE phd ADD tt2 DATE  DEFAULT "None"''')  #15
-                c.execute('''ALTER TABLE phd ADD tt1 DATE DEFAULT "None"''')   #14
-                c.execute('''ALTER TABLE phd ADD ft2 DATE  DEFAULT "None"''')   #13
-                c.execute('''ALTER TABLE phd ADD st2 DATE DEFAULT "None"''')   #12
-                c.execute('''ALTER TABLE phd ADD ft1 DATE DEFAULT "None"''')   #11
-                c.execute('''ALTER TABLE phd ADD st1 DATE DEFAULT "None"''')   #10
-                c.execute('''ALTER TABLE phd ADD Comment2 TEXT''')
-                c.execute('''ALTER TABLE phd ADD Submission2 TEXT DEFAULT "Pending" ''')
-                c.execute('''ALTER TABLE phd ADD Reject_Reason TEXT''')
-                c.execute('''ALTER TABLE phd ADD Validation TEXT DEFAULT "Pending" ''')
-                c.execute('''ALTER TABLE phd ADD Comment1 TEXT''')
-                c.execute('''ALTER TABLE phd ADD Submission1 TEXT DEFAULT "Pending" ''')
-                c.execute('''ALTER TABLE phd ADD Tutor1 TEXT DEFAULT "Not Assigned" ''')
-                c.execute('''ALTER TABLE phd ADD Tutor2 TEXT DEFAULT "Not Assigned" ''')
-                c.execute('''ALTER TABLE phd ADD alloc_status TEXT DEFAULT "0" ''')
-                c.execute('''ALTER TABLE phd ADD Application TEXT''')
-                c.execute('''update phd set Application = "Application Ref. No."; ''')
-                # test=c.execute('''SELECT * from phd''').fetchall()
-                conn.commit()
-                conn.close()
-                flash('Database successfully created', 'info')
+                if 'Application Ref. No.' in new_columns:
+                    new_columns.remove('Application Ref. No.')
+                    c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='phd' ''')
+                    if c.fetchone()[0]==1 :
+                        c.execute('''DROP TABLE phd;''')
+                    c.execute('''
+                            CREATE TABLE phd (
+                                "Application Ref. No." TEXT  PRIMARY KEY UNIQUE
+                    );''')
+                    s=list(new_columns)
+                    for i in range(len(s)):
+                        c.execute('''ALTER TABLE phd ADD'''+''' "'''+s[i]+'''" '''+'''TEXT''')
+                    df.to_sql(name='phd', con=db.engine, if_exists = 'append', index=False)
+                    c.execute('''ALTER TABLE phd ADD tt2 DATE  DEFAULT "None"''')  #15
+                    c.execute('''ALTER TABLE phd ADD tt1 DATE DEFAULT "None"''')   #14
+                    c.execute('''ALTER TABLE phd ADD ft2 DATE  DEFAULT "None"''')   #13
+                    c.execute('''ALTER TABLE phd ADD st2 DATE DEFAULT "None"''')   #12
+                    c.execute('''ALTER TABLE phd ADD ft1 DATE DEFAULT "None"''')   #11
+                    c.execute('''ALTER TABLE phd ADD st1 DATE DEFAULT "None"''')   #10
+                    c.execute('''ALTER TABLE phd ADD Comment2 TEXT''')
+                    c.execute('''ALTER TABLE phd ADD Submission2 TEXT DEFAULT "Pending" ''')
+                    c.execute('''ALTER TABLE phd ADD Reject_Reason TEXT''')
+                    c.execute('''ALTER TABLE phd ADD Validation TEXT DEFAULT "Pending" ''')
+                    c.execute('''ALTER TABLE phd ADD Comment1 TEXT''')
+                    c.execute('''ALTER TABLE phd ADD Submission1 TEXT DEFAULT "Pending" ''')
+                    c.execute('''ALTER TABLE phd ADD Tutor1 TEXT DEFAULT "Not Assigned" ''')
+                    c.execute('''ALTER TABLE phd ADD Tutor2 TEXT DEFAULT "Not Assigned" ''')
+                    c.execute('''ALTER TABLE phd ADD alloc_status TEXT DEFAULT "0" ''')
+                    c.execute('''ALTER TABLE phd ADD Application TEXT''')
+                    c.execute('''update phd set Application = "Application Ref. No."; ''')
+                    # test=c.execute('''SELECT * from phd''').fetchall()
+                    conn.commit()
+                    conn.close()
+                    flash('Database successfully created', 'success')
+                else:
+                    flash('phd.csv doesnot contain "Application Ref. No." column','danger')
             else:
                 flash('First upload Csv file with name phd.csv','danger')
             return redirect(url_for('upload'))

@@ -14,7 +14,7 @@ from sqlalchemy import update
 import pandas as pd
 import sqlite3
 from datetime import datetime ,date ,timedelta
-from portal.mtech.routes import mData
+from portal.mtech.routes import mtechData
 from portal.phd.routes import phdData
 from portal.course import cdir
 from portal.helper_code.helper import delete_courses
@@ -140,7 +140,7 @@ def upload():
                 for file in files:
                     file.save(os.path.join(app.config['UPLOAD_FOLDER_CSV'], file.filename))
                     i=i+1
-                flash(str(i) +' csv files uploaded successfully ', 'info')
+                # flash(str(i) +' csv files uploaded successfully ', 'info')
             if request.method == 'POST' and 'pdf' in request.files:
                 files = request.files.getlist("pdf")
                 i=0
@@ -155,7 +155,7 @@ def upload():
         flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
-
+from pandas.core.groupby.groupby import DataError
 
 @app.route('/upload_pdf', methods=['GET', 'POST'])
 @login_required
@@ -166,9 +166,14 @@ def upload_pdf():
                 files = request.files.getlist("file")
                 i=0
                 for file in files:
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER_PDF'], file.filename))
-                    i=i+1
-                flash(str(i) +' pdf files uploaded successfully ', 'info')
+                    t=str(file.filename)
+                    if t.endswith('.pdf'):
+                        file.save(os.path.join(app.config['UPLOAD_FOLDER_PDF'], file.filename))
+                        i=i+1
+                    else:
+                        flash('Please upload valid pdf file.','danger')
+                if i!=0:
+                    flash(str(i) +' pdf files uploaded successfully ', 'success')
             return redirect(url_for('upload'))
         else:
             return render_template('error.html',error=404)
@@ -176,6 +181,19 @@ def upload_pdf():
         flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
+
+def is_return(input):
+    return input == '\n' or input == '\r'
+
+def last_line (input,t):
+    if len(input) == 1:
+        return input;
+    position = len(input)-2
+    while((not is_return(input[position])) and position > 0):
+        position=position-1
+    if(is_return(input[position])):
+        position += 1
+    flash(t+' -> '+input[-position:],'danger')
 
 @app.route('/upload_csv', methods=['GET', 'POST'])
 @login_required
@@ -185,10 +203,35 @@ def upload_csv():
             if request.method == 'POST' and 'file' in request.files:
                 files = request.files.getlist("file")
                 i=0
+                invalid_csv_check=0
+                invalid_csv_count=0
                 for file in files:
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER_CSV'], file.filename))
-                    i=i+1
-                flash(str(i) +' csv files uploaded successfully ', 'info')
+                    t=str(file.filename)
+                    if t.endswith('.csv'):
+                        file.save(os.path.join(app.config['UPLOAD_FOLDER_CSV'], file.filename))
+                        try:
+                            test_df=pd.read_csv('portal/static/original-csv/'+file.filename,error_bad_lines=False)
+                            new_columns=set(test_df.columns)
+                            if 'Application Ref. No.' in new_columns:
+                                pass
+                            else:
+                                invalid_csv_count=invalid_csv_count+1
+                                invalid_csv_check=1
+                            if invalid_csv_check!=0:
+                                flash(str(file.filename)+" doesn't contain column name Application Ref. No.",'info')
+                                invalid_csv_check=0
+                            i=i+1
+                        except Exception as e:  
+                            errors=str(e)
+                            last_line(errors,t)
+                            if os.path.exists('portal/static/original-csv/'+file.filename):
+                                os.remove('portal/static/original-csv/'+file.filename)
+                    else:
+                        flash(t+ ' is not a valid csv file thus not uploaded','danger')
+                if i!=0:
+                    flash(str(i) +' csv files uploaded successfully ', 'success')
+                if invalid_csv_count!=0:
+                    flash(str(invalid_csv_count) + " CSVs don't have 'Application Ref. No.' column",'info')
             return redirect(url_for('upload'))
         else:
             return render_template('error.html',error=404)
@@ -205,12 +248,15 @@ def register():
         return redirect(url_for('check'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Wait for admin approval', 'info')
-        return redirect(url_for('login'))
+        if form.username.data=='test':
+            flash('This username cannot be taken','danger')
+        else:
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+            db.session.add(user)
+            db.session.commit()
+            flash('Wait for admin approval', 'info')
+            return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 

@@ -177,43 +177,49 @@ def allocate_mtech():
 def mtechcsv():
     if current_user.is_active ==True:
         if current_user.is_admin == True:
-            conn = sqlite3.connect('portal/site.db') 
-            c = conn.cursor()
-            df=pd.read_csv('portal/static/original-csv/mtech.csv')
-            c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='mtech' ''')
-            if c.fetchone()[0]==1 :
-                c.execute('''DROP TABLE mtech;''')
-            c.execute('''
-                    CREATE TABLE mtech (
-                        "Application Ref. No." TEXT  PRIMARY KEY UNIQUE
-            );''')
-            new_columns=set(df.columns)
-            new_columns.remove('Application Ref. No.')
-            s=list(new_columns)
-            for i in range(len(s)):
-                c.execute('''ALTER TABLE mtech ADD'''+''' "'''+s[i]+'''" '''+'''TEXT''')
-            df.to_sql(name='mtech', con=db.engine, if_exists = 'append', index=False)
-            c.execute('''ALTER TABLE mtech ADD tt2 DATE  DEFAULT "None"''')  #15
-            c.execute('''ALTER TABLE mtech ADD tt1 DATE DEFAULT "None"''')   #14
-            c.execute('''ALTER TABLE mtech ADD ft2 DATE  DEFAULT "None"''')   #13
-            c.execute('''ALTER TABLE mtech ADD st2 DATE DEFAULT "None"''')   #12
-            c.execute('''ALTER TABLE mtech ADD ft1 DATE DEFAULT "None"''')   #11
-            c.execute('''ALTER TABLE mtech ADD st1 DATE DEFAULT "None"''')   #10
-            c.execute('''ALTER TABLE mtech ADD Comment2 TEXT''')
-            c.execute('''ALTER TABLE mtech ADD Submission2 TEXT DEFAULT "Pending" ''')
-            c.execute('''ALTER TABLE mtech ADD Reject_Reason TEXT''')
-            c.execute('''ALTER TABLE mtech ADD Validation TEXT DEFAULT "Pending" ''')
-            c.execute('''ALTER TABLE mtech ADD Comment1 TEXT''')
-            c.execute('''ALTER TABLE mtech ADD Submission1 TEXT DEFAULT "Pending" ''')
-            c.execute('''ALTER TABLE mtech ADD Tutor1 TEXT DEFAULT "Not Assigned" ''')
-            c.execute('''ALTER TABLE mtech ADD Tutor2 TEXT DEFAULT "Not Assigned" ''')
-            c.execute('''ALTER TABLE mtech ADD alloc_status TEXT DEFAULT "0" ''')
-            c.execute('''ALTER TABLE mtech ADD Application TEXT''')
-            c.execute('''update mtech set Application = "Application Ref. No."; ''')
-            # test=c.execute('''SELECT * from mtech''').fetchall()
-            conn.commit()
-            conn.close()
-            flash('Database successfully created', 'info')
+            if path.exists("portal/static/original-csv/mtech.csv"):
+                conn = sqlite3.connect('portal/site.db') 
+                c = conn.cursor()
+                df=pd.read_csv('portal/static/original-csv/mtech.csv')
+                new_columns=set(df.columns)
+                if 'Application Ref. No.' in new_columns:
+                    new_columns.remove('Application Ref. No.')
+                    c.execute(''' SELECT count(name) FROM sqlite_master WHERE type='table' AND name='mtech' ''')
+                    if c.fetchone()[0]==1 :
+                        c.execute('''DROP TABLE mtech;''')
+                    c.execute('''
+                            CREATE TABLE mtech (
+                                "Application Ref. No." TEXT  PRIMARY KEY UNIQUE
+                    );''')
+                    s=list(new_columns)
+                    for i in range(len(s)):
+                        c.execute('''ALTER TABLE mtech ADD'''+''' "'''+s[i]+'''" '''+'''TEXT''')
+                    df.to_sql(name='mtech', con=db.engine, if_exists = 'append', index=False)
+                    c.execute('''ALTER TABLE mtech ADD tt2 DATE  DEFAULT "None"''')  #15
+                    c.execute('''ALTER TABLE mtech ADD tt1 DATE DEFAULT "None"''')   #14
+                    c.execute('''ALTER TABLE mtech ADD ft2 DATE  DEFAULT "None"''')   #13
+                    c.execute('''ALTER TABLE mtech ADD st2 DATE DEFAULT "None"''')   #12
+                    c.execute('''ALTER TABLE mtech ADD ft1 DATE DEFAULT "None"''')   #11
+                    c.execute('''ALTER TABLE mtech ADD st1 DATE DEFAULT "None"''')   #10
+                    c.execute('''ALTER TABLE mtech ADD Comment2 TEXT''')
+                    c.execute('''ALTER TABLE mtech ADD Submission2 TEXT DEFAULT "Pending" ''')
+                    c.execute('''ALTER TABLE mtech ADD Reject_Reason TEXT''')
+                    c.execute('''ALTER TABLE mtech ADD Validation TEXT DEFAULT "Pending" ''')
+                    c.execute('''ALTER TABLE mtech ADD Comment1 TEXT''')
+                    c.execute('''ALTER TABLE mtech ADD Submission1 TEXT DEFAULT "Pending" ''')
+                    c.execute('''ALTER TABLE mtech ADD Tutor1 TEXT DEFAULT "Not Assigned" ''')
+                    c.execute('''ALTER TABLE mtech ADD Tutor2 TEXT DEFAULT "Not Assigned" ''')
+                    c.execute('''ALTER TABLE mtech ADD alloc_status TEXT DEFAULT "0" ''')
+                    c.execute('''ALTER TABLE mtech ADD Application TEXT''')
+                    c.execute('''update mtech set Application = "Application Ref. No."; ''')
+                    # test=c.execute('''SELECT * from mtech''').fetchall()
+                    conn.commit()
+                    conn.close()
+                    flash('Database successfully created', 'success')
+                else:
+                    flash('mtech.csv doesnot contain "Application Ref. No." column','danger')
+            else:
+                flash('First upload Csv file with name mtech.csv','danger')
             return redirect(url_for('upload'))
         else:
             return render_template('error.html',error=404)
@@ -257,10 +263,14 @@ def downloadmtechCsv():
             conn = sqlite3.connect('portal/site.db') 
             c = conn.cursor()
             db_df=pd.read_sql_query("SELECT * FROM mtech", conn)
-            db_df=db_df.drop('alloc_status',1)
-            db_df=db_df.drop('Submission1',1)
-            db_df=db_df.drop('Submission2',1)
-            db_df=db_df.drop('Comment2',1)
+            if 'alloc_status' in db_df.columns:
+                db_df=db_df.drop('alloc_status',1)
+            if 'Submission1' in db_df.columns:
+                db_df=db_df.drop('Submission1',1)
+            if 'Submission2' in db_df.columns:
+                db_df=db_df.drop('Submission2',1)
+            if 'Comment2' in db_df.columns:
+                db_df=db_df.drop('Comment2',1)
             if 'st1' in db_df.columns:
                 db_df=db_df.drop('st1',1)
             if 'ft1' in db_df.columns:
@@ -273,14 +283,21 @@ def downloadmtechCsv():
                 db_df=db_df.drop('tt1',1)
             if 'tt2' in db_df.columns:
                 db_df=db_df.drop('tt2',1)
-            db_df=db_df.drop('Reject_Reason',1)
-            db_df=db_df.drop('Validation',1)
-            db_df=db_df.drop('Application',1)
-            db_df=db_df.drop('Comment1',1)
-            db_df=db_df.drop('Tutor1',1)
-            db_df=db_df.drop('Tutor2',1)
+            if 'Reject_Reason' in db_df.columns:
+                db_df=db_df.drop('Reject_Reason',1)
+            if 'Validation' in db_df.columns:
+                db_df=db_df.drop('Validation',1)
+            if 'Application' in db_df.columns:
+                db_df=db_df.drop('Application',1)
+            if 'Comment1' in db_df.columns:
+                db_df=db_df.drop('Comment1',1)
+            if 'Tutor1' in db_df.columns:
+                db_df=db_df.drop('Tutor1',1)
+            if 'Tutor2' in db_df.columns:
+                db_df=db_df.drop('Tutor2',1)
             db_df.to_csv('portal/static/Updated-CSV/Updated-mtech.csv', index=False)
             p="static/Updated-CSV/Updated-mtech.csv"
+            conn.close()
             return send_file(p,as_attachment=True)
         else:
             return render_template('error.html',error=403)
@@ -663,27 +680,14 @@ def change_mtech2(application):
         return redirect(url_for('logout'))
 
 
-def mData():
+
+def fillReport(msg,usr,dt):
     conn = sqlite3.connect('portal/site.db') 
     c = conn.cursor()
-    c.execute('''
-        CREATE TABLE mtech (
-            "Application Ref. No." INTEGER
-        );''')
-    c.execute('''ALTER TABLE mtech ADD Comment2 TEXT''')
-    c.execute('''ALTER TABLE mtech ADD Submission2 TEXT DEFAULT "Pending" ''')
-    c.execute('''ALTER TABLE mtech ADD Reject_Reason TEXT''')
-    c.execute('''ALTER TABLE mtech ADD Validation TEXT DEFAULT "Pending" ''')
-    c.execute('''ALTER TABLE mtech ADD Comment1 TEXT''')
-    c.execute('''ALTER TABLE mtech ADD Submission1 TEXT DEFAULT "Pending" ''')
-    c.execute('''ALTER TABLE mtech ADD Tutor1 TEXT DEFAULT "Not Assigned" ''')
-    c.execute('''ALTER TABLE mtech ADD Tutor2 TEXT DEFAULT "Not Assigned" ''')
-    c.execute('''ALTER TABLE mtech ADD alloc_status TEXT DEFAULT "0" ''')
-    c.execute('''ALTER TABLE mtech ADD Application TEXT''')
+    c.execute("INSERT INTO violations (Report,User,Date) VALUES (?,?,?) ",(msg,usr,dt))
     conn.commit()
     conn.close()
     return
-
 
 
 def filltime1(application):
@@ -720,10 +724,26 @@ def filltime2(application):
 
 
 
-def fillReport(msg,usr,dt):
+
+def mtechData():
     conn = sqlite3.connect('portal/site.db') 
     c = conn.cursor()
-    c.execute("INSERT INTO violations (Report,User,Date) VALUES (?,?,?) ",(msg,usr,dt))
+    c.execute('''
+        CREATE TABLE mtech (
+            "Application Ref. No." INTEGER
+        );''')
+    c.execute('''ALTER TABLE mtech ADD Comment2 TEXT''')
+    c.execute('''ALTER TABLE mtech ADD Submission2 TEXT DEFAULT "Pending" ''')
+    c.execute('''ALTER TABLE mtech ADD Reject_Reason TEXT''')
+    c.execute('''ALTER TABLE mtech ADD Validation TEXT DEFAULT "Pending" ''')
+    c.execute('''ALTER TABLE mtech ADD Comment1 TEXT''')
+    c.execute('''ALTER TABLE mtech ADD Submission1 TEXT DEFAULT "Pending" ''')
+    c.execute('''ALTER TABLE mtech ADD Tutor1 TEXT DEFAULT "Not Assigned" ''')
+    c.execute('''ALTER TABLE mtech ADD Tutor2 TEXT DEFAULT "Not Assigned" ''')
+    c.execute('''ALTER TABLE mtech ADD alloc_status TEXT DEFAULT "0" ''')
+    c.execute('''ALTER TABLE mtech ADD Application TEXT''')
+    c.execute('''update mtech set Application = "Application Ref. No."; ''')
     conn.commit()
     conn.close()
     return
+
