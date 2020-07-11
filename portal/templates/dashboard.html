@@ -210,8 +210,12 @@
                               </td>
                               {% if phd[14] < 300 %}
                               <td style="color:red;">
-                                 <button type="button" style="background-color: transparent;border: none;" data-toggle="popover" title="Early Submission" data-content="{{phd[3]}} has submitted file within 5 minutes.Thus file might not been checked properly.">
-                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{phd[3]}}
+                                 {% if phd[14] < 60 %}
+                                 <button type="button" style="background-color: transparent;border: none;" data-toggle="popover" title="Early Submission" data-content="{{phd[3]}} has spent only {{phd[14]}} seconds on this file">
+                                    {% else %}
+                                    <button type="button" style="background-color: transparent;border: none;" data-toggle="popover" title="Early Submission" data-content="{{phd[3]}} has spent only {{phd[14]/60}} minutes on this file"> 
+                                    {% endif %}
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{phd[3]}}
                                  </button>
                               </td>
                               {% else %}
@@ -219,7 +223,11 @@
                               {% endif %}
                               {% if phd[15] < 300%}
                               <td style="color:red;">
-                                 <button type="button" style="background-color: transparent;border: none;" data-toggle="popover" title="Early Submission" data-content="{{phd[2]}} has submitted file within 5 minutes.Thus file might not been checked properly.">
+                                 {% if phd[15] < 60 %}
+                                 <button type="button" style="background-color: transparent;border: none;"  data-toggle="popover" title="Early Submission" data-content="{{phd[2]}} has spent only {{phd[15]}} seconds on this file">
+                                 {% else %}
+                                 <button type="button" style="background-color: transparent;border: none;"  data-toggle="popover" title="Early Submission" data-content="{{phd[2]}} has spent only {{phd[15]/60}} minutes on this file">
+                                 {% endif %}
                                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{phd[2]}}
                                  </button>
                               </td>
