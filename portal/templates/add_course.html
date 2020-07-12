@@ -36,24 +36,18 @@
          <div class="card wizard-card active" data-color="rose" id="wizardProfile">
             <form action="{{url_for('course')}}" method="POST" novalidate="novalidate">
                <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
-               <div class="wizard-header">
-                  <h3 class="wizard-title">
-                     Add New Course
-                  </h3>
-                  <h5>Make sure there is atleast one column with name "Application Ref. No."</h5>
-               </div>
-               <div class="wizard-navigation">
-                  <ul class="nav nav-pills">
-                     <li class="active" style="width: 33.3333%;"><a href="#about" data-toggle="tab" aria-expanded="true">About</a></li>
-                  </ul>
-                  <div class="moving-tab" style="width: 203.588px; transform: translate3d(-8px, 0px, 0px); transition: transform 0s ease 0s;">About</div>
+               <div class="wizard-header" style="position: relative;">
+                  
+               
+                 
+                  <div class="moving-tab" style="width: 203.588px;position: absolute;left: 50%;transform: translate(-50%,70%);">Add New Course</div>
                </div>
                <div class="tab-content">
                   <div class="tab-pane active" id="about">
                      <div class="row">
-                        <h4 class="info-text"> Let's start with the basic information (with validation)</h4>
-                        <div class="col-sm-6">
-                           <div class="input-group">
+                        <h4 class="info-text"> Let's start with the basic information</h4>
+                        <div class="col-sm-6" style="position: relative;width: 100%;">
+                           <div class="input-group" style="position: relative;left: 50%;transform: translate(-50%);">
                               <span class="input-group-addon">
                               <i class="material-icons">face</i>
                               </span>

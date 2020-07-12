@@ -18,6 +18,8 @@ from portal.mtech.routes import mtechData
 from portal.phd.routes import phdData
 from portal.course import cdir
 from portal.helper_code.helper import delete_courses
+from flask_socketio import SocketIO,send,emit
+from portal import socketio
 
 @app.before_request
 def before_request():
@@ -82,7 +84,7 @@ def checkUser():
             if c.fetchone()[0]==1 :
                 check1=1
             else:
-                mData()
+                mtechData()
             return redirect(url_for('dashboard'))
         else:
             return redirect(url_for('workspace'))
@@ -91,6 +93,69 @@ def checkUser():
         return redirect(url_for('logout'))
 
 
+@app.route("/systemLogs",methods=['GET','POST'])
+@login_required
+def systemLogs():
+    if current_user.is_active == True:
+        if current_user.is_admin == True:
+            conn = sqlite3.connect('portal/site.db') 
+            c = conn.cursor()
+            test=c.execute('''SELECT * FROM system_logs''').fetchall()
+            image_file = url_for('static',filename='assets/img/faces/' + current_user.image_file)
+            return render_template('systemLogs.html', title='System Logs',image_file=image_file,system_logs=test)
+        else:
+            return render_template('error.html',error=403)
+    else:
+        flash('Your account has been deactivated by administrator','danger')
+        return redirect(url_for('logout'))
+
+
+@app.route("/clearSystemLogs",methods=['GET','POST'])
+@login_required
+def clearSystemLogs():
+    if current_user.is_active == True:
+        if current_user.is_admin == True:
+            conn = sqlite3.connect('portal/site.db') 
+            c = conn.cursor()
+            c.execute('''DELETE FROM system_logs;''')
+            conn.commit()
+            conn.close()
+            return redirect(url_for('systemLogs'))
+        else:
+            return render_template('error.html',error=403)
+    else:
+        flash('Your account has been deactivated by administrator','danger')
+        return redirect(url_for('logout'))
+
+
+
+
+@app.route("/system_logs",methods=['GET','POST'])
+@login_required
+def system_logs():
+    if current_user.is_active == True:
+        if current_user.is_admin == True:
+            conn = sqlite3.connect('portal/site.db') 
+            c = conn.cursor()
+            c.execute('''DROP TABLE system_logs;''')
+            c.execute('''
+                    CREATE TABLE system_logs (
+                        "id" INTEGER  PRIMARY KEY AUTOINCREMENT,
+                        "User" TEXT,
+                        "Application_number" TEXT,
+                        "column_name" TEXT,
+                        "course" TEXT,
+                        "Date" TEXT
+            );''')
+            conn.commit()
+            conn.close()
+            flash('System logs database created successfully ', 'info')
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template('error.html',error=403)
+    else:
+        flash('Your account has been deactivated by administrator','danger')
+        return redirect(url_for('logout'))
 
 
 @app.route("/violation", methods=['GET', 'POST'])
@@ -244,6 +309,12 @@ def upload_csv():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    user=User.query.all()
+    checkAdmin=1
+    for u in user:
+        if u.is_admin==True:
+            checkAdmin=0
+            break
     if current_user.is_authenticated:
         return redirect(url_for('check'))
     form = RegistrationForm()
@@ -257,7 +328,7 @@ def register():
             db.session.commit()
             flash('Wait for admin approval', 'info')
             return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form,check=checkAdmin)
 
 
 
@@ -487,6 +558,11 @@ def people():
     else:
         flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
+
+@socketio.on('annoucement')
+def annouce(msg):
+    print(msg)
+    emit('message','An annoucement has been made',broadcast=True)
 
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required

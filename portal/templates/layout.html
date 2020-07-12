@@ -82,6 +82,12 @@
                   </li>
                   {% if current_user.is_admin==True %}
                   <li class="nav-item ">
+                     <a class="nav-link" href="{{url_for('systemLogs')}}">
+                        <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                        <p> System Logs </p>
+                     </a>
+                  </li>
+                  <li class="nav-item ">
                      <a class="nav-link" href="{{url_for('reset')}}">
                         <i class="fa fa-gears"></i>
                         <p> Reset </p>

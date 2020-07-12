@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
 import smtplib
+from flask_socketio import SocketIO
 
 
 app = Flask(__name__)
@@ -30,7 +31,7 @@ app.config['MAIL_MAX_EMAILS'] = None
 app.config['MAIL_ASCII_ATTACHMENTS'] = False
 mail = Mail(app)
 moment = Moment(app)
-
+socketio=SocketIO(app)
 
 from portal import routes
 from portal import blueprints

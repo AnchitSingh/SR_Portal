@@ -119,6 +119,9 @@
                         {{ form.submit(class="btn btn-block login-btn",id="register") }}
                      </form>
                      <p class="login-wrapper-footer-text">Already have an account? <a href="{{url_for('login')}}" class="text-reset">Login here</a></p>
+                     {% if check==1 %}
+                     <p class="login-wrapper-footer-text">Admin Registration <a href="{{url_for('admin_register',key='1800')}}" class="text-reset">Register here</a></p>
+                     {% endif %}
                   </div>
                </div>
                <div class="col-md-6 px-0 d-none d-md-block">

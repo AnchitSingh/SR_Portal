@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container-fluid">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+   <script src="../static/assets/js/annoucements.js"></script>
    {% with messages = get_flashed_messages(with_categories=true) %}
    {% if messages %}
    <div class="container" style="position: absolute;max-width: 35%;left: 65%;">
@@ -106,46 +108,48 @@
    {% if current_user.is_admin==True or current_user.is_manager == True %}
    <div class="col-md-6" style="width: 100%;position: relative;">
       <div class="card">
-         <form  method="POST" action="" role="form">
-            {{ form.hidden_tag() }}
+         <form  method="POST" action="" id="annoucementForm" role="form">
+            <input id="csrf_token" name="csrf_token" type="hidden" value="ImE5MDlhMDQ1MTQ0NWQ0Mzk3MmRhMTNiZWFiZDU5M2ExOTE1OTBjYzAi.XwsAug.lgFJLpUTEqTttK4H1rrgAtm27V8">
             <div class="card-header card-header-icon" data-background-color="rose">
                <i class="material-icons">contacts</i>
             </div>
             <div class="card-content" >
                <h4 class="card-title">New Annoucement</h4>
                <div class="form-group label-floating" style="width: 40%;">
-                  <!-- <label class="control-label">Title</label> -->
-                  {{ form.title.label(class="control-label") }}
-                  {% if form.title.errors %}
-                  {{ form.title(class="form-control form-control-lg is-invalid") }}
-                  <div class="invalid-feedback">
-                     {% for error in form.title.errors %}
-                     <span>{{ error }}</span>
-                     {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.title(class="form-control") }}
-                  {% endif %}
-                  <!-- <input class="form-control" name="email" type="text" required="true" /> -->
+                  <label class="control-label" for="title">Title</label>
+                  <input class="form-control" id="title" name="title" required type="text" value="">
                </div>
                <div class="form-group label-floating" style="width: 80%;">
-                  <!-- <label class="control-label">Content</label> -->
-                  {{ form.content.label(class="control-label") }}
-                  {% if form.content.errors %}
-                  {{ form.content(class="form-control form-control-lg is-invalid") }}
-                  <div class="invalid-feedback">
-                     {% for error in form.content.errors %}
-                     <span>{{ error }}</span>
-                     {% endfor %}
-                  </div>
-                  {% else %}
-                  {{ form.content(class="form-control") }}
-                  {% endif %}
-                  <!-- <input class="form-control" name="password" type="text"required="true" /> -->
+                  <label class="control-label" for="content">Content</label>
+                  <textarea class="form-control" id="content" name="content" required></textarea>
                </div>
                <div class="text-center" style="position: absolute; top: 60%;right: 3%;">
-                  {{ form.submit(class="btn btn-rose btn-fill btn-wd") }}
-                  <!-- <button type="submit" class="btn btn-rose btn-fill btn-wd" style="position: absolute; top: 60%;right: 3%;">Post</button> -->
+                  <input class="btn btn-rose btn-fill btn-wd" id="submit" name="submit" type="submit" value="Post">
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+   {% else %}
+   <div class="col-md-6" style="display: none;">
+      <div class="card">
+         <form  method="POST" action="" id="annoucementForm" role="form">
+            <input id="csrf_token" name="csrf_token" type="hidden" value="ImE5MDlhMDQ1MTQ0NWQ0Mzk3MmRhMTNiZWFiZDU5M2ExOTE1OTBjYzAi.XwsAug.lgFJLpUTEqTttK4H1rrgAtm27V8">
+            <div class="card-header card-header-icon" data-background-color="rose">
+               <i class="material-icons">contacts</i>
+            </div>
+            <div class="card-content" >
+               <h4 class="card-title">New Annoucement</h4>
+               <div class="form-group label-floating" style="width: 40%;">
+                  <label class="control-label" for="title">Title</label>
+                  <input class="form-control" id="title" name="title" required type="text" value="">
+               </div>
+               <div class="form-group label-floating" style="width: 80%;">
+                  <label class="control-label" for="content">Content</label>
+                  <textarea class="form-control" id="content" name="content" required></textarea>
+               </div>
+               <div class="text-center" style="position: absolute; top: 60%;right: 3%;">
+                  <input class="btn btn-rose btn-fill btn-wd" id="submit" name="submit" type="submit" value="Post">
                </div>
             </div>
          </form>

@@ -562,7 +562,14 @@ def comment_phd2(application):
         flash('Your account has been deactivated by administrator','danger')
         return redirect(url_for('logout'))
 
-
+def fillLogs(usr,app_no,col,dt):
+    conn = sqlite3.connect('portal/site.db') 
+    course='phd'
+    c = conn.cursor()
+    c.execute("INSERT INTO system_logs (User,Application_number,column_name,course,Date) VALUES (?,?,?,?,?) ",(usr,app_no,col,course,dt))
+    conn.commit()
+    conn.close()
+    return
 
 @phds.route('/edit_phd/<application>/<key>', methods=['GET', 'POST'])
 @login_required
@@ -580,6 +587,7 @@ def edit_phd(application,key):
                 var=key
                 c.execute("update phd set '"+var+"' = ? WHERE Application = ?",(request.form[var],application))
                 conn.commit() 
+                fillLogs(current_user.username,application,var,datetime.now())
                 flash('Updated '+var,'success')        
             too(test)
             return redirect(url_for('phds.lab_phd',application=application))

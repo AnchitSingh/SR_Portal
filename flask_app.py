@@ -1,6 +1,4 @@
-from portal import app
-from flask_socketio import SocketIO
-socketio=SocketIO(app)
+from portal import app,socketio
 
 if __name__ == '__main__':
     socketio.run(app)
