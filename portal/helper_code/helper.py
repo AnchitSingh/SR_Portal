@@ -242,6 +242,22 @@ def writeextra(var):
 
 def writereset(var):
     t='''
+        <div class="modal fade" id="smallAlertModalphd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-small ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                    </div>
+                    <div class="modal-body text-center">
+                    <h5>Are you sure you want to delete the database? Please be sure to download all validated csv before deleting the database</h5>
+                    </div>
+                    <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
+                    <a href="{{url_for('phds.reset_phd')}}"><button type="submit" class="btn btn-success btn-simple">Yes</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-6">
             <div class="card card-pricing card-raised">
                 <div class="content">
@@ -255,7 +271,9 @@ def writereset(var):
                     <p class="card-description">
                         Once deleted it can't be reverted back
                     </p>
-                    <a href="{{url_for('phds.reset_phd')}}" class="btn btn-rose btn-round">Reset Phd</a>
+                    <button class="btn btn-raised btn-round btn-rose" data-toggle="modal" data-target="#smallAlertModalphd">
+                        Delete phd
+                    </button>
                 </div>
             </div>
         </div>
@@ -266,7 +284,7 @@ def writereset(var):
     fin = open("portal/templates/resetadd.html", "rt")
     data = fin.read()
     data = data.replace('phd', str(var))
-    data = data.replace('phd', str(var))
+    data = data.replace('Phd', str(var))
     fin.close()
     fin = open("portal/templates/resetadd.html", "wt")
     fin.write(data)
