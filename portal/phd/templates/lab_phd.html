@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+{% block content %}
+<link rel="icon" type="image/png" href="../../static/assets/images/icons/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="../../static/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/css/util.css">
+<link rel="stylesheet" type="text/css" href="../../static/assets/css/main.css">
+<div class="container-fluid">
+   {% with messages = get_flashed_messages(with_categories=true) %}
+   {% if messages %}
+   <div class="container" style="position: absolute;max-width: 35%;left: 65%;">
+   {% for category, message in messages %}
+   <div id="{{category}}" data-notify="container" class="mydivs col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 3px auto; position: relative; z-index: 1031;width: 100%;">
+      <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      <i data-notify="icon" class="material-icons">notifications</i>
+      <span data-notify="title"></span> 
+      <span data-notify="message">{{ message }}</span>
+   </div>
+   {% endfor %}
+   </div>
+   {% endif %}
+   {% endwith %}
+   <script>
+      setTimeout(function() {
+        $('#info').fadeOut('slow');
+      }, 5000);
+      setTimeout(function() {
+        $('#success').fadeOut('slow');
+      }, 5000);
+   </script>
+   <div class="row">
+      <div class="col-md-6" style="width: 100%;">
+         <div class="card">
+            <div  id="tablebox" class="wrap-table100" style="width: 100%;overflow-y: hidden;border-radius: 20px;">
+               <div class="table100 ver1">
+                  <div class="table100-firstcol" style="width: 300px;">
+                     <table id="fixtable">
+                        <thead>
+                           <tr class="row100 head" style="height:78.5px;">
+                              <th class="cell100 column1" >
+                                 <div style="height: 26px;overflow: auto;width: 100%;">Application No.</div>
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody id="myTable">
+                           <tr class="row100 body">
+                              <td class="cell100 column1" >
+                                 <div style="height: 96px;overflow: auto;width: 100%;padding-top: 15%;color: rgb(213, 48, 224);">
+                                    {{cand[0]}}
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div id="myDIV"  onscroll="myFunction()" class="wrap-table100-nextcols js-pscroll">
+                     <div class="table100-nextcols">
+                        <table style="margin-left: -310px;">
+                           <thead>
+                              <tr class="row100 head">
+                                 {% for col in t%}
+                                 {% if col[1]=='alloc_status' or col[1]=='Tutor1' or col[1]=='Tutor2' or col[1]=='Submission1' or col[1]=='Submission2' or col[1]=='Validation' or col[1]=='Comment1' or col[1]=='Reject_Reason'  or col[1]=='Comment2' or col[1]=='ft2' or col[1]=='ft1'  or  col[1]=='st2' or col[1]=='st1' or  col[1]=='tt2' or col[1]=='tt1' %}
+                                 {%else%}
+                                 <th  style="text-align: center;"  class="cell100 column8">{{ col[1]}} </TH>
+                                 {% endif %}
+                                 {% endfor %} 
+                                 <th style="text-align: center;"  class="cell100 column8">Verify</TH>
+                              </tr>
+                           </thead>
+                           <tbody id="myTable">
+                              <tr class="row100 body">
+                                
+                                 
+                                  {% for i in range(0,length)%}
+                                  {% if i==1 or i==2 or i==3 or i==4 or i==5 or i==6 or i==7 or i==8 or i==9 or i==10 or i==11 or i==12 or i==13  or i==14 or i==15 %}
+                                  {% else %}
+                                   <td class="cell100 column8">
+                                    <form action="{{url_for('phds.edit_phd',application=cand[0])}}" method="POST">
+                                      <textarea rows="1" style="width: 100%;text-align: center;position: relative;"   value="" class="form-control" type="text" name="{{t[i][1]}}">{{cand[i]}}</textarea>
+                                      <input type="text" style="display: none;" name="column_val" value="{{t[i][1]}}">
+                                      <input style="position: relative;left: 40%;top: -17px;" class="btn btn-success btn-sm" type="submit" value="change">
+                                    </form>
+                                    </td>
+                                   {% endif %}
+                                   {% endfor %}
+                                   
+                                  
+                                 <td class="cell100 column8">
+                                    <a href="{{url_for('phds.verify_phd',application=cand[0])}}">
+                                    <button class="btn btn-primary">
+                                    Verify
+                                    </button>
+                                    </a>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row" style="position: relative;">
+      <div class="col-md-6" style="width: 60%;">
+         <div class="card">
+            <div class="card-header">
+               <h4 class="card-title">PDF Viewer</h4>
+            </div>
+            <div class="card-content">
+               <iframe src="../../static/pdf/{{cand[0]}}.pdf" style="width: 100%;height: 70vh;border: none;" frameborder="0"></iframe>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6" style="width: 40%;">
+         <div class="card">
+            <div class="card-header">
+               <h4 class="card-title">Error Report from TA1</h4>
+            </div>
+            <div class="card-content">
+               <div class="row" style="height: 30vh;overflow: auto;">
+                  <div class="col-md-8">
+                     <div class="tab-content">
+                        <div class="tab-pane active" id="dashboard-2">
+                           {{cand[5]}}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6" style="width: 40%;">
+         <div class="card">
+            <div class="card-header">
+               <h4 class="card-title">Error Report from TA2</h4>
+            </div>
+            <div class="card-content">
+               <div class="row" style="height: 30vh;overflow: auto;">
+                  <div class="col-md-8">
+                     <div class="tab-content">
+                        <div class="tab-pane active" id="dashboard-2">
+                           {{cand[9]}}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="smallAlertModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-large" style="width: 30%;">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+               </div>
+               <div class="modal-body text-center">
+                  <h5>Are you sure you want to reject? </h5>
+               </div>
+               <div class="modal-footer text-center">
+                  <form action="{{url_for('phds.reject_phd',application=cand[0])}}" method="POST">
+                     <textarea placeholder="Type the message"   style="width: 100%;font-size: large;"   rows="3" class="form-control" type="text" name="msg"></textarea>                 
+                     <button type="submit" class="btn btn-danger btn-simple">Notify TA</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <button data-toggle="modal" data-target="#smallAlertModal1" class="btn btn-lg btn-danger" style="position: relative;right: -9%;background: red;">Reject Error Report</button>
+   </div>
+</div>
+<script src="../../static/assets/js/main.js"></script>
+<script>
+   function myFunction() {
+     var elmnt = document.getElementById("myDIV");
+     var x = elmnt.scrollLeft;
+     localStorage.setItem("position",x);
+   }
+   window.onload = function(){
+      var elmnt = document.getElementById("myDIV");
+      elmnt.scrollLeft=localStorage.getItem("position");
+   }
+   </script>
+{% endblock content %}

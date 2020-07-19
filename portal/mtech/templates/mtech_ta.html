@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+                          {% if messages %}
+                            {% for category, message in messages %}
+                            <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                              <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <i data-notify="icon" class="material-icons">notifications</i>
+                              <span data-notify="title"></span> 
+                              <span data-notify="message">{{ message }}</span>
+                            </div>
+                            {% endfor %}
+                          {% endif %}
+                        {% endwith %}
+                        <script type="text/javascript">
+                          setTimeout(function() {
+                            $('#mydivs').fadeOut('slow');
+                        }, 2700);
+                        </script>
+            <div class="header text-center">
+              <h3 class="title">Dashboard</h3>
+              <p class="category">All files will appear here</p>
+          </div>
+					 	    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-icon" data-background-color="rose">
+                    <i class="material-icons">assignment</i>
+                </div>
+                
+                
+                
+
+
+
+                <div class="card-content">
+                    <h4 class="card-title">All Files</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Application</th>
+                                <th>Comment</th>
+                                <th>Verification</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">View</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                {% for mtech in mtech%}
+                                {% if current_user.username == mtech[2] or current_user.username == mtech[3] %}
+                                
+                                <tr>
+                                <td class="text-center">&bull;</td>
+                                <td><h4>{{mtech[0]}}</h4></td>
+                                {% if current_user.username == mtech[3]%}
+                                <td><div style="height: 50px;max-width:270px ;overflow: auto;padding-top: 5%;">{{mtech[5]}}</div></td>
+                                {% elif current_user.username == mtech[2]%}
+                                <td><div style="height: 50px;max-width:270px ;overflow: auto;padding-top: 5%;">{{mtech[9]}}</div></td>
+                                
+                                {% endif %}
+                                {% if mtech[6] == 'Rejected'%}
+                                  <td style="color: red;">{{mtech[6]}}</td>
+                                  {% elif mtech[6] == 'Done'%}
+                                  <td style="color: green;">{{mtech[6]}}</td>
+                                  {% else %}
+                                  <td>{{mtech[6]}}</td>
+                                  {% endif %}
+                                <td class="text-center">mtech</td>
+                                <td class=" text-center">
+                                  {% if current_user.username == mtech[3]%}
+                                  {% if mtech[4] != 'Done' and mtech[6] != 'Rejected' %}
+                                  
+                                  <a href="{{url_for('mtechs.ta_lab_mtech',application=mtech[0])}}">
+                                    <button class="btn btn-primary btn-sm">
+                                      View
+                                    </button>
+                                  </a>
+                                  {% elif mtech[6] == 'Rejected'%}
+                                  <div class="modal fade" id="smallAlertModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-large" style="width: 30%;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <h4>Message</h4>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                            <div   style="width: 100%;font-size: large;"  type="text">{{mtech[7]}}</div>                 
+                                              <a href="{{url_for('mtechs.ta_lab_mtech',application=mtech[0])}}"><button type="submit" class="btn btn-primary btn-simple">View</button>
+                                              </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <button data-toggle="modal" data-target="#smallAlertModal1" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-comment"></i>
+                                    
+                                  </button>
+                                  {% else %}
+                                  <a href="{{url_for('mtechs.ta_lab_mtech',application=mtech[0])}}">
+                                    <button style="background-image: linear-gradient(#ffa726, #fb8c00);" class="btn btn-sm">
+                                      Submitted
+                                    </button>
+                                  </a>
+                                  {% endif %}
+                                  {% elif current_user.username == mtech[2]%}
+                                  {% if mtech[8] != 'Done' and mtech[6] != 'Rejected' %}
+                                  
+                                  <a href="{{url_for('mtechs.ta_lab_mtech',application=mtech[0])}}">
+                                    <button class="btn btn-primary btn-sm">
+                                      View
+                                    </button>
+                                  </a>
+                                  {% elif mtech[6] == 'Rejected'%}
+                                  <div class="modal fade" id="smallAlertModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-large" style="width: 30%;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <h4>Message</h4>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                            <div   style="width: 100%;font-size: large;"  type="text">{{mtech[7]}}</div>                 
+                                              <a href="{{url_for('mtechs.ta_lab_mtech',application=mtech[0])}}"><button type="submit" class="btn btn-primary btn-simple">View</button>
+                                              </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <button data-toggle="modal" data-target="#smallAlertModal1" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-comment"></i>
+                                    
+                                  </button>
+                                  {% else %}
+                                  <a href="{{url_for('mtechs.ta_lab_mtech',application=mtech[0])}}">
+                                    <button style="background-image: linear-gradient(#ffa726, #fb8c00);" class="btn btn-sm">
+                                      Submitted
+                                    </button>
+                                  </a>
+                                  {% endif %}
+                                  {% endif %}
+                                </td>
+                              </tr>
+                              {% endif %}
+                                {% endfor %}
+
+                        </tbody>
+                        
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+{% endblock content %}			

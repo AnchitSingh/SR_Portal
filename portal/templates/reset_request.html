@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      {% if title %}
+      <title> {{ title }}</title>
+      {% else %}
+      <title>Flask Blog</title>
+      {% endif %}
+      <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../static/assets/enter/assets/css/login.css">
+   </head>
+   <body>
+      <main>
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-6 d-flex">
+                  <div class="login-wrapper m-auto">
+                     <div class="brand-wrapper">
+                        <img src="../static/assets/enter/assets/images/logo.svg" alt="logo" class="logo">
+                     </div>
+                     <p class="login-description">Request password reset</p>
+                     {% with messages = get_flashed_messages(with_categories=true) %}
+                     {% if messages %}
+                     {% for category, message in messages %}
+                     <div id="mydivs"  data-notify="container" class="col-xs-11 col-sm-4 alert alert-{{ category }} alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 15px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; top: 60px; right: 2px;border: none;">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 50%; margin-top: -9px; z-index: 1033;">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span data-notify="title"></span> 
+                        <span data-notify="message">{{ message }}</span>
+                     </div>
+                     {% endfor %}
+                     {% endif %}
+                     {% endwith %}
+                     <script>
+                        setTimeout(function() {
+                          $('#mydivs').fadeOut('slow');
+                        }, 5000);
+                     </script>
+                     <form  method="POST" action="" role="form">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                           <label for="email" class="sr-only">Email</label>
+                           <div class="input-group">
+                              <div class="input-group-prepend">
+                                 <span class="input-group-text"><i class="mdi mdi-email-outline"></i></span>
+                              </div>
+                              {% if form.email.errors %}
+                              {{ form.email(class="form-control is-invalid") }}
+                              <div class="invalid-feedback"  style="text-align: center;">
+                                 {% for error in form.email.errors %}
+                                 <span>{{ error }}</span>
+                                 {% endfor %}
+                              </div>
+                              {% else %}
+                              {{ form.email(class="form-control",placeholder="Email", id="email") }}
+                              {% endif %}
+                           </div>
+                        </div>
+                        {{ form.submit(class="btn btn-block login-btn",id="login") }}
+                     </form>
+                     <p class="login-wrapper-footer-text">Don't have an account? <a href="{{url_for('register')}}" class="text-reset">Register here</a></p>
+                  </div>
+               </div>
+               <div class="col-md-6 px-0 d-none d-md-block">
+                  <img src="../static/assets/enter/assets/images/login.jpg" alt="login image" class="login-img">
+               </div>
+            </div>
+         </div>
+      </main>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   </body>
+</html>
