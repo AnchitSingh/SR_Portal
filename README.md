@@ -61,7 +61,7 @@ $ python3 flask_app.py
 
 
 ## Documentation
-- You can view full documentation from  <a href="https://github.com/AnchitSingh/FlaskBeta/blob/master/SR_Portal.docx?raw=true" target="_blank">here</a>.
+- You can view full documentation from  <a href="https://github.com/AnchitSingh/SR_Portal/blob/master/SRS%20SR_Portal.docx?raw=true" target="_blank">here</a>.
 
 ## Demo
 - You can watch full demo video from  <a href="https://www.youtube.com/watch?v=yNZfGRWGFMQ" target="_blank">here</a>
